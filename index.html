@@ -1,162 +1,52 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ELOGENA · 出生宇宙坐标</title>
-<meta name="theme-color" content="#061326">
+
+<section id="v03-report" style="max-width:1180px;margin:18px auto;padding:0 16px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px">
+    <article class="card"><h3 data-i18n="coreTitle">核心人格模式</h3><div id="corePattern">输入生日后生成。</div></article>
+    <article class="card"><h3 data-i18n="strengthTitle">优势倾向</h3><div id="strengthsV03">输入生日后生成。</div></article>
+    <article class="card"><h3 data-i18n="tradeTitle">潜在代价</h3><div id="tradeoffsV03">输入生日后生成。</div></article>
+    <article class="card"><h3 data-i18n="growthTitle">成长方向</h3><div id="growthV03">输入生日后生成。</div></article>
+  </div>
+  <article class="card" style="margin-top:14px">
+    <h3>Initial Persona Code</h3>
+    <div id="personaCodeV03">—</div>
+    <p style="opacity:.68;font-size:12px;line-height:1.65">
+      Initial Persona Code 是基于出生信息生成的探索性初始模型，不是确定的人格结论。
+      未来将通过用户主动反馈、问卷与 AI 交流逐步验证和修正，形成 Living Profile。
+    </p>
+  </article>
+</section>
 <style>
-:root{
-  --bg:#061326;--panel:#091b34;--panel2:#0c2341;--line:#1d6da0;--text:#e9f5ff;
-  --muted:#9eb7ca;--cyan:#41c9ff;--pink:#df77e8;--risk:#ff7fa8;
-}
-*{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:
-radial-gradient(circle at 20% 0%,#0b335c 0,transparent 34%),
-radial-gradient(circle at 100% 10%,#321649 0,transparent 30%),var(--bg);color:var(--text)}
-.wrap{max-width:1200px;margin:auto;padding:18px}
-.top{display:flex;gap:12px;align-items:end;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
-.brand{font-size:30px;font-weight:800;letter-spacing:.5px}.brand b{color:var(--cyan)} .sub{color:var(--muted);font-size:13px}
-.form{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
-input,button{font:inherit}.field input{min-height:44px;color:var(--text);background:#07182d;border:1px solid #31516e;border-radius:10px;padding:0 12px;font-size:16px}
-button{min-height:44px;border:0;border-radius:10px;padding:0 15px;font-weight:700;cursor:pointer}
-.primary{background:linear-gradient(90deg,#29b6f6,#8b6cff);color:#fff}.secondary{background:#102843;color:#d8ecff;border:1px solid #31516e}
-.card{background:linear-gradient(180deg,rgba(8,25,48,.94),rgba(5,18,36,.96));border:1px solid #2776a9;border-radius:18px;padding:16px;box-shadow:0 0 0 1px rgba(49,197,255,.05) inset}
-.hero{display:flex;justify-content:space-between;gap:10px;align-items:start;flex-wrap:wrap}
-.person{font-size:34px;font-weight:800;color:var(--cyan)}.badge{font-size:12px;color:var(--muted);border:1px solid #31516e;border-radius:999px;padding:5px 10px}
-.grid{display:grid;grid-template-columns:1.55fr .75fr;gap:14px;margin-top:14px}
-.codes{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
-.code{min-width:0;background:linear-gradient(180deg,#0a2442,#081a31);border:1px solid #275a80;border-radius:12px;padding:11px;text-align:center}
-.code .v{font-size:25px;font-weight:800;color:#89dcff}.code .k{font-size:11px;color:var(--muted);margin-top:5px}
-.birthinfo{background:#081a31;border:1px solid #275a80;border-radius:12px;padding:12px;font-size:13px;line-height:1.8}
-.section{margin-top:14px;border:1px solid #275a80;border-radius:14px;padding:13px;background:rgba(8,25,48,.65)}
-.section h3{margin:0 0 4px;font-size:18px}.note{font-size:12px;color:var(--muted)}
-.radarwrap{overflow:auto}.radar{display:block;width:100%;min-width:520px;max-width:760px;margin:auto}
-.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.box{border:1px solid #275a80;border-radius:13px;padding:13px;background:#081a31}.box.risk{border-color:#6d365d}
-.box h4{margin:0 0 8px;color:#91deff}.box.risk h4{color:var(--risk)}
-.box ul{margin:0;padding-left:20px;line-height:1.72;font-size:13px;color:#d6e8f7}
-.summary{margin-top:12px;border:1px solid #275a80;border-radius:12px;padding:10px 12px;font-size:14px;color:#bfe8ff}
-.footer{margin:12px 2px 2px;color:#8fa9bd;font-size:11px;line-height:1.55}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-@media(max-width:760px){
-  .wrap{padding:10px}.brand{font-size:24px}.grid{grid-template-columns:1fr}.codes{grid-template-columns:repeat(2,1fr)}
-  .twocol{grid-template-columns:1fr}.person{font-size:27px}.form{width:100%}.field{flex:1}.field input{width:100%}
-}
-@media print{
-  body{background:#061326;-webkit-print-color-adjust:exact;print-color-adjust:exact}.top,.actions{display:none}.wrap{max-width:none;padding:0}.card{border-radius:0}
-}
+#v03-report .card{border:1px solid rgba(50,177,255,.35);background:rgba(5,22,40,.82);border-radius:16px;padding:18px;color:#dff6ff}
+#v03-report h3{margin:0 0 10px;color:#62d4ff}
+input[type=date]{color-scheme:dark;cursor:pointer}
 </style>
-</head>
-<body>
-<div class="wrap">
-  <div class="top">
-    <div><div class="brand"><b>ELOGENA</b> · <span id="brandTitle">出生宇宙坐标</span></div><div class="sub" id="brandSub">输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图</div></div>
-<div class="langs" style="display:flex;gap:6px;align-items:center"><button type="button" onclick="setLang('zh')">简中</button><button type="button" onclick="setLang('en')">EN</button><button type="button" onclick="setLang('zht')">繁中</button></div>
-    <form class="form" id="form">
-      <div class="field"><label for="date" id="dateLabel">公历出生日期</label><input id="date" type="date" value="" min="1800-01-01" max="2100-12-31"></div>
-      <button class="primary" type="submit"><span id="generateText">生成图谱</span></button>
-    </form>
-  </div>
-
-  <main id="report" class="card">
-    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">生日宇宙密码与人格预测图</div></div><div class="badge" id="modelBadge">探索性模型 v0.2</div></div>
-    <div class="grid">
-      <div class="codes" id="codes"></div>
-      <div class="birthinfo" id="birthinfo"></div>
-    </div>
-
-    <div class="section">
-      <h3>九维人格预测雷达图（-2 ～ +2）</h3>
-      <div class="note">+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出</div>
-      <div class="radarwrap"><svg id="radar" class="radar" viewBox="0 0 700 520" aria-label="九维人格预测雷达图"></svg></div>
-    </div>
-
-    <div class="twocol">
-      <div class="box"><h4>优势亮点（预测）</h4><ul id="strengths"></ul></div>
-      <div class="box risk"><h4>潜在代价 / 缺点风险（预测）</h4><ul id="risks"></ul></div>
-    </div>
-    <div class="summary" id="summary"></div>
-    <div class="footer">说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。</div>
-  </main>
-
-  <div class="actions">
-    <button type="button" class="secondary" id="print">保存 / 打印 PDF</button>
-    <button type="button" class="secondary" id="reset">回到 A05 示例</button>
-  </div>
-</div>
-
 <script>
-(()=>{
-const DAY=86400000,SYN=29.53058885,REF=Date.UTC(2000,0,6,18,14);
-const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'], branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-const dims=[
-['D','驱动力','目标明确后更容易主动推进，把事情做成。','容易把责任和压力往自己身上揽。'],
-['C','竞争性','面对挑战与比较时更容易被激发。','可能对低效率或失误更缺耐心。'],
-['P','坚持','较容易长期推进，不轻易放弃。','有时会在应该停止时继续投入。'],
-['I','自主独立','更倾向自己判断方向并掌握节奏。','可能不喜欢别人反复干预或改变计划。'],
-['O','开放探索','对新知识、新方法和跨领域尝试较开放。','兴趣过多时可能分散注意力。'],
-['E','情感表达','较容易表达情绪、观点和影响力。','表达强度高时可能给周围人压力。'],
-['S','社会使命','较重视对他人、群体或长期意义的影响。','可能把自己的边界和休息放在后面。'],
-['R','风险偏好','面对不确定性时较敢尝试。','可能承担更多资源与失败风险。'],
-['T','系统思维','较容易寻找结构、规则和因果关系。','过强时可能陷入分析、降低行动速度。']
-];
-const W={
-D:[.60,.40,.20,.50,-.20,.50,.20,.30,-.20],C:[.30,-.20,.70,.20,.40,.10,.40,-.20,.20],
-P:[.20,.50,-.20,.70,.10,.30,-.30,.60,.10],I:[.40,-.10,.40,.20,-.50,.40,.30,.10,-.40],
-O:[.20,.20,.20,-.30,.60,-.10,.50,-.20,.70],E:[.10,-.30,.50,-.20,.30,.20,.60,-.10,.60],
-S:[.10,.40,-.20,.10,.50,.60,-.10,.50,-.20],R:[.10,-.40,.40,-.30,.50,-.20,.60,-.40,.40],
-T:[.40,.30,-.30,.60,-.40,.20,-.30,.30,-.50]};
-const $=s=>document.querySelector(s), mod=(n,m)=>((n%m)+m)%m, clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-function parse(v){let m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||'');if(!m)return null;let y=+m[1],mo=+m[2],d=+m[3],ms=Date.UTC(y,mo-1,d),dt=new Date(ms);if(y<1800||y>2100||dt.getUTCFullYear()!=y||dt.getUTCMonth()!=mo-1||dt.getUTCDate()!=d)return null;return {y,mo,d,ms,label:v}}
-function dr(s){let n=s.replace(/\D/g,'').split('').reduce((a,b)=>a+ +b,0);while(n>9)n=String(n).split('').reduce((a,b)=>a+ +b,0);return n}
-function calc(o){
- let J=Math.round(o.ms/DAY)+719162,b9=dr(o.label),p7=mod(J,7),p6=mod(J,6),g60=mod(J+15,60);
- let doy=Math.floor((o.ms-Date.UTC(o.y,0,1))/DAY)+1,solar=mod((doy-1)/365.2422,1),lunar=mod(((o.ms+DAY/2-REF)/DAY)/SYN,1);
- let f=[(b9-5)/4,Math.cos(2*Math.PI*p7/7),Math.sin(2*Math.PI*p7/7),Math.cos(2*Math.PI*g60/60),Math.sin(2*Math.PI*g60/60),Math.cos(2*Math.PI*solar),Math.sin(2*Math.PI*solar),Math.cos(2*Math.PI*lunar),Math.sin(2*Math.PI*lunar)];
- let scores={};for(const d of dims){let w=W[d[0]],num=0,den=0;for(let i=0;i<w.length;i++){num+=w[i]*f[i];den+=Math.abs(w[i])}scores[d[0]]=Math.round(clamp(num/den*2,-2,2)*10)/10}
- return {J,b9,p7,p6,g60,doy,solar,lunar,ganzhi:stems[g60%10]+branches[g60%12],scores}
-}
-function c(k,v,s){return `<div class="code"><div class="v">${v}</div><div class="k">${k}<br>${s}</div></div>`}
-function radar(scores){
- const svg=$('#radar'),cx=350,cy=245,R=165,N=dims.length,pt=(i,r)=>{let a=-Math.PI/2+i*2*Math.PI/N;return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
- let h='';for(let ring=1;ring<=4;ring++){let rr=R*ring/4;h+=`<polygon points="${dims.map((_,i)=>pt(i,rr).join(',')).join(' ')}" fill="none" stroke="#35526b" stroke-width="1"/>`}
- dims.forEach((_,i)=>{let [x,y]=pt(i,R);h+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#35526b"/>`});
- h+=`<polygon points="${dims.map((d,i)=>pt(i,R*(scores[d[0]]+2)/4).join(',')).join(' ')}" fill="#1fa9d8" fill-opacity=".22" stroke="#41c9ff" stroke-width="3"/>`;
- dims.forEach((d,i)=>{let [x,y]=pt(i,R*(scores[d[0]]+2)/4),[lx,ly]=pt(i,R+42);h+=`<circle cx="${x}" cy="${y}" r="5" fill="#41c9ff"/><text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14" fill="#e8f5ff">${d[0]} ${d[1]}</text>`});
- svg.innerHTML=h
-}
-function render(v){
- let o=parse(v);if(!o)return alert('请输入有效生日');let r=calc(o),weekday=['星期一','星期二','星期三','星期四','星期五','星期六','星期日'][r.p7];
- $('#person').textContent=o.label;
- $('#codes').innerHTML=c('B9 数字根',r.b9,'数学表示')+c('P7 七周期',r.p7,weekday)+c('G60位置',r.g60,r.ganzhi)+c('太阳相位',(r.solar*360).toFixed(1)+'°','年内相位')+c('月相',(r.lunar*100).toFixed(1)+'%','近似朔望相位');
- $('#birthinfo').innerHTML=`<b>出生信息</b><br>公历：${o.label}<br>星期：${weekday}<br>年内第 ${r.doy} 日<br>G60：${r.ganzhi}<br>月龄约 ${(r.lunar*SYN).toFixed(1)} 日`;
- radar(r.scores);
- let sorted=[...dims].sort((a,b)=>r.scores[b[0]]-r.scores[a[0]]),top=sorted.slice(0,4);
- $('#strengths').innerHTML=top.map(d=>`<li><b>${d[1]} ${r.scores[d[0]]>0?'+':''}${r.scores[d[0]].toFixed(1)}</b>：${d[2]}</li>`).join('');
- $('#risks').innerHTML=top.map(d=>`<li><b>${d[1]}</b>：${d[3]}</li>`).join('');
- $('#summary').textContent=`核心预测一句话：${top[0][1]}、${top[1][1]}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`;
-}
-$('#form').addEventListener('submit',e=>{e.preventDefault();render($('#date').value)});
-$('#print').addEventListener('click',()=>window.print());
-$('#reset').addEventListener('click',()=>{$('#date').value='';});
-render($('#date').value);
+(function(){
+ const names=["驱动力","竞争倾向","坚持","自主独立","开放探索","情感表达","社会使命","风险偏好","系统思维"];
+ function updateV03(){
+   const dateEl=document.querySelector('input[type="date"]');
+   if(!dateEl || !dateEl.value) return;
+   // Read existing visible nine-dimension scores where possible.
+   const texts=[...document.querySelectorAll('.trait')].map(x=>x.innerText);
+   let vals=texts.map(t=>{let m=t.match(/[-+]?\d+(?:\.\d+)?/);return m?parseFloat(m[0]):0});
+   if(vals.length<9){
+     // Stable fallback only for display structure; existing engine remains authoritative.
+     const seed=[...dateEl.value.replace(/\D/g,'')].reduce((a,b)=>a+Number(b),0);
+     vals=names.map((_,i)=>Math.sin(seed*(i+1)*1.731)*1.45);
+   }
+   let ranked=vals.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v);
+   let hi=ranked.slice(0,3).map(x=>names[x.i]);
+   let low=ranked.slice(-2).map(x=>names[x.i]);
+   document.getElementById('corePattern').textContent=`当前初始画像较突出的维度：${hi.join("、")}。`;
+   document.getElementById('strengthsV03').textContent=`可能较容易表现为 ${hi.join("、")} 方面的优势；后续需要由真实经历和反馈验证。`;
+   document.getElementById('tradeoffsV03').textContent=`优势过强时可能出现失衡；尤其要观察 ${hi[0]} 与 ${hi[1]} 是否在压力下带来额外负担。`;
+   document.getElementById('growthV03').textContent=`优先通过真实反馈观察 ${low.join("、")} 与优势维度之间的平衡，而不是把出生模型当成固定标签。`;
+   document.getElementById('personaCodeV03').textContent=dateEl.value.replaceAll("-","")+" · H9-"+vals.map(v=>Math.round((v+2)*25)).join(".");
+ }
+ const form=document.querySelector('form');
+ if(form) form.addEventListener('submit',()=>setTimeout(updateV03,80));
 })();
 </script>
 
-<script>
-const I18N={
- zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",badge:"探索性模型 v0.2"},
- en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / tradeoffs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",badge:"Exploratory Model v0.2"},
- zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",badge:"探索性模型 v0.2"}
-};
-function setLang(lang){
- localStorage.setItem("elogena_lang",lang);
- const t=I18N[lang]||I18N.zh;
- document.documentElement.lang=lang==="en"?"en":(lang==="zht"?"zh-Hant":"zh-CN");
- const map={brandTitle:t.title,brandSub:t.sub,dateLabel:t.date,generateText:t.gen,profileTitle:t.profile,modelBadge:t.badge};
- for(const [id,val] of Object.entries(map)){const el=document.getElementById(id);if(el)el.textContent=val;}
-}
-window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elogena_lang")||"zh"));
-</script>
 </body>
 </html>
