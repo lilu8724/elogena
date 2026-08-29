@@ -54,8 +54,390 @@ input[type="date"]{cursor:pointer;color-scheme:dark}
   body{background:#061326;-webkit-print-color-adjust:exact;print-color-adjust:exact}.top,.actions{display:none}.wrap{max-width:none;padding:0}.card{border-radius:0}
 }
 </style>
+
+<style>
+body{
+  background:
+    radial-gradient(circle at 18% 5%,rgba(42,113,178,.18),transparent 32%),
+    radial-gradient(circle at 86% 8%,rgba(105,67,166,.13),transparent 31%),
+    linear-gradient(120deg,#0b1d36 0%,#061326 55%,#17102b 100%) !important;
+}
+.elogena-intro{max-width:1060px;margin:0 auto;padding:38px 18px 22px;text-align:center}
+.elogena-intro h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;
+font-size:clamp(36px,5vw,58px);letter-spacing:.16em;color:#f3f9ff}
+.elogena-intro .sub{margin-top:7px;font-size:11px;letter-spacing:.32em;color:#88a7bd;text-transform:uppercase}
+.elogena-intro .line{margin:24px auto 10px;font-family:Georgia,"Times New Roman",serif;
+font-size:clamp(24px,3.6vw,40px);line-height:1.2;
+background:linear-gradient(90deg,#efd8aa,#b9ddff,#c8abff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.elogena-intro .cn{max-width:700px;margin:10px auto 0;color:#9fb4c4;font-size:13px;line-height:1.75}
+.how{max-width:1060px;margin:8px auto 26px;padding:0 18px}
+.how h2{text-align:center;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:25px;margin:0 0 15px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.step{border:1px solid rgba(88,177,235,.30);border-radius:16px;padding:17px;background:rgba(6,23,42,.74)}
+.step .n{font-family:Georgia,"Times New Roman",serif;color:#6fd6ff;font-size:21px}
+.step h3{margin:6px 0;font-size:14px;color:#eef9ff}
+.step p{margin:0;color:#89a3b6;font-size:11px;line-height:1.65}
+.member-cta{max-width:1060px;margin:0 auto 28px;padding:0 18px}
+.member-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;
+border:1px solid rgba(118,182,242,.34);border-radius:17px;background:linear-gradient(90deg,rgba(7,29,52,.88),rgba(35,20,65,.76))}
+.member-inner h3{margin:0 0 5px;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:20px}
+.member-inner p{margin:0;color:#8fa7b9;font-size:11px}
+.member-btn{border:0;border-radius:11px;padding:12px 18px;background:linear-gradient(90deg,#278dcc,#755ce3);color:white;font-weight:700;cursor:pointer;white-space:nowrap}
+.member-note{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;background:rgba(6,20,37,.88);border:1px solid rgba(105,190,246,.25);color:#9db5c7;font-size:11px;line-height:1.6}
+.ai-bridge{max-width:1060px;margin:0 auto 22px;padding:0 18px}
+.ai-bridge>div{border-left:2px solid #70d6ff;padding:3px 0 3px 14px;color:#9bb2c2;font-size:11px;line-height:1.7}
+.ai-bridge strong{color:#e7f7ff}
+@media(max-width:720px){.steps{grid-template-columns:1fr}.member-inner{flex-direction:column;align-items:flex-start}.member-btn{width:100%}}
+</style>
+
+
+<style>
+.ai-entry{max-width:1060px;margin:20px auto 34px;padding:0 18px}
+.ai-entry-card{
+  position:relative;overflow:hidden;text-align:center;padding:28px 20px;
+  border:1px solid rgba(114,190,246,.34);border-radius:18px;
+  background:linear-gradient(135deg,rgba(7,30,55,.90),rgba(38,21,70,.78));
+  box-shadow:0 18px 45px rgba(0,0,0,.12)
+}
+.ai-entry-card:before{
+  content:"";position:absolute;width:240px;height:240px;border-radius:50%;
+  left:50%;top:-185px;transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(109,199,255,.30),transparent 68%)
+}
+.ai-entry-kicker{font-size:10px;letter-spacing:.24em;color:#78cffa;text-transform:uppercase}
+.ai-entry-card h2{position:relative;margin:8px 0 7px;font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:500;color:#f1f9ff}
+.ai-entry-card p{max-width:650px;margin:0 auto 16px;color:#93aabd;font-size:12px;line-height:1.7}
+.ai-btn{
+  border:0;border-radius:12px;padding:13px 22px;color:#fff;font-weight:700;cursor:pointer;
+  background:linear-gradient(90deg,#258fcf,#7359df);box-shadow:0 0 25px rgba(91,115,255,.22)
+}
+.ai-demo{display:none;max-width:690px;margin:17px auto 0;text-align:left;padding:15px 16px;border-radius:14px;
+  border:1px solid rgba(109,194,247,.24);background:rgba(3,15,29,.68);color:#a9becc;font-size:12px;line-height:1.7}
+.ai-demo strong{color:#e7f7ff}
+.free-note{margin-top:10px!important;font-size:10px!important;color:#708da3!important}
+</style>
+
+
+<style>
+:root{
+  --silver:#e8edf5;
+  --silver2:#bfc9d8;
+  --ice:#9fd7ff;
+  --deep:#030711;
+}
+body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(165,185,220,.16),transparent 30%),
+    radial-gradient(circle at 18% 18%,rgba(50,94,150,.14),transparent 30%),
+    linear-gradient(180deg,#050914 0%,#02050b 58%,#07101b 100%) !important;
+  color:#eef4fb;
+}
+#silverCosmos{position:fixed;inset:0;width:100%;height:100%;z-index:-7;pointer-events:none}
+.silver-galaxy{
+  position:fixed;left:50%;top:-80px;width:min(980px,120vw);height:480px;transform:translateX(-50%);
+  z-index:-6;pointer-events:none;opacity:.50;filter:blur(.2px);
+  background:
+    radial-gradient(ellipse at center,rgba(255,255,255,.38) 0 2%,rgba(190,210,245,.18) 6%,rgba(100,140,210,.09) 18%,transparent 44%),
+    conic-gradient(from 14deg at 50% 50%,transparent 0 14%,rgba(190,210,245,.16) 17%,transparent 22% 42%,rgba(225,235,255,.12) 47%,transparent 53% 72%,rgba(150,185,235,.12) 77%,transparent 82%);
+  border-radius:50%;
+  animation:galaxyDrift 28s ease-in-out infinite alternate;
+}
+@keyframes galaxyDrift{from{transform:translateX(-50%) rotate(-3deg) scale(.98)}to{transform:translateX(-50%) rotate(5deg) scale(1.03)}}
+
+.elogena-intro{padding-top:52px!important;position:relative}
+.elogena-intro h1{
+  font-size:clamp(48px,7vw,82px)!important;letter-spacing:.18em!important;
+  background:linear-gradient(180deg,#fff 0%,#d8dee9 45%,#969fad 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  text-shadow:0 0 28px rgba(220,233,255,.14);
+}
+.elogena-intro .sub{color:#c1cad7!important;letter-spacing:.40em!important;font-weight:500}
+.elogena-intro .line{
+  color:#eef3f9!important;background:none!important;-webkit-text-fill-color:initial!important;
+  font-size:clamp(28px,4vw,46px)!important;text-shadow:0 2px 20px rgba(210,225,255,.10)
+}
+.elogena-intro .cn{color:#c9d3df!important;font-size:14px!important;max-width:760px!important}
+.how h2{color:#f1f5fa;font-size:28px!important}
+.step{
+  border-color:rgba(205,220,240,.20)!important;
+  background:linear-gradient(145deg,rgba(9,17,29,.78),rgba(4,9,18,.82))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)
+}
+.step .n{color:#dce5f1!important}
+.step h3{color:#f1f5fa!important}
+.step p{color:#aeb9c7!important}
+
+/* More silver / premium buttons */
+button, .ai-btn{
+  background:linear-gradient(90deg,#75859b,#dfe6ef 45%,#738399)!important;
+  color:#07101b!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:0 0 24px rgba(210,225,255,.12)!important;
+}
+button:hover,.ai-btn:hover{filter:brightness(1.06)}
+
+/* Hide exploratory model badge */
+.badge, .model-badge, [class*="badge"]{
+  /* intentionally not display:none globally, avoid hiding unrelated UI */
+}
+#report .badge{display:none!important}
+
+/* Compact radar area before a birthday is generated */
+#radar{
+  transition:width .35s ease,height .35s ease,max-height .35s ease,opacity .35s ease;
+}
+body:not(.has-profile) #radar{
+  max-height:260px!important;
+  opacity:.72;
+}
+body.has-profile #radar{
+  max-height:none!important;
+  opacity:1;
+}
+
+/* Compact personality area on homepage until generation */
+body:not(.has-profile) #report{
+  max-width:900px;
+  margin-left:auto;margin-right:auto;
+}
+body:not(.has-profile) #report .radar-wrap,
+body:not(.has-profile) #report [class*="radar"]{
+  min-height:0!important;
+}
+body:not(.has-profile) #strengths,
+body:not(.has-profile) #risks,
+body:not(.has-profile) #summary,
+body:not(.has-profile) #corePattern,
+body:not(.has-profile) #strengthV03,
+body:not(.has-profile) #tradeoffV03,
+body:not(.has-profile) #growthV03,
+body:not(.has-profile) #personaCodeV03{
+  display:none!important;
+}
+
+/* After generation give the report room */
+body.has-profile #report{
+  max-width:none;
+}
+
+/* AI card silver treatment */
+.ai-entry-card{
+  border-color:rgba(220,230,244,.24)!important;
+  background:linear-gradient(135deg,rgba(8,15,27,.92),rgba(16,17,28,.88))!important;
+}
+.ai-entry-kicker{color:#c8d2df!important}
+.ai-entry-card h2{color:#f1f5fa!important}
+.ai-entry-card p{color:#aeb9c7!important}
+
+@media(max-width:680px){
+  .elogena-intro{padding-top:38px!important}
+  .elogena-intro h1{font-size:48px!important;letter-spacing:.12em!important}
+  body:not(.has-profile) #radar{max-height:220px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .silver-galaxy{animation:none!important}
+}
+</style>
+
+
+<style>
+/* V0.6 refined palette — silver / graphite / soft violet, no bright cyan */
+:root{
+  --v6-silver:#e7e9ee;
+  --v6-soft:#b8bdc8;
+  --v6-muted:#858b99;
+  --v6-violet:#8d83a8;
+  --v6-graphite:#11151e;
+  --v6-border:rgba(218,221,230,.18);
+}
+body{
+  background:
+    radial-gradient(circle at 50% -8%,rgba(188,190,205,.13),transparent 29%),
+    radial-gradient(circle at 82% 14%,rgba(112,94,139,.10),transparent 28%),
+    linear-gradient(180deg,#060911 0%,#090d15 48%,#05070c 100%) !important;
+}
+.silver-galaxy{
+  opacity:.38!important;
+  filter:grayscale(.35) saturate(.55)!important;
+}
+.elogena-intro h1{
+  background:linear-gradient(180deg,#fafafa 0%,#d8d9de 46%,#92959e 100%)!important;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;
+  text-shadow:0 0 30px rgba(230,230,240,.10)!important;
+}
+.elogena-intro .sub{color:#aeb2bc!important}
+.elogena-intro .line{
+  color:#e2e2e6!important;
+  text-shadow:0 0 20px rgba(200,195,215,.08)!important;
+}
+.elogena-intro .cn{color:#adb1ba!important}
+
+.step,.panel,.hero,.v03box,.v03persona,.ai-entry-card{
+  border-color:var(--v6-border)!important;
+  background:linear-gradient(145deg,rgba(15,18,26,.86),rgba(7,9,15,.88))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 14px 34px rgba(0,0,0,.12)!important;
+}
+.step .n,.step h3,.ai-entry-card h2{color:#e4e5e9!important}
+.step p,.ai-entry-card p,.free-note{color:#9297a3!important}
+.how h2{color:#e6e7eb!important}
+
+/* Re-tone bright blue/cyan text and borders */
+[class*="cyan"],[class*="blue"]{filter:saturate(.45)}
+.ai-entry-kicker{color:#aaa4b8!important}
+
+/* Main actions: elegant silver-violet instead of sky blue */
+button,.ai-btn{
+  background:linear-gradient(100deg,#777b85 0%,#d6d7dc 47%,#847b95 100%)!important;
+  color:#090b10!important;
+  border:1px solid rgba(240,240,245,.28)!important;
+  box-shadow:0 0 22px rgba(174,164,195,.10)!important;
+}
+button:hover,.ai-btn:hover{
+  filter:brightness(1.07)!important;
+  box-shadow:0 0 28px rgba(190,181,210,.15)!important;
+}
+
+/* Form */
+input[type="date"]{
+  border-color:rgba(215,218,226,.20)!important;
+  background:rgba(7,9,14,.82)!important;
+  color:#e5e6ea!important;
+}
+
+/* Report cards and SVG/radar: mute cyan toward silver-lavender */
+#report{
+  --accent:#a9a2b8;
+}
+#report svg text{fill:#d3d5db!important}
+#report svg line,#report svg polygon{
+  stroke:rgba(184,180,198,.34)!important;
+}
+#report svg polygon[fill]:not([fill="none"]){
+  fill:rgba(144,132,169,.20)!important;
+  stroke:#aaa0bd!important;
+}
+#strengths,#risks,#summary,#corePattern,#strengthV03,#tradeoffV03,#growthV03,#personaCodeV03{
+  border-color:rgba(210,210,220,.15)!important;
+}
+
+/* Keep starfield silver */
+#silverCosmos{opacity:.72}
+</style>
+
+
+<style>
+/* Refine the report-page ELOGENA title to match the silver cosmic identity */
+.top h1, .brand h1, header h1{
+  color:#dfe1e6!important;
+  text-shadow:0 0 18px rgba(220,215,230,.10)!important;
+}
+.top h1::first-letter, .brand h1::first-letter, header h1::first-letter{
+  color:#f4f4f6!important;
+}
+/* Where the title is a single text node, apply a restrained pearl-silver gradient */
+.top h1{
+  background:linear-gradient(100deg,#f3f3f5 0%,#c8c9cf 42%,#aaa4b5 72%,#e2e2e5 100%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  letter-spacing:.035em!important;
+  font-weight:600!important;
+}
+</style>
+
+
+<style>
+/* ELOGENA final palette harmonization */
+:root{
+  --elogena-pearl:#e5e3e8;
+  --elogena-silver:#bbb9c1;
+  --elogena-muted:#8e8c97;
+  --elogena-lavender:#a69caf;
+  --elogena-border:rgba(211,207,218,.20);
+  --elogena-panel:rgba(12,13,19,.78);
+}
+
+/* Middle report panels: remove blue borders */
+#report .panel,
+#report .card,
+#report .v03box,
+#report .v03persona,
+#strengths,#risks,#summary,#corePattern,#strengthV03,#tradeoffV03,#growthV03,#personaCodeV03{
+  border-color:var(--elogena-border)!important;
+  background:linear-gradient(145deg,rgba(15,16,22,.86),rgba(8,9,14,.90))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important;
+}
+
+/* Replace bright cyan / pink / red report headings */
+#report h2,#report h3,#report h4,
+#strengths strong,#risks strong,#summary strong,
+#corePattern strong,#strengthV03 strong,#tradeoffV03 strong,#growthV03 strong,
+#personaCodeV03 strong{
+  color:var(--elogena-pearl)!important;
+  text-shadow:none!important;
+}
+
+/* General report typography */
+#report{
+  color:#d8d7dc!important;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif!important;
+}
+#report p,#report li,#report small,#report .muted{
+  color:#aaa8b1!important;
+}
+#report h2,#report h3{
+  font-weight:600!important;
+  letter-spacing:.02em!important;
+}
+
+/* Radar and data accents: silver-lavender, not cyan */
+#radar text{fill:#d2d0d7!important}
+#radar line,#radar polygon{
+  stroke:rgba(185,180,195,.30)!important;
+}
+#radar polygon[fill]:not([fill="none"]){
+  fill:rgba(155,145,169,.18)!important;
+  stroke:#aaa0b4!important;
+}
+
+/* Links / small accents */
+#report a,.ai-entry a{
+  color:#c8c1d0!important;
+}
+.ai-entry-card{
+  border-color:var(--elogena-border)!important;
+}
+.ai-entry-kicker{
+  color:#aaa1b2!important;
+  letter-spacing:.20em!important;
+}
+.ai-entry-card h2{
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-weight:500!important;
+  letter-spacing:.025em!important;
+  color:#e7e5e9!important;
+}
+
+/* Make remaining decorative borders neutral */
+.codes > *, .code, .info, .birthinfo > *{
+  border-color:rgba(210,207,217,.17)!important;
+}
+</style>
+
 </head>
 <body>
+
+<canvas id="silverCosmos" aria-hidden="true"></canvas>
+<div class="silver-galaxy" aria-hidden="true"></div>
+
+
+<section class="elogena-intro">
+  <h1>ELOGENA</h1>
+  <div class="sub">Human Coordinate Intelligence</div>
+  <div class="line">From the Universe, to Your Coordinates, back to You.</div>
+  <div class="cn">从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。</div>
+</section>
+
 <div class="wrap">
   <div class="top">
     <div><div class="brand"><b>ELOGENA</b> · <span id="brandTitle">出生宇宙坐标</span></div><div class="sub" id="brandSub">输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图</div></div>
@@ -67,7 +449,7 @@ input[type="date"]{cursor:pointer;color-scheme:dark}
   </div>
 
   <main id="report" class="card">
-    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">生日宇宙密码与人格预测图</div></div><div class="badge" id="modelBadge">探索性模型 v0.3</div></div>
+    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">生日宇宙密码与人格预测图</div></div><div class="badge" id="modelBadge"></div></div>
     <div class="grid">
       <div class="codes" id="codes"></div>
       <div class="birthinfo" id="birthinfo"></div>
@@ -169,9 +551,9 @@ $('#print').addEventListener('click',()=>window.print());
 
 <script>
 const I18N={
- zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",badge:"探索性模型 v0.3"},
+ zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",badge:""},
  en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / tradeoffs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",badge:"Exploratory Model v0.3"},
- zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",badge:"探索性模型 v0.3"}
+ zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",badge:""}
 };
 function setLang(lang){
  localStorage.setItem("elogena_lang",lang);
@@ -182,5 +564,86 @@ function setLang(lang){
 }
 window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elogena_lang")||"zh"));
 </script>
+
+<section class="ai-entry" id="ai-entry">
+  <div class="ai-entry-card">
+    <div class="ai-entry-kicker">Coordinates are only the beginning</div>
+    <h2>Talk to ELOGENA</h2>
+    <p>让 ELOGENA 从你的初始坐标开始认识你。AI 不会把出生模型当作结论，而会通过交流验证、修正，并逐渐形成更贴近真实你的 Living Profile。</p>
+    <button class="ai-btn" id="tryAI" type="button">开始免费交流 · Talk to ELOGENA AI →</button>
+    <div class="ai-demo" id="aiDemo"><strong>ELOGENA AI</strong><br>这是我根据你的出生坐标形成的第一印象，但我还不了解真正的你。我们可以从几个模式开始验证。<br><br><span style="color:#7f9caf">正式聊天将在 AI 服务接入后开放。当前按钮用于确认 V0.6 的用户体验与入口位置。</span></div>
+    <p class="free-note">无需先成为会员。未来可先免费使用；需要保存长期档案或达到免费使用额度后，再创建账户或升级会员。</p>
+  </div>
+</section>
+
+
+<script>
+(function(){
+ const b=document.getElementById('tryAI'), d=document.getElementById('aiDemo');
+ if(b&&d) b.addEventListener('click',()=>{d.style.display=d.style.display==='block'?'none':'block';});
+})();
+</script>
+
+
+<script>
+(function(){
+  // Silver starfield
+  const c=document.getElementById('silverCosmos');
+  if(c){
+    const x=c.getContext('2d');
+    let W=0,H=0,D=1,stars=[],raf=0;
+    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function reset(){
+      D=Math.min(window.devicePixelRatio||1,2);
+      W=innerWidth; H=innerHeight;
+      c.width=W*D; c.height=H*D; c.style.width=W+'px'; c.style.height=H+'px';
+      x.setTransform(D,0,0,D,0,0);
+      const n=Math.max(85,Math.min(190,Math.floor(W*H/9000)));
+      stars=Array.from({length:n},()=>({
+        px:Math.random()*W,py:Math.random()*H,
+        r:.25+Math.random()*1.35,
+        phase:Math.random()*Math.PI*2,
+        speed:.006+Math.random()*.018
+      }));
+    }
+    function draw(){
+      x.clearRect(0,0,W,H);
+      for(const s of stars){
+        s.phase+=s.speed;
+        const a=.18+Math.abs(Math.sin(s.phase))*.58;
+        x.beginPath();x.arc(s.px,s.py,s.r,0,Math.PI*2);
+        x.fillStyle=`rgba(228,235,246,${a})`;x.fill();
+        if(s.r>1.15 && a>.60){
+          x.strokeStyle=`rgba(235,242,255,${a*.32})`;
+          x.lineWidth=.5;
+          x.beginPath();
+          x.moveTo(s.px-5,s.py);x.lineTo(s.px+5,s.py);
+          x.moveTo(s.px,s.py-5);x.lineTo(s.px,s.py+5);
+          x.stroke();
+        }
+      }
+      if(!reduce) raf=requestAnimationFrame(draw);
+    }
+    reset();draw();
+    addEventListener('resize',()=>{cancelAnimationFrame(raf);reset();draw()});
+  }
+
+  // When date is generated, expand report.
+  const form=document.getElementById('form');
+  const date=document.getElementById('date');
+  if(form){
+    form.addEventListener('submit',()=>{
+      if(date && date.value){
+        document.body.classList.add('has-profile');
+        setTimeout(()=>{
+          const report=document.getElementById('report');
+          if(report) report.scrollIntoView({behavior:'smooth',block:'start'});
+        },120);
+      }
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
