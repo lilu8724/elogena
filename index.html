@@ -50,15 +50,16 @@ button{min-height:44px;border:0;border-radius:10px;padding:0 15px;font-weight:70
 <body>
 <div class="wrap">
   <div class="top">
-    <div><div class="brand"><b>ELOGENA</b> · 出生宇宙坐标</div><div class="sub">输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图</div></div>
+    <div><div class="brand"><b>ELOGENA</b> · <span id="brandTitle">出生宇宙坐标</span></div><div class="sub" id="brandSub">输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图</div></div>
+<div class="langs" style="display:flex;gap:6px;align-items:center"><button type="button" onclick="setLang('zh')">简中</button><button type="button" onclick="setLang('en')">EN</button><button type="button" onclick="setLang('zht')">繁中</button></div>
     <form class="form" id="form">
-      <div class="field"><label for="date">公历出生日期</label><input id="date" type="date" value="1961-09-02" min="1800-01-01" max="2100-12-31"></div>
-      <button class="primary" type="submit">生成图谱</button>
+      <div class="field"><label for="date" id="dateLabel">公历出生日期</label><input id="date" type="date" value="" min="1800-01-01" max="2100-12-31"></div>
+      <button class="primary" type="submit"><span id="generateText">生成图谱</span></button>
     </form>
   </div>
 
   <main id="report" class="card">
-    <div class="hero"><div><div id="person" class="person">1961-09-02</div><div>生日宇宙密码与人格预测图</div></div><div class="badge">探索性模型 v0.1</div></div>
+    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">生日宇宙密码与人格预测图</div></div><div class="badge" id="modelBadge">探索性模型 v0.2</div></div>
     <div class="grid">
       <div class="codes" id="codes"></div>
       <div class="birthinfo" id="birthinfo"></div>
@@ -137,9 +138,25 @@ function render(v){
 }
 $('#form').addEventListener('submit',e=>{e.preventDefault();render($('#date').value)});
 $('#print').addEventListener('click',()=>window.print());
-$('#reset').addEventListener('click',()=>{$('#date').value='1961-09-02';render('1961-09-02')});
+$('#reset').addEventListener('click',()=>{$('#date').value='';});
 render($('#date').value);
 })();
+</script>
+
+<script>
+const I18N={
+ zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",badge:"探索性模型 v0.2"},
+ en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / tradeoffs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",badge:"Exploratory Model v0.2"},
+ zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",badge:"探索性模型 v0.2"}
+};
+function setLang(lang){
+ localStorage.setItem("elogena_lang",lang);
+ const t=I18N[lang]||I18N.zh;
+ document.documentElement.lang=lang==="en"?"en":(lang==="zht"?"zh-Hant":"zh-CN");
+ const map={brandTitle:t.title,brandSub:t.sub,dateLabel:t.date,generateText:t.gen,profileTitle:t.profile,modelBadge:t.badge};
+ for(const [id,val] of Object.entries(map)){const el=document.getElementById(id);if(el)el.textContent=val;}
+}
+window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elogena_lang")||"zh"));
 </script>
 </body>
 </html>
