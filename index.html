@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+
+<!--
+ELOGENA MODEL LOCK
+Model: V0.6-FROZEN-01
+Rule: UI/content changes must not modify calc(), B9/P7/P6/G60/Solar/Lunar formulas,
+the fixed HTP W matrix, score normalization, or radar score inputs.
+A05 benchmark date: 1961-09-02.
+-->
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ELOGENA · 出生宇宙坐标</title>
@@ -424,6 +433,25 @@ input[type="date"]{
 }
 </style>
 
+
+<style>
+.expanded-profile{margin-top:28px}
+.ep-head{max-width:760px;margin:0 0 18px}
+.ep-kicker{font-size:11px;letter-spacing:.22em;color:#9f99a8;margin-bottom:8px}
+.ep-head h2{margin:0 0 8px;color:#e7e5e9;font-size:24px;font-weight:600;letter-spacing:.01em}
+.ep-head p{margin:0;color:#92909a;line-height:1.75;font-size:14px}
+.ep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ep-card{
+  padding:20px 20px 19px;border:1px solid rgba(211,207,218,.18);border-radius:16px;
+  background:linear-gradient(145deg,rgba(15,16,22,.84),rgba(8,9,14,.91));
+}
+.ep-card>span{font-size:10px;letter-spacing:.18em;color:#8f8998}
+.ep-card h3{font-size:16px;font-weight:600;color:#dfdde3;margin:8px 0 10px;letter-spacing:.01em}
+.ep-card div{font-size:14px;line-height:1.82;color:#aaa8b1}
+.ep-wide{grid-column:1/-1}
+@media(max-width:720px){.ep-grid{grid-template-columns:1fr}.ep-wide{grid-column:auto}}
+</style>
+
 </head>
 <body>
 
@@ -565,6 +593,52 @@ function setLang(lang){
 window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elogena_lang")||"zh"));
 </script>
 
+
+<section class="expanded-profile" id="expandedProfile">
+  <div class="ep-head">
+    <div class="ep-kicker">INITIAL HUMAN PROFILE</div>
+    <h2>你的初始人格图谱</h2>
+    <p>以下内容由当前九维坐标进一步展开，用来形成可验证的初始假设，而不是对你的固定定义。</p>
+  </div>
+  <div class="ep-grid">
+    <article class="ep-card">
+      <span>01 · CORE PATTERN</span>
+      <h3>核心人格模式</h3>
+      <div id="epCore"></div>
+    </article>
+    <article class="ep-card">
+      <span>02 · THINKING</span>
+      <h3>思维与决策方式</h3>
+      <div id="epThinking"></div>
+    </article>
+    <article class="ep-card">
+      <span>03 · ACTION</span>
+      <h3>行动与坚持方式</h3>
+      <div id="epAction"></div>
+    </article>
+    <article class="ep-card">
+      <span>04 · RELATION</span>
+      <h3>表达与互动倾向</h3>
+      <div id="epRelation"></div>
+    </article>
+    <article class="ep-card">
+      <span>05 · STRENGTHS</span>
+      <h3>优势组合</h3>
+      <div id="epStrength"></div>
+    </article>
+    <article class="ep-card">
+      <span>06 · TRADE-OFFS</span>
+      <h3>优势过强时的代价</h3>
+      <div id="epTradeoff"></div>
+    </article>
+    <article class="ep-card ep-wide">
+      <span>07 · GROWTH</span>
+      <h3>成长与验证方向</h3>
+      <div id="epGrowth"></div>
+    </article>
+  </div>
+</section>
+
 <section class="ai-entry" id="ai-entry">
   <div class="ai-entry-card">
     <div class="ai-entry-kicker">Coordinates are only the beginning</div>
@@ -641,6 +715,55 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
         },120);
       }
     });
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  const LABELS = {
+    D:"内在驱动力", C:"竞争倾向", P:"坚持与长期专注", I:"自主独立",
+    O:"开放探索", E:"情感与外部表达", S:"社会导向", R:"风险偏好", T:"分析与系统思维"
+  };
+  function rankScores(r){
+    return Object.keys(LABELS).map(k=>[k,Number(r[k]||0)]).sort((a,b)=>b[1]-a[1]);
+  }
+  function tone(v){
+    if(v>=1.15) return "明显";
+    if(v>=0.45) return "偏强";
+    if(v<=-1.15) return "明显偏低";
+    if(v<=-0.45) return "相对克制";
+    return "较为平衡";
+  }
+  function renderExpanded(r){
+    if(!r) return;
+    const q=id=>document.getElementById(id);
+    const a=rankScores(r), hi=a[0], hi2=a[1], low=[...a].sort((x,y)=>x[1]-y[1])[0];
+    if(q("epCore")) q("epCore").textContent =
+      `当前模型中，${LABELS[hi[0]]}与${LABELS[hi2[0]]}是较突出的两个维度。它们可能共同影响你处理目标、选择和环境变化的方式。这里描述的是倾向，不代表你在所有情境中都会如此。`;
+    if(q("epThinking")) q("epThinking").textContent =
+      `你的分析与系统思维目前呈${tone(r.T)}状态，开放探索呈${tone(r.O)}状态，自主独立呈${tone(r.I)}状态。组合起来，更值得观察的是：你面对新问题时，是先建立自己的判断框架，还是先吸收外部信息再形成结论。`;
+    if(q("epAction")) q("epAction").textContent =
+      `内在驱动力呈${tone(r.D)}状态，坚持与长期专注呈${tone(r.P)}状态，风险偏好呈${tone(r.R)}状态。这三个维度共同构成“想做—持续做—愿意承担多少不确定性”的初始行动画像。`;
+    if(q("epRelation")) q("epRelation").textContent =
+      `情感与外部表达呈${tone(r.E)}状态，社会导向呈${tone(r.S)}状态，竞争倾向呈${tone(r.C)}状态。它们更适合被理解为互动风格的线索，而不是外向、内向或好胜等固定标签。`;
+    if(q("epStrength")) q("epStrength").textContent =
+      `目前最值得优先验证的优势组合是「${LABELS[hi[0]]} × ${LABELS[hi2[0]]}」。如果这两个维度与你的真实经历一致，它们可能是你在合适环境中更容易调用的能力资源。`;
+    if(q("epTradeoff")) q("epTradeoff").textContent =
+      `任何优势在过度使用时都可能产生代价。${LABELS[hi[0]]}较强时，需要观察是否会挤压${LABELS[low[0]]}所代表的另一种能力。这里不是“缺点判定”，而是用于寻找可能的失衡点。`;
+    if(q("epGrowth")) q("epGrowth").textContent =
+      `最重要的不是接受这份结果，而是验证它。你可以从真实经历中寻找支持与反例：什么时候${LABELS[hi[0]]}最明显？什么时候完全不像？哪些选择来自稳定倾向，哪些来自家庭、教育、环境与经验？这些差异会成为之后与 ELOGENA 对话时修正 Living Profile 的依据。`;
+  }
+
+  // Observe report generation and derive prose from the same frozen result.
+  const oldCalc = window.calc;
+  if(typeof oldCalc === "function"){
+    window.calc = function(){
+      const r = oldCalc.apply(this, arguments);
+      setTimeout(()=>renderExpanded(r),0);
+      return r;
+    };
   }
 })();
 </script>
