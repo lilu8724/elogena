@@ -452,6 +452,63 @@ input[type="date"]{
 @media(max-width:720px){.ep-grid{grid-template-columns:1fr}.ep-wide{grid-column:auto}}
 </style>
 
+
+<style>
+/* ELOGENA Web V0.7 — Live AI Integration
+   UI-only integration. Frozen birth-coordinate model remains unchanged. */
+.elogena-chat-shell{
+  display:none;max-width:1060px;margin:18px auto 34px;padding:0 18px;
+}
+.elogena-chat-shell.open{display:block}
+.elogena-chat{
+  border:1px solid rgba(211,207,218,.20);border-radius:20px;overflow:hidden;
+  background:linear-gradient(145deg,rgba(13,14,20,.96),rgba(5,7,12,.97));
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+}
+.chat-head{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:16px 18px;border-bottom:1px solid rgba(211,207,218,.14);
+}
+.chat-title{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:#eceaf0}
+.chat-sub{margin-top:4px;font-size:11px;color:#8f8b98}
+.chat-close{
+  min-height:36px!important;padding:0 12px!important;background:transparent!important;
+  color:#aaa6b0!important;border:1px solid rgba(211,207,218,.18)!important;box-shadow:none!important
+}
+.chat-status{
+  padding:9px 18px;border-bottom:1px solid rgba(211,207,218,.10);
+  font-size:10px;color:#898592;letter-spacing:.03em
+}
+.chat-messages{
+  height:min(58vh,560px);min-height:340px;overflow-y:auto;padding:18px;
+  display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth
+}
+.msg{max-width:82%;padding:12px 14px;border-radius:15px;font-size:14px;line-height:1.72;white-space:pre-wrap}
+.msg.ai{align-self:flex-start;background:rgba(34,33,42,.82);border:1px solid rgba(211,207,218,.13);color:#d8d5dd}
+.msg.user{align-self:flex-end;background:linear-gradient(135deg,rgba(143,134,158,.32),rgba(92,86,105,.32));border:1px solid rgba(222,218,228,.18);color:#f0edf2}
+.msg.system{align-self:center;background:transparent;color:#7f7a87;font-size:11px;text-align:center}
+.chat-compose{
+  display:grid;grid-template-columns:1fr auto;gap:10px;padding:14px 16px;
+  border-top:1px solid rgba(211,207,218,.13)
+}
+.chat-compose textarea{
+  resize:none;min-height:48px;max-height:130px;border-radius:13px;padding:12px 13px;
+  border:1px solid rgba(211,207,218,.18);background:rgba(5,7,11,.88);color:#e8e5eb;
+  font:inherit;line-height:1.5;outline:none
+}
+.chat-compose textarea:focus{border-color:rgba(205,196,218,.38)}
+.chat-send{min-width:92px}
+.chat-privacy{padding:0 18px 14px;color:#77727f;font-size:10px;line-height:1.55}
+.ai-btn[disabled],.chat-send[disabled]{opacity:.55;cursor:not-allowed}
+@media(max-width:680px){
+  .elogena-chat-shell{padding:0 10px}
+  .chat-messages{height:56vh;min-height:320px;padding:13px}
+  .msg{max-width:91%;font-size:13px}
+  .chat-compose{grid-template-columns:1fr}
+  .chat-send{width:100%}
+}
+</style>
+
 </head>
 <body>
 
@@ -643,20 +700,33 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
   <div class="ai-entry-card">
     <div class="ai-entry-kicker">Coordinates are only the beginning</div>
     <h2>Talk to ELOGENA</h2>
-    <p>让 ELOGENA 从你的初始坐标开始认识你。AI 不会把出生模型当作结论，而会通过交流验证、修正，并逐渐形成更贴近真实你的 Living Profile。</p>
-    <button class="ai-btn" id="tryAI" type="button">开始免费交流 · Talk to ELOGENA AI →</button>
-    <div class="ai-demo" id="aiDemo"><strong>ELOGENA AI</strong><br>这是我根据你的出生坐标形成的第一印象，但我还不了解真正的你。我们可以从几个模式开始验证。<br><br><span style="color:#7f9caf">正式聊天将在 AI 服务接入后开放。当前按钮用于确认 V0.6 的用户体验与入口位置。</span></div>
-    <p class="free-note">无需先成为会员。未来可先免费使用；需要保存长期档案或达到免费使用额度后，再创建账户或升级会员。</p>
+    <p>让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。</p>
+    <button class="ai-btn" id="tryAI" type="button">Talk to ELOGENA →</button>
+    <p class="free-note">当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。</p>
+  </div>
+</section>
+
+<section class="elogena-chat-shell" id="elogenaChatShell" aria-label="Talk to ELOGENA">
+  <div class="elogena-chat">
+    <div class="chat-head">
+      <div>
+        <div class="chat-title">Talk to ELOGENA</div>
+        <div class="chat-sub">Understand first · Encourage second · Interpret carefully · Judge never</div>
+      </div>
+      <button class="chat-close" id="chatClose" type="button">关闭</button>
+    </div>
+    <div class="chat-status" id="chatStatus">Initial Profile 尚未载入</div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-compose">
+      <textarea id="chatInput" maxlength="4000" placeholder="想聊什么都可以……" aria-label="Message ELOGENA"></textarea>
+      <button class="chat-send" id="chatSend" type="button">发送</button>
+    </div>
+    <div class="chat-privacy">ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。</div>
   </div>
 </section>
 
 
-<script>
-(function(){
- const b=document.getElementById('tryAI'), d=document.getElementById('aiDemo');
- if(b&&d) b.addEventListener('click',()=>{d.style.display=d.style.display==='block'?'none':'block';});
-})();
-</script>
+
 
 
 <script>
@@ -765,6 +835,161 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
       return r;
     };
   }
+})();
+</script>
+
+
+<script>
+/* ELOGENA Live AI Integration V0.7
+   IMPORTANT: This script reads the already-rendered frozen profile.
+   It does NOT alter calc(), W, BCC formulas, score normalization, or radar inputs. */
+(function(){
+  const WORKER_URL = "https://elogena-ai.lilyzheng0001.workers.dev";
+
+  const q = id => document.getElementById(id);
+  const shell=q("elogenaChatShell"), messages=q("chatMessages"), input=q("chatInput"),
+        send=q("chatSend"), openBtn=q("tryAI"), closeBtn=q("chatClose"), status=q("chatStatus");
+
+  let history = [];
+  let understandingHistory = [];
+  let busy = false;
+
+  function profileReady(){
+    const date=q("date");
+    return !!(date && date.value && document.body.classList.contains("has-profile"));
+  }
+
+  function getInitialProfile(){
+    if(!profileReady()) return "";
+    const date=q("date").value;
+    const codes=q("codes")?.innerText?.replace(/\s+/g," ").trim() || "";
+    const birth=q("birthinfo")?.innerText?.replace(/\s+/g," ").trim() || "";
+    const persona=q("personaCodeV03")?.innerText?.trim() || "";
+    const core=q("corePattern")?.innerText?.trim() || "";
+    const strengths=q("strengthV03")?.innerText?.trim() || "";
+    const tradeoffs=q("tradeoffV03")?.innerText?.trim() || "";
+    return [
+      "ELOGENA Initial Human Coordinates — FROZEN INITIAL HYPOTHESIS.",
+      "Birth date: "+date+".",
+      "Coordinate data: "+codes+".",
+      "Birth information: "+birth+".",
+      "Initial Persona Code: "+persona+".",
+      "Initial core hypothesis: "+core,
+      "Initial strengths hypothesis: "+strengths,
+      "Initial trade-off hypothesis: "+tradeoffs,
+      "Status: Exploratory birth-coordinate prediction. Not validated by the user. User lived experience has priority."
+    ].join("\n");
+  }
+
+  function addMessage(role, content){
+    const el=document.createElement("div");
+    el.className="msg "+(role==="assistant"?"ai":role==="user"?"user":"system");
+    el.textContent=content;
+    messages.appendChild(el);
+    messages.scrollTop=messages.scrollHeight;
+  }
+
+  function setBusy(v){
+    busy=v;
+    send.disabled=v;
+    input.disabled=v;
+    send.textContent=v?"思考中…":"发送";
+  }
+
+  function openChat(){
+    if(!profileReady()){
+      alert("请先输入生日并生成你的初始坐标。");
+      q("date")?.focus();
+      return;
+    }
+    shell.classList.add("open");
+    status.textContent="Initial Profile 已载入 · 临时会话 · V0.4";
+    if(messages.children.length===0){
+      addMessage("assistant","这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。");
+    }
+    setTimeout(()=>shell.scrollIntoView({behavior:"smooth",block:"start"}),50);
+    setTimeout(()=>input.focus(),450);
+  }
+
+  function closeChat(){
+    shell.classList.remove("open");
+  }
+
+  async function sendMessage(){
+    if(busy) return;
+    const message=input.value.trim();
+    if(!message) return;
+    const profile=getInitialProfile();
+    if(!profile){
+      alert("请先生成初始坐标。");
+      return;
+    }
+
+    addMessage("user",message);
+    input.value="";
+    setBusy(true);
+
+    try{
+      const response=await fetch(WORKER_URL,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          message,
+          profile,
+          history:history.slice(-16),
+          understandingHistory:understandingHistory.slice(-40)
+        })
+      });
+
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok || !data.ok){
+        throw new Error(data.detail || data.error || ("HTTP "+response.status));
+      }
+
+      const reply=String(data.reply || "").trim();
+      if(!reply) throw new Error("ELOGENA returned an empty reply.");
+
+      addMessage("assistant",reply);
+
+      history.push({role:"user",content:message});
+      history.push({role:"assistant",content:reply});
+      history=history.slice(-16);
+
+      if(data.understanding && data.understanding.worth_remembering===true){
+        understandingHistory.push(data.understanding);
+        understandingHistory=understandingHistory.slice(-40);
+      }
+
+      status.textContent="ELOGENA V0.4 · 本次会话已形成 "+understandingHistory.length+" 条可保留理解";
+    }catch(err){
+      console.error(err);
+      addMessage("system","暂时没有连接上 ELOGENA。请稍后再试。");
+      status.textContent="连接暂时不可用";
+    }finally{
+      setBusy(false);
+      input.focus();
+    }
+  }
+
+  openBtn?.addEventListener("click",openChat);
+  closeBtn?.addEventListener("click",closeChat);
+  send?.addEventListener("click",sendMessage);
+  input?.addEventListener("keydown",e=>{
+    if(e.key==="Enter" && !e.shiftKey){
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // A newly generated birthday starts a fresh temporary conversation.
+  q("form")?.addEventListener("submit",()=>{
+    history=[];
+    understandingHistory=[];
+    if(messages) messages.innerHTML="";
+    if(status) status.textContent="Initial Profile 已更新 · 新会话";
+  });
 })();
 </script>
 
