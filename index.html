@@ -557,21 +557,21 @@ input[type="date"]{
   </div>
 
   <main id="report" class="card">
-    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">生日宇宙密码与人格预测图</div></div><div class="badge" id="modelBadge"></div></div>
+    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">Initial Human Coordinates · 初始人类坐标</div></div><div class="badge" id="modelBadge"></div></div>
     <div class="grid">
       <div class="codes" id="codes"></div>
       <div class="birthinfo" id="birthinfo"></div>
     </div>
 
     <div class="section">
-      <h3 id="radarTitle">九维人格预测雷达图（-2 ～ +2）</h3>
+      <h3 id="radarTitle">九维初始人格坐标（-2 ～ +2）</h3>
       <div class="note" id="radarNote">+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出</div>
       <div class="radarwrap"><svg id="radar" class="radar" viewBox="0 0 700 520" aria-label="九维人格预测雷达图"></svg></div>
     </div>
 
     <div class="twocol">
-      <div class="box"><h4 id="strengthsTitle">优势亮点（预测）</h4><ul id="strengths"></ul></div>
-      <div class="box risk"><h4 id="risksTitle">潜在代价 / 缺点风险（预测）</h4><ul id="risks"></ul></div>
+      <div class="box"><h4 id="strengthsTitle">待验证的优势倾向</h4><ul id="strengths"></ul></div>
+      <div class="box risk"><h4 id="risksTitle">待验证的潜在代价</h4><ul id="risks"></ul></div>
     </div>
     <div class="summary" id="summary"></div>
     <div class="v03grid">
@@ -587,10 +587,6 @@ input[type="date"]{
     </div>
     <div class="footer" id="reportFooter">说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。</div>
   </main>
-
-  <div class="actions">
-    <button type="button" class="secondary" id="print">保存 / 打印 PDF</button>
-  </div>
 </div>
 
 <script>
@@ -614,7 +610,7 @@ const DISPLAY={
   dim:{D:['驱动力','目标明确后更容易主动推进，把事情做成。','容易把责任和压力往自己身上揽。'],C:['竞争性','面对挑战与比较时更容易被激发。','可能对低效率或失误更缺耐心。'],P:['坚持','较容易长期推进，不轻易放弃。','有时会在应该停止时继续投入。'],I:['自主独立','更倾向自己判断方向并掌握节奏。','可能不喜欢别人反复干预或改变计划。'],O:['开放探索','对新知识、新方法和跨领域尝试较开放。','兴趣过多时可能分散注意力。'],E:['情感表达','较容易表达情绪、观点和影响力。','表达强度高时可能给周围人压力。'],S:['社会使命','较重视对他人、群体或长期意义的影响。','可能把自己的边界和休息放在后面。'],R:['风险偏好','面对不确定性时较敢尝试。','可能承担更多资源与失败风险。'],T:['系统思维','较容易寻找结构、规则和因果关系。','过强时可能陷入分析、降低行动速度。']},
   birth:'出生信息',greg:'公历',weekday:'星期',dayOfYear:'年内第',day:'日',g60:'G60',moonAge:'月龄约',
   b9:'B9 数字根',b9s:'数学表示',p7:'P7 七周期',g60p:'G60位置',solar:'太阳相位',solars:'年内相位',lunar:'月相',lunars:'近似朔望相位',
-  summary:(a,b)=>`核心预测一句话：${a}、${b}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`,
+  summary:(a,b)=>`初始观察：${a}、${b}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`,
   core:(a,b,c)=>`当前初始画像中，${a}、${b}与${c}相对突出。这里描述的是出生模型的初始倾向，不是固定人格标签。`,
   strengths:a=>`较值得进一步验证的优势方向：${a.join('、')}。后续应结合本人反馈与真实经历判断。`,
   trade:(a,b)=>`当优势使用过度时，${a}与${b}对应的行为模式可能带来额外压力或失衡，需要结合具体情境观察。`,
@@ -625,7 +621,7 @@ const DISPLAY={
   dim:{D:['Drive','Once a goal is clear, you may be more likely to move proactively and push toward completion.','You may take on too much responsibility or pressure.'],C:['Competitiveness','Challenge and comparison may activate your motivation.','You may become less patient with inefficiency or mistakes.'],P:['Persistence','You may be more likely to sustain effort over time and not give up easily.','You may keep investing after it would be better to stop.'],I:['Independence','You may prefer making your own judgments and controlling your pace.','You may dislike repeated interference or imposed changes.'],O:['Openness','You may be more open to new knowledge, methods and cross-domain exploration.','Too many interests may scatter attention.'],E:['Expression','You may be more inclined to express emotions, views and influence outwardly.','High expression intensity may put pressure on others.'],S:['Social Purpose','You may care more about impact on others, groups or long-term meaning.','You may place your own boundaries and rest later.'],R:['Risk Preference','You may be more willing to try under uncertainty.','You may take on more resource and failure risk.'],T:['Systems Thinking','You may be more likely to look for structure, rules and causal relationships.','Overuse may lead to too much analysis and slower action.']},
   birth:'Birth Information',greg:'Date',weekday:'Weekday',dayOfYear:'Day of year',day:'',g60:'G60',moonAge:'Approx. lunar age',
   b9:'B9 Digital Root',b9s:'Mathematical encoding',p7:'P7 Seven-cycle',g60p:'G60 Position',solar:'Solar Phase',solars:'Annual phase',lunar:'Lunar Phase',lunars:'Approx. synodic phase',
-  summary:(a,b)=>`Initial summary: ${a} and ${b} are relatively more pronounced. Observe whether these strengths create trade-offs under pressure.`,
+  summary:(a,b)=>`Initial observation: ${a} and ${b} are relatively more pronounced. Observe whether these strengths create trade-offs under pressure.`,
   core:(a,b,c)=>`In this initial profile, ${a}, ${b} and ${c} are relatively more pronounced. These are exploratory birth-model tendencies, not fixed personality labels.`,
   strengths:a=>`Strength directions worth testing further: ${a.join(', ')}. Compare them with your own feedback and lived experience.`,
   trade:(a,b)=>`When strengths are overused, patterns related to ${a} and ${b} may create extra pressure or imbalance. Context matters.`,
@@ -636,7 +632,7 @@ const DISPLAY={
   dim:{D:['驅動力','目標明確後更容易主動推進，把事情做成。','容易把責任和壓力往自己身上攬。'],C:['競爭性','面對挑戰與比較時更容易被激發。','可能對低效率或失誤更缺耐心。'],P:['堅持','較容易長期推進，不輕易放棄。','有時會在應該停止時繼續投入。'],I:['自主獨立','更傾向自己判斷方向並掌握節奏。','可能不喜歡別人反覆干預或改變計畫。'],O:['開放探索','對新知識、新方法和跨領域嘗試較開放。','興趣過多時可能分散注意力。'],E:['情感表達','較容易表達情緒、觀點和影響力。','表達強度高時可能給周圍人壓力。'],S:['社會使命','較重視對他人、群體或長期意義的影響。','可能把自己的邊界和休息放在後面。'],R:['風險偏好','面對不確定性時較敢嘗試。','可能承擔更多資源與失敗風險。'],T:['系統思維','較容易尋找結構、規則和因果關係。','過強時可能陷入分析、降低行動速度。']},
   birth:'出生資訊',greg:'公曆',weekday:'星期',dayOfYear:'年內第',day:'日',g60:'G60',moonAge:'月齡約',
   b9:'B9 數字根',b9s:'數學表示',p7:'P7 七週期',g60p:'G60位置',solar:'太陽相位',solars:'年內相位',lunar:'月相',lunars:'近似朔望相位',
-  summary:(a,b)=>`核心預測一句話：${a}、${b}較突出；建議同時觀察這些優勢在壓力情境下是否會轉化為對應的代價。`,
+  summary:(a,b)=>`初始觀察：${a}、${b}較突出；建議同時觀察這些優勢在壓力情境下是否會轉化為對應的代價。`,
   core:(a,b,c)=>`目前初始畫像中，${a}、${b}與${c}相對突出。這裡描述的是出生模型的初始傾向，不是固定人格標籤。`,
   strengths:a=>`較值得進一步驗證的優勢方向：${a.join('、')}。後續應結合本人回饋與真實經歷判斷。`,
   trade:(a,b)=>`當優勢使用過度時，${a}與${b}對應的行為模式可能帶來額外壓力或失衡，需要結合具體情境觀察。`,
@@ -689,7 +685,6 @@ function render(v){
 window.ELOGENA_RENDER=render;
 $('#form').addEventListener('submit',e=>{e.preventDefault();render($('#date').value)});
 $('#date').addEventListener('click',function(){try{if(this.showPicker)this.showPicker()}catch(e){}});
-$('#print').addEventListener('click',()=>window.print());
 })();
 </script>
 
@@ -698,62 +693,74 @@ $('#print').addEventListener('click',()=>window.print());
 const METHOD_I18N={
  zh:{
   title:"你的坐标是怎么形成的？",
-  intro:"ELOGENA 首先把出生日期转换成可重复计算的数学、历法与自然周期坐标；人格层是在这些坐标之上的研究性假设，而不是已经被证明的结论。",
-  open:"查看坐标形成原理 · Methodology →", close:"收起原理说明 ↑",
-  lead:"ELOGENA 不是把生日直接等同于人格。第一步只是把出生日期 t 放到连续时间轴中，再从多个周期提取一组 Birth Coordinate Codes（BCC）。之后才使用固定的研究性映射生成 Initial Human Coordinates。",
-  flow:"出生日期 t → 时间位置 J → BCC 周期坐标 → 周期特征向量 F(t) → 固定映射 W → 九维初始坐标 HTP",
-  h1:"1 · 时间位置",p1:"出生日期先被转换为连续日序位置 J，使不同年代的日期能够进入同一个可重复计算的时间坐标系统。",
-  h2:"2 · BCC 出生坐标",p2:"当前冻结模型使用 B9 数字根、P7 七日周期、G60 六十周期、SolarPhase 太阳年相位与 LunarPhase 近似朔望相位。它们首先是编码变量，不等同于人格标签。G60 使用干支作为可读标签，但这不意味着模型在进行八字算命。",
-  h3:"3 · 周期向量化",p3:"周期的起点与终点彼此相邻，因此周期变量使用正弦与余弦表示。这样可以保留“循环”的几何结构，而不是把周期简单当作从小到大的直线数字。",
-  h4:"4 · 九维研究性投影",p4:"周期特征进入固定权重矩阵 W，并统一归一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九维雷达。当前 W 是冻结的研究性假设映射，不是已经由大规模心理学样本证明的人格模型。",
-  rt:"研究边界 · 什么已经确定，什么仍待验证？",
-  known:"✓ 已确定：出生日期 → BCC → 数学特征 → 九维分数的计算规则是固定、透明且可重复的。同一生日在同一版本中得到相同结果。",
-  unknown:"△ 尚未证明：BCC 与人格倾向之间是否存在稳定、可复制的统计关系。目前不能声称出生坐标已经被科学证明会导致某种人格。",
-  question:"ELOGENA 真正要检验的问题是：出生时间坐标中，是否存在能够跨样本重复出现、具有统计意义的人类行为倾向信息？因此 Initial Coordinates 是待验证的起点；用户的真实经历、反馈与持续对话拥有更高优先级。"
+  intro:"这不是从一个“神秘数字”直接推到人格，而是从连续时间开始，研究多个周期如何组合、哪里重复、哪些变量值得保留，最后形成当前冻结的出生坐标模型。",
+  open:"查看完整推导 · Methodology →",close:"收起完整推导 ↑",
+  lead:"ELOGENA 的起点是一个研究问题：同一个出生时间点，在不同数学、历法与自然周期中分别处于什么位置？我们先构造候选周期，再研究它们的联合周期与信息冗余，最后才得到当前 BCC。坐标是可重复计算的；人格解释仍是待验证假设。",
+  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → 去除冗余 → Frozen BCC → Circular Encoding → Exploratory HTP",
+  h1:"1 · 连续时间轴",p1:"出生日期 t 首先转换成连续日序 J。这样不同年代的生日都能放进同一条时间轴，后面的周期位置都由同一个 J 计算。",
+  h2:"2 · 候选周期 P6 与 P7",p2:"对任意周期 n，可以定义 Pn = J mod n。我们研究过 P6 与 P7。7 的倒数 1/7 = 0.142857…具有长度为 6 的循环节，这促使我们注意 6 与 7 的周期结构；但这个数值现象本身不构成人格证据。",
+  h3:"3 · 为什么出现 42",p3:"6 与 7 互质，因此 LCM(6,7)=42。P6 与 P7 的联合状态每 42 步重复一次；在数学上，P42 与 (P6,P7) 可以互相确定。42 因此来自联合周期，而不是因为它被赋予神秘含义。",
+  h4:"4 · G60 与 420",p4:"模型同时研究 60 状态历法周期 G60。把 42 与 60 放在一起，LCM(42,60)=420，所以 420 是这些离散周期联合状态的重复长度。G60 可用干支作可读标签，但使用 60 周期不等于接受传统命理的人格或命运解释。",
+  h5:"5 · 去除重复信息",p5:"发现 42 与 420 并不意味着必须把它们全部加入模型。因为 60 包含 6，P6 可由 G60 mod 6 得到；而 P42 又由 P6 与 P7 决定。若同时输入 P6、P7、P42、G60、P420，可能把同一信息重复加权。因此当前核心模型主动保留更精简的表示。",
+  h6:"6 · 当前冻结 BCC",p6:"去冗余后，当前冻结 BCC 保留 B9、P7、G60、SolarPhase 与 LunarPhase。它们覆盖数学编码、离散历法周期以及连续自然/天文周期。P6、P42、P420仍可作为研究历史与候选变量保留，但不是当前 HTP 的独立输入。",
+  h7:"7 · 为什么使用 sin / cos",p7:"周期的末端和起点实际上相邻。例如相位 0.99 与 0.01 很接近。将周期位置 θ 表示为 cos(2πθ) 与 sin(2πθ)，可以保留圆形周期结构，避免普通直线数字把首尾误认为距离很远。",
+  h8:"8 · 从坐标到九维 HTP",p8:"最后，冻结 BCC 被转换为特征向量 F(t)，进入固定权重矩阵 W，并归一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九维初始坐标。W 是当前冻结的研究性假设映射，不是已经由大规模心理学样本验证的人格定律。",
+  rt:"研究边界 · 数学依据 ≠ 人格证据",
+  known:"✓ 数学上可以确定：Pn 的模运算、LCM(6,7)=42、LCM(42,60)=420、周期的 sin/cos 表示，以及当前版本从生日到九维分数的计算路径，都是固定且可重复的。",
+  unknown:"△ 仍待验证：这些出生时间坐标与真实人格、行为倾向之间是否存在稳定、可复制、具有统计意义的关系。42 或 420 的数学结构本身不能证明人格关系。",
+  question:"因此 ELOGENA 不要求真实的人去符合坐标。Initial Coordinates 只是预先指定的初始假设；后续通过用户反馈、问卷、真实经历与 AI 对话比较 Prediction vs. Observation，支持、矛盾和无关系的数据都应被保留。",ct:"研究与解释声明",cx:"ELOGENA 是一个探索性研究与自我理解系统。Birth Coordinate Codes（BCC）依据出生日期，通过固定的数学、历法及自然周期规则生成。目前从 BCC 到行为或人格维度的映射属于实验性研究假设，尚未被科学验证为能够预测人格的方法。结果不构成心理诊断或专业评估，也不用于确定人格、能力、未来结果或命运。用户的真实经历与本人反馈始终优先于初始坐标假设。"
  },
  en:{
   title:"How are your coordinates formed?",
-  intro:"ELOGENA first converts a birth date into reproducible mathematical, calendrical and natural-cycle coordinates. The personality layer is an exploratory hypothesis built on those coordinates—not a proven conclusion.",
-  open:"View Methodology →",close:"Hide Methodology ↑",
-  lead:"ELOGENA does not directly equate a birthday with personality. It first places birth date t on a continuous time axis and extracts a set of Birth Coordinate Codes (BCC). Only then does a fixed exploratory mapping generate the Initial Human Coordinates.",
-  flow:"Birth date t → Time position J → BCC cycle coordinates → Feature vector F(t) → Fixed mapping W → 9D initial HTP coordinates",
-  h1:"1 · Time Position",p1:"The birth date is converted into a continuous day index J so dates from different eras can enter the same reproducible time-coordinate system.",
-  h2:"2 · Birth Coordinate Codes",p2:"The frozen model uses B9 digital root, P7 seven-day cycle, G60 sixty-step cycle, SolarPhase and approximate LunarPhase. These are encoding variables first, not personality labels. G60 uses traditional stem-branch names as readable labels; this does not mean ELOGENA is performing fortune-telling.",
-  h3:"3 · Cycles as Vectors",p3:"Because the beginning and end of a cycle are adjacent, cyclic variables are represented with sine and cosine. This preserves circular geometry instead of treating a cycle as a simple linear number.",
-  h4:"4 · Exploratory 9D Projection",p4:"The cycle features pass through a fixed weight matrix W and are normalized to -2 through +2, producing the D/C/P/I/O/E/S/R/T radar. W is currently a frozen research-hypothesis mapping, not a personality model proven by large-scale psychological samples.",
-  rt:"Research boundary · What is established and what remains unproven?",
-  known:"✓ Established: the computational path from birth date → BCC → mathematical features → 9D scores is fixed, transparent and reproducible. The same date produces the same result in the same model version.",
-  unknown:"△ Not yet established: whether BCC has a stable, replicable statistical relationship with personality tendencies. ELOGENA cannot currently claim that birth coordinates are scientifically proven to cause or determine personality.",
-  question:"The research question is: do birth-time coordinates contain reproducible, statistically meaningful information about human behavioral tendencies across samples? Initial Coordinates are therefore a hypothesis to test; lived experience, feedback and ongoing conversation take priority."
+  intro:"The model does not jump from a “mystical number” to personality. It starts with continuous time, studies how candidate cycles combine and overlap, removes redundant information, and only then forms the current frozen birth-coordinate representation.",
+  open:"View Full Methodology →",close:"Hide Full Methodology ↑",
+  lead:"ELOGENA begins with a research question: where does the same birth-time point fall within different mathematical, calendrical and natural cycles? Candidate cycles are constructed first, then their joint periods and redundancy are examined before the current BCC is selected. The coordinates are reproducible calculations; personality interpretation remains a hypothesis to test.",
+  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → Redundancy Removal → Frozen BCC → Circular Encoding → Exploratory HTP",
+  h1:"1 · Continuous Time Axis",p1:"Birth date t is first converted into a continuous day index J. Dates from different eras can therefore share one time axis, and every later cycle position is computed from the same J.",
+  h2:"2 · Candidate Cycles P6 and P7",p2:"For a cycle n, define Pn = J mod n. P6 and P7 were explored as candidates. The reciprocal 1/7 = 0.142857… has a repeating block of length 6, which motivated attention to the 6–7 structure; this numerical observation by itself is not personality evidence.",
+  h3:"3 · Why 42 Appears",p3:"Because 6 and 7 are coprime, LCM(6,7)=42. The joint state of P6 and P7 repeats every 42 steps; mathematically, P42 and the pair (P6,P7) determine one another. Thus 42 comes from a joint cycle, not from assigning it mystical meaning.",
+  h4:"4 · G60 and 420",p4:"The model also explored the 60-state calendrical cycle G60. Combining 42 and 60 gives LCM(42,60)=420, so 420 is the repeat length of their joint discrete state. Traditional stem-branch names can label G60 for readability, but using a 60-cycle does not imply acceptance of traditional fortune-telling claims.",
+  h5:"5 · Removing Redundancy",p5:"Finding 42 and 420 does not mean every derived cycle should enter the model. Since 60 contains a factor of 6, P6 can be recovered from G60 mod 6, while P42 is determined by P6 and P7. Feeding P6, P7, P42, G60 and P420 together could repeatedly weight the same information, so the current core representation is deliberately more compact.",
+  h6:"6 · Current Frozen BCC",p6:"After redundancy removal, the frozen BCC retains B9, P7, G60, SolarPhase and LunarPhase, spanning mathematical encoding, discrete calendrical cycles and continuous natural/astronomical cycles. P6, P42 and P420 remain useful as research-history or candidate variables, but are not independent HTP inputs.",
+  h7:"7 · Why Sine and Cosine",p7:"The end and beginning of a cycle are adjacent. For example, phases 0.99 and 0.01 are close. Encoding θ as cos(2πθ) and sin(2πθ) preserves circular geometry instead of making the two endpoints appear far apart on a straight number line.",
+  h8:"8 · From Coordinates to 9D HTP",p8:"The frozen BCC is converted into feature vector F(t), passed through fixed weight matrix W and normalized to -2 through +2 to form the D/C/P/I/O/E/S/R/T initial coordinates. W is a frozen exploratory research mapping, not a personality law validated by large-scale psychological samples.",
+  rt:"Research boundary · Mathematical basis ≠ personality evidence",
+  known:"✓ Mathematically established: modular cycle positions, LCM(6,7)=42, LCM(42,60)=420, sine/cosine cycle encoding, and the current computational path from birth date to 9D scores are fixed and reproducible.",
+  unknown:"△ Still to be tested: whether these birth-time coordinates have stable, replicable and statistically meaningful relationships with real personality or behavioral tendencies. The mathematics of 42 or 420 does not itself prove a personality relationship.",
+  question:"ELOGENA therefore does not ask a real person to conform to the coordinates. Initial Coordinates are a pre-specified starting hypothesis. Feedback, questionnaires, lived experience and AI conversation can compare Prediction vs. Observation; supporting, contradictory and null evidence should all be retained.",ct:"Research & Interpretation Notice",cx:"ELOGENA is an exploratory research and self-reflection system. Birth Coordinate Codes (BCC) are reproducible encodings derived from birth-date information using fixed mathematical, calendrical and natural-cycle rules. The current mapping from BCC to behavioral or personality dimensions is an experimental research hypothesis and has not been scientifically validated as a method for predicting personality. Results are not psychological diagnoses or professional assessments and do not determine personality, ability, future outcomes or destiny. Lived experience and direct user feedback take precedence over the initial coordinate hypothesis."
  },
  zht:{
   title:"你的座標是怎麼形成的？",
-  intro:"ELOGENA 首先把出生日期轉換成可重複計算的數學、曆法與自然週期座標；人格層是在這些座標之上的研究性假設，而不是已經被證明的結論。",
-  open:"查看座標形成原理 · Methodology →",close:"收起原理說明 ↑",
-  lead:"ELOGENA 不是把生日直接等同於人格。第一步只是把出生日期 t 放到連續時間軸中，再從多個週期提取一組 Birth Coordinate Codes（BCC）。之後才使用固定的研究性映射生成 Initial Human Coordinates。",
-  flow:"出生日期 t → 時間位置 J → BCC 週期座標 → 週期特徵向量 F(t) → 固定映射 W → 九維初始座標 HTP",
-  h1:"1 · 時間位置",p1:"出生日期先被轉換為連續日序位置 J，使不同年代的日期能夠進入同一個可重複計算的時間座標系統。",
-  h2:"2 · BCC 出生座標",p2:"目前凍結模型使用 B9 數字根、P7 七日週期、G60 六十週期、SolarPhase 太陽年相位與 LunarPhase 近似朔望相位。它們首先是編碼變量，不等同於人格標籤。G60 使用干支作為可讀標籤，但這不意味著模型在進行八字算命。",
-  h3:"3 · 週期向量化",p3:"週期的起點與終點彼此相鄰，因此週期變量使用正弦與餘弦表示。這樣可以保留循環的幾何結構，而不是把週期簡單當作直線數字。",
-  h4:"4 · 九維研究性投影",p4:"週期特徵進入固定權重矩陣 W，並統一歸一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九維雷達。目前 W 是凍結的研究性假設映射，不是已由大規模心理學樣本證明的人格模型。",
-  rt:"研究邊界 · 什麼已經確定，什麼仍待驗證？",
-  known:"✓ 已確定：出生日期 → BCC → 數學特徵 → 九維分數的計算規則是固定、透明且可重複的。同一生日在同一版本中得到相同結果。",
-  unknown:"△ 尚未證明：BCC 與人格傾向之間是否存在穩定、可複製的統計關係。目前不能聲稱出生座標已被科學證明會導致某種人格。",
-  question:"ELOGENA 真正要檢驗的問題是：出生時間座標中，是否存在能夠跨樣本重複出現、具有統計意義的人類行為傾向資訊？因此 Initial Coordinates 是待驗證的起點；使用者的真實經歷、回饋與持續對話擁有更高優先級。"
+  intro:"這不是從一個「神秘數字」直接推到人格，而是從連續時間開始，研究多個週期如何組合、哪裡重複、哪些變量值得保留，最後形成目前凍結的出生座標模型。",
+  open:"查看完整推導 · Methodology →",close:"收起完整推導 ↑",
+  lead:"ELOGENA 的起點是一個研究問題：同一個出生時間點，在不同數學、曆法與自然週期中分別處於什麼位置？我們先構造候選週期，再研究它們的聯合週期與資訊冗餘，最後才得到目前 BCC。座標是可重複計算的；人格解釋仍是待驗證假設。",
+  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → 去除冗餘 → Frozen BCC → Circular Encoding → Exploratory HTP",
+  h1:"1 · 連續時間軸",p1:"出生日期 t 首先轉換成連續日序 J。這樣不同年代的生日都能放進同一條時間軸，後面的週期位置都由同一個 J 計算。",
+  h2:"2 · 候選週期 P6 與 P7",p2:"對任意週期 n，可以定義 Pn = J mod n。我們研究過 P6 與 P7。7 的倒數 1/7 = 0.142857…具有長度為 6 的循環節，這促使我們注意 6 與 7 的週期結構；但這個數值現象本身不構成人格證據。",
+  h3:"3 · 為什麼出現 42",p3:"6 與 7 互質，因此 LCM(6,7)=42。P6 與 P7 的聯合狀態每 42 步重複一次；在數學上，P42 與 (P6,P7) 可以互相確定。42 因此來自聯合週期，而不是因為它被賦予神秘含義。",
+  h4:"4 · G60 與 420",p4:"模型同時研究 60 狀態曆法週期 G60。把 42 與 60 放在一起，LCM(42,60)=420，所以 420 是這些離散週期聯合狀態的重複長度。G60 可用干支作可讀標籤，但使用 60 週期不等於接受傳統命理的人格或命運解釋。",
+  h5:"5 · 去除重複資訊",p5:"發現 42 與 420 並不意味著必須把它們全部加入模型。因為 60 包含 6，P6 可由 G60 mod 6 得到；而 P42 又由 P6 與 P7 決定。若同時輸入 P6、P7、P42、G60、P420，可能把同一資訊重複加權。因此目前核心模型主動保留更精簡的表示。",
+  h6:"6 · 目前凍結 BCC",p6:"去冗餘後，目前凍結 BCC 保留 B9、P7、G60、SolarPhase 與 LunarPhase。它們覆蓋數學編碼、離散曆法週期以及連續自然/天文週期。P6、P42、P420仍可作為研究歷史與候選變量保留，但不是目前 HTP 的獨立輸入。",
+  h7:"7 · 為什麼使用 sin / cos",p7:"週期的末端和起點實際上相鄰。例如相位 0.99 與 0.01 很接近。將週期位置 θ 表示為 cos(2πθ) 與 sin(2πθ)，可以保留圓形週期結構，避免普通直線數字把首尾誤認為距離很遠。",
+  h8:"8 · 從座標到九維 HTP",p8:"最後，凍結 BCC 被轉換為特徵向量 F(t)，進入固定權重矩陣 W，並歸一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九維初始座標。W 是目前凍結的研究性假設映射，不是已經由大規模心理學樣本驗證的人格定律。",
+  rt:"研究邊界 · 數學依據 ≠ 人格證據",
+  known:"✓ 數學上可以確定：Pn 的模運算、LCM(6,7)=42、LCM(42,60)=420、週期的 sin/cos 表示，以及目前版本從生日到九維分數的計算路徑，都是固定且可重複的。",
+  unknown:"△ 仍待驗證：這些出生時間座標與真實人格、行為傾向之間是否存在穩定、可複製、具有統計意義的關係。42 或 420 的數學結構本身不能證明人格關係。",
+  question:"因此 ELOGENA 不要求真實的人去符合座標。Initial Coordinates 只是預先指定的初始假設；後續透過使用者回饋、問卷、真實經歷與 AI 對話比較 Prediction vs. Observation，支持、矛盾和無關係的資料都應被保留。",ct:"研究與解釋聲明",cx:"ELOGENA 是一個探索性研究與自我理解系統。Birth Coordinate Codes（BCC）依據出生日期，透過固定的數學、曆法及自然週期規則生成。目前從 BCC 到行為或人格維度的映射屬於實驗性研究假設，尚未被科學驗證為能夠預測人格的方法。結果不構成心理診斷或專業評估，也不用於確定人格、能力、未來結果或命運。使用者的真實經歷與本人回饋始終優先於初始座標假設。"
  }
-};
+}
 function renderMethodology(){
  const m=METHOD_I18N[(window.ELOGENA_LANG&&window.ELOGENA_LANG())||"zh"]||METHOD_I18N.zh;
- const ids={methodTitle:m.title,methodIntro:m.intro,methodLead:m.lead,methodFlow:m.flow,m1h:m.h1,m1p:m.p1,m2h:m.h2,m2p:m.p2,m3h:m.h3,m3p:m.p3,m4h:m.h4,m4p:m.p4,methodResearchTitle:m.rt,methodKnown:m.known,methodUnknown:m.unknown,methodQuestion:m.question};
+ const ids={methodTitle:m.title,methodIntro:m.intro,methodLead:m.lead,methodFlow:m.flow,m1h:m.h1,m1p:m.p1,m2h:m.h2,m2p:m.p2,m3h:m.h3,m3p:m.p3,m4h:m.h4,m4p:m.p4,m5h:m.h5,m5p:m.p5,m6h:m.h6,m6p:m.p6,m7h:m.h7,m7p:m.p7,m8h:m.h8,m8p:m.p8,methodResearchTitle:m.rt,methodKnown:m.known,methodUnknown:m.unknown,methodQuestion:m.question,complianceTitle:m.ct,complianceText:m.cx};
  for(const [id,val] of Object.entries(ids)){const el=document.getElementById(id);if(el)el.textContent=val}
  const p=document.getElementById("methodPanel"),b=document.getElementById("methodToggle");
  if(b)b.textContent=p&&p.classList.contains("open")?m.close:m.open;
 }
 
 const I18N={
- zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维人格预测雷达图（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"优势亮点（预测）",risksTitle:"潜在代价 / 缺点风险（预测）",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
- en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / trade-offs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Exploratory Persona Radar (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Potential Strengths (Exploratory)",risksTitle:"Potential Trade-offs (Exploratory)",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
- zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",heroCn:"從你的出生座標開始，透過持續交流，逐漸理解真實的你。座標是起點，不是定義。",radarTitle:"九維人格預測雷達圖（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/目前無明確方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"優勢亮點（預測）",risksTitle:"潛在代價 / 缺點風險（預測）",coreTitle:"核心人格模式",strengthV03Title:"優勢傾向",tradeoffV03Title:"潛在代價",growthV03Title:"成長方向",personaCodeTitle:"Initial Persona Code",personaNote:"這是基於出生資訊生成的探索性初始模型，不是確定的人格結論。未來可透過使用者主動回饋、問卷與 AI 交流持續驗證和修正，形成 Living Profile。",reportFooter:"說明：BCC 為出生日期的數學、曆法與自然週期編碼。九維人格部分目前是研究性映射，不是心理診斷，也不代表固定人格或命運。正式研究需要獨立訓練、盲測和複製驗證。",print:"儲存 / 列印 PDF",aiText:"讓 ELOGENA 從你的初始座標開始認識你。座標是最初的假設，真實的你會透過交流、興趣、經歷與反例逐漸被理解。",freeNote:"目前為臨時會話模式：無需會員，聊天與理解記錄僅保留在目前頁面會話中；重新整理頁面後清空。",chatSub:"先理解 · 再鼓勵 · 謹慎解釋 · 不做評判",close:"關閉",input:"想聊什麼都可以……",send:"發送",thinking:"思考中…",privacy:"ELOGENA 的出生座標是探索性初始假設，不是人格結論。目前版本不提供長期雲端記憶；AI 的理解會在本次頁面會話中逐漸累積。",intro:"這是我根據你的出生座標形成的第一印象，但它只是一個等待驗證的起點。我還不了解真正的你。\n\n不用把這裡當成人格測試。你可以從任何你現在想聊的事情開始。",need:"請先輸入生日並生成你的初始座標。",fail:"暫時沒有連接上 ELOGENA。請稍後再試。"}
+ zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"Initial Human Coordinates · 初始人类坐标",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维初始人格坐标（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待验证的优势倾向",risksTitle:"待验证的潜在代价",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
+ en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / trade-offs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Initial Human Coordinates · Exploratory Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Initial Human Coordinates (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Strength Tendencies to Validate",risksTitle:"Trade-offs to Validate",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
+ zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"Initial Human Coordinates · 初始人類座標",heroCn:"從你的出生座標開始，透過持續交流，逐漸理解真實的你。座標是起點，不是定義。",radarTitle:"九維初始人格座標（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/目前無明確方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待驗證的優勢傾向",risksTitle:"待驗證的潛在代價",coreTitle:"核心人格模式",strengthV03Title:"優勢傾向",tradeoffV03Title:"潛在代價",growthV03Title:"成長方向",personaCodeTitle:"Initial Persona Code",personaNote:"這是基於出生資訊生成的探索性初始模型，不是確定的人格結論。未來可透過使用者主動回饋、問卷與 AI 交流持續驗證和修正，形成 Living Profile。",reportFooter:"說明：BCC 為出生日期的數學、曆法與自然週期編碼。九維人格部分目前是研究性映射，不是心理診斷，也不代表固定人格或命運。正式研究需要獨立訓練、盲測和複製驗證。",print:"儲存 / 列印 PDF",aiText:"讓 ELOGENA 從你的初始座標開始認識你。座標是最初的假設，真實的你會透過交流、興趣、經歷與反例逐漸被理解。",freeNote:"目前為臨時會話模式：無需會員，聊天與理解記錄僅保留在目前頁面會話中；重新整理頁面後清空。",chatSub:"先理解 · 再鼓勵 · 謹慎解釋 · 不做評判",close:"關閉",input:"想聊什麼都可以……",send:"發送",thinking:"思考中…",privacy:"ELOGENA 的出生座標是探索性初始假設，不是人格結論。目前版本不提供長期雲端記憶；AI 的理解會在本次頁面會話中逐漸累積。",intro:"這是我根據你的出生座標形成的第一印象，但它只是一個等待驗證的起點。我還不了解真正的你。\n\n不用把這裡當成人格測試。你可以從任何你現在想聊的事情開始。",need:"請先輸入生日並生成你的初始座標。",fail:"暫時沒有連接上 ELOGENA。請稍後再試。"}
 };
 function elogenaLang(){return localStorage.getItem("elogena_lang")||"zh"}
 window.ELOGENA_LANG=elogenaLang;
@@ -791,9 +798,13 @@ window.addEventListener("DOMContentLoaded",()=>{
 
       <div class="methodology-grid">
         <div class="methodology-item"><h3 id="m1h"></h3><div class="methodology-formula">t → J</div><p id="m1p"></p></div>
-        <div class="methodology-item"><h3 id="m2h"></h3><div class="methodology-formula">BCC = (B9, P7, G60, SolarPhase, LunarPhase)</div><p id="m2p"></p></div>
-        <div class="methodology-item"><h3 id="m3h"></h3><div class="methodology-formula">[cos(2πθ), sin(2πθ)]</div><p id="m3p"></p></div>
-        <div class="methodology-item"><h3 id="m4h"></h3><div class="methodology-formula">HTP = W · F(t) → [-2, +2]</div><p id="m4p"></p></div>
+        <div class="methodology-item"><h3 id="m2h"></h3><div class="methodology-formula">P6 = J mod 6 · P7 = J mod 7</div><p id="m2p"></p></div>
+        <div class="methodology-item"><h3 id="m3h"></h3><div class="methodology-formula">LCM(6,7) = 42 · P42 ↔ (P6,P7)</div><p id="m3p"></p></div>
+        <div class="methodology-item"><h3 id="m4h"></h3><div class="methodology-formula">G60 = J mod 60 · LCM(42,60) = 420</div><p id="m4p"></p></div>
+        <div class="methodology-item"><h3 id="m5h"></h3><div class="methodology-formula">P6 = G60 mod 6 → remove redundant P6 / P42 / P420</div><p id="m5p"></p></div>
+        <div class="methodology-item"><h3 id="m6h"></h3><div class="methodology-formula">BCC = (B9, P7, G60, SolarPhase, LunarPhase)</div><p id="m6p"></p></div>
+        <div class="methodology-item"><h3 id="m7h"></h3><div class="methodology-formula">[cos(2πθ), sin(2πθ)]</div><p id="m7p"></p></div>
+        <div class="methodology-item"><h3 id="m8h"></h3><div class="methodology-formula">HTP = W · F(t) → [-2, +2]</div><p id="m8p"></p></div>
       </div>
 
       <div class="methodology-research">
@@ -802,6 +813,11 @@ window.addEventListener("DOMContentLoaded",()=>{
         <p id="methodUnknown"></p>
         <p id="methodQuestion"></p>
       </div>
+      <div class="methodology-research" style="margin-top:12px">
+        <strong id="complianceTitle">研究与解释声明</strong>
+        <p id="complianceText">ELOGENA 是一个探索性研究与自我理解系统。Birth Coordinate Codes（BCC）依据出生日期，通过固定的数学、历法及自然周期规则生成。目前从 BCC 到行为或人格维度的映射属于实验性研究假设，尚未被科学验证为能够预测人格的方法。结果不构成心理诊断或专业评估，也不用于确定人格、能力、未来结果或命运。用户的真实经历与本人反馈始终优先于初始坐标假设。</p>
+      </div>
+
     </div>
   </div>
 </section>
