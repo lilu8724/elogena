@@ -520,7 +520,7 @@ input[type="date"]{
   <h1>ELOGENA</h1>
   <div class="sub">Human Coordinate Intelligence</div>
   <div class="line">From the Universe, to Your Coordinates, back to You.</div>
-  <div class="cn">从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。</div>
+  <div class="cn" id="heroCn">从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。</div>
 </section>
 
 <div class="wrap">
@@ -541,28 +541,28 @@ input[type="date"]{
     </div>
 
     <div class="section">
-      <h3>九维人格预测雷达图（-2 ～ +2）</h3>
-      <div class="note">+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出</div>
+      <h3 id="radarTitle">九维人格预测雷达图（-2 ～ +2）</h3>
+      <div class="note" id="radarNote">+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出</div>
       <div class="radarwrap"><svg id="radar" class="radar" viewBox="0 0 700 520" aria-label="九维人格预测雷达图"></svg></div>
     </div>
 
     <div class="twocol">
-      <div class="box"><h4>优势亮点（预测）</h4><ul id="strengths"></ul></div>
-      <div class="box risk"><h4>潜在代价 / 缺点风险（预测）</h4><ul id="risks"></ul></div>
+      <div class="box"><h4 id="strengthsTitle">优势亮点（预测）</h4><ul id="strengths"></ul></div>
+      <div class="box risk"><h4 id="risksTitle">潜在代价 / 缺点风险（预测）</h4><ul id="risks"></ul></div>
     </div>
     <div class="summary" id="summary"></div>
     <div class="v03grid">
-      <div class="v03box"><h4>核心人格模式</h4><div id="corePattern">输入生日后生成。</div></div>
-      <div class="v03box"><h4>优势倾向</h4><div id="strengthV03">输入生日后生成。</div></div>
-      <div class="v03box risk"><h4>潜在代价</h4><div id="tradeoffV03">输入生日后生成。</div></div>
-      <div class="v03box"><h4>成长方向</h4><div id="growthV03">输入生日后生成。</div></div>
+      <div class="v03box"><h4 id="coreTitle">核心人格模式</h4><div id="corePattern">输入生日后生成。</div></div>
+      <div class="v03box"><h4 id="strengthV03Title">优势倾向</h4><div id="strengthV03">输入生日后生成。</div></div>
+      <div class="v03box risk"><h4 id="tradeoffV03Title">潜在代价</h4><div id="tradeoffV03">输入生日后生成。</div></div>
+      <div class="v03box"><h4 id="growthV03Title">成长方向</h4><div id="growthV03">输入生日后生成。</div></div>
     </div>
     <div class="v03persona">
-      <h4>Initial Persona Code</h4>
+      <h4 id="personaCodeTitle">Initial Persona Code</h4>
       <div id="personaCodeV03">—</div>
-      <div class="note" style="margin-top:8px">这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。</div>
+      <div class="note" id="personaNote" style="margin-top:8px">这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。</div>
     </div>
-    <div class="footer">说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。</div>
+    <div class="footer" id="reportFooter">说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。</div>
   </main>
 
   <div class="actions">
@@ -585,6 +585,41 @@ const dims=[
 ['R','风险偏好','面对不确定性时较敢尝试。','可能承担更多资源与失败风险。'],
 ['T','系统思维','较容易寻找结构、规则和因果关系。','过强时可能陷入分析、降低行动速度。']
 ];
+const DISPLAY={
+ zh:{
+  week:['星期一','星期二','星期三','星期四','星期五','星期六','星期日'],
+  dim:{D:['驱动力','目标明确后更容易主动推进，把事情做成。','容易把责任和压力往自己身上揽。'],C:['竞争性','面对挑战与比较时更容易被激发。','可能对低效率或失误更缺耐心。'],P:['坚持','较容易长期推进，不轻易放弃。','有时会在应该停止时继续投入。'],I:['自主独立','更倾向自己判断方向并掌握节奏。','可能不喜欢别人反复干预或改变计划。'],O:['开放探索','对新知识、新方法和跨领域尝试较开放。','兴趣过多时可能分散注意力。'],E:['情感表达','较容易表达情绪、观点和影响力。','表达强度高时可能给周围人压力。'],S:['社会使命','较重视对他人、群体或长期意义的影响。','可能把自己的边界和休息放在后面。'],R:['风险偏好','面对不确定性时较敢尝试。','可能承担更多资源与失败风险。'],T:['系统思维','较容易寻找结构、规则和因果关系。','过强时可能陷入分析、降低行动速度。']},
+  birth:'出生信息',greg:'公历',weekday:'星期',dayOfYear:'年内第',day:'日',g60:'G60',moonAge:'月龄约',
+  b9:'B9 数字根',b9s:'数学表示',p7:'P7 七周期',g60p:'G60位置',solar:'太阳相位',solars:'年内相位',lunar:'月相',lunars:'近似朔望相位',
+  summary:(a,b)=>`核心预测一句话：${a}、${b}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`,
+  core:(a,b,c)=>`当前初始画像中，${a}、${b}与${c}相对突出。这里描述的是出生模型的初始倾向，不是固定人格标签。`,
+  strengths:a=>`较值得进一步验证的优势方向：${a.join('、')}。后续应结合本人反馈与真实经历判断。`,
+  trade:(a,b)=>`当优势使用过度时，${a}与${b}对应的行为模式可能带来额外压力或失衡，需要结合具体情境观察。`,
+  growth:(a,b)=>`建议在保持${a}优势的同时，关注${b.join('、')}等相对较弱维度是否需要通过环境、经验或主动练习补足。`
+ },
+ en:{
+  week:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+  dim:{D:['Drive','Once a goal is clear, you may be more likely to move proactively and push toward completion.','You may take on too much responsibility or pressure.'],C:['Competitiveness','Challenge and comparison may activate your motivation.','You may become less patient with inefficiency or mistakes.'],P:['Persistence','You may be more likely to sustain effort over time and not give up easily.','You may keep investing after it would be better to stop.'],I:['Independence','You may prefer making your own judgments and controlling your pace.','You may dislike repeated interference or imposed changes.'],O:['Openness','You may be more open to new knowledge, methods and cross-domain exploration.','Too many interests may scatter attention.'],E:['Expression','You may be more inclined to express emotions, views and influence outwardly.','High expression intensity may put pressure on others.'],S:['Social Purpose','You may care more about impact on others, groups or long-term meaning.','You may place your own boundaries and rest later.'],R:['Risk Preference','You may be more willing to try under uncertainty.','You may take on more resource and failure risk.'],T:['Systems Thinking','You may be more likely to look for structure, rules and causal relationships.','Overuse may lead to too much analysis and slower action.']},
+  birth:'Birth Information',greg:'Date',weekday:'Weekday',dayOfYear:'Day of year',day:'',g60:'G60',moonAge:'Approx. lunar age',
+  b9:'B9 Digital Root',b9s:'Mathematical encoding',p7:'P7 Seven-cycle',g60p:'G60 Position',solar:'Solar Phase',solars:'Annual phase',lunar:'Lunar Phase',lunars:'Approx. synodic phase',
+  summary:(a,b)=>`Initial summary: ${a} and ${b} are relatively more pronounced. Observe whether these strengths create trade-offs under pressure.`,
+  core:(a,b,c)=>`In this initial profile, ${a}, ${b} and ${c} are relatively more pronounced. These are exploratory birth-model tendencies, not fixed personality labels.`,
+  strengths:a=>`Strength directions worth testing further: ${a.join(', ')}. Compare them with your own feedback and lived experience.`,
+  trade:(a,b)=>`When strengths are overused, patterns related to ${a} and ${b} may create extra pressure or imbalance. Context matters.`,
+  growth:(a,b)=>`While keeping the potential advantage of ${a}, observe whether relatively lower dimensions such as ${b.join(' and ')} need support through environment, experience or deliberate practice.`
+ },
+ zht:{
+  week:['星期一','星期二','星期三','星期四','星期五','星期六','星期日'],
+  dim:{D:['驅動力','目標明確後更容易主動推進，把事情做成。','容易把責任和壓力往自己身上攬。'],C:['競爭性','面對挑戰與比較時更容易被激發。','可能對低效率或失誤更缺耐心。'],P:['堅持','較容易長期推進，不輕易放棄。','有時會在應該停止時繼續投入。'],I:['自主獨立','更傾向自己判斷方向並掌握節奏。','可能不喜歡別人反覆干預或改變計畫。'],O:['開放探索','對新知識、新方法和跨領域嘗試較開放。','興趣過多時可能分散注意力。'],E:['情感表達','較容易表達情緒、觀點和影響力。','表達強度高時可能給周圍人壓力。'],S:['社會使命','較重視對他人、群體或長期意義的影響。','可能把自己的邊界和休息放在後面。'],R:['風險偏好','面對不確定性時較敢嘗試。','可能承擔更多資源與失敗風險。'],T:['系統思維','較容易尋找結構、規則和因果關係。','過強時可能陷入分析、降低行動速度。']},
+  birth:'出生資訊',greg:'公曆',weekday:'星期',dayOfYear:'年內第',day:'日',g60:'G60',moonAge:'月齡約',
+  b9:'B9 數字根',b9s:'數學表示',p7:'P7 七週期',g60p:'G60位置',solar:'太陽相位',solars:'年內相位',lunar:'月相',lunars:'近似朔望相位',
+  summary:(a,b)=>`核心預測一句話：${a}、${b}較突出；建議同時觀察這些優勢在壓力情境下是否會轉化為對應的代價。`,
+  core:(a,b,c)=>`目前初始畫像中，${a}、${b}與${c}相對突出。這裡描述的是出生模型的初始傾向，不是固定人格標籤。`,
+  strengths:a=>`較值得進一步驗證的優勢方向：${a.join('、')}。後續應結合本人回饋與真實經歷判斷。`,
+  trade:(a,b)=>`當優勢使用過度時，${a}與${b}對應的行為模式可能帶來額外壓力或失衡，需要結合具體情境觀察。`,
+  growth:(a,b)=>`建議在保持${a}優勢的同時，關注${b.join('、')}等相對較弱維度是否需要透過環境、經驗或主動練習補足。`
+ }
+};
 const W={
 D:[.60,.40,.20,.50,-.20,.50,.20,.30,-.20],C:[.30,-.20,.70,.20,.40,.10,.40,-.20,.20],
 P:[.20,.50,-.20,.70,.10,.30,-.30,.60,.10],I:[.40,-.10,.40,.20,-.50,.40,.30,.10,-.40],
@@ -607,27 +642,28 @@ function radar(scores){
  let h='';for(let ring=1;ring<=4;ring++){let rr=R*ring/4;h+=`<polygon points="${dims.map((_,i)=>pt(i,rr).join(',')).join(' ')}" fill="none" stroke="#35526b" stroke-width="1"/>`}
  dims.forEach((_,i)=>{let [x,y]=pt(i,R);h+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#35526b"/>`});
  h+=`<polygon points="${dims.map((d,i)=>pt(i,R*(scores[d[0]]+2)/4).join(',')).join(' ')}" fill="#1fa9d8" fill-opacity=".22" stroke="#41c9ff" stroke-width="3"/>`;
- dims.forEach((d,i)=>{let [x,y]=pt(i,R*(scores[d[0]]+2)/4),[lx,ly]=pt(i,R+42);h+=`<circle cx="${x}" cy="${y}" r="5" fill="#41c9ff"/><text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14" fill="#e8f5ff">${d[0]} ${d[1]}</text>`});
+ const L=DISPLAY[(window.ELOGENA_LANG&&window.ELOGENA_LANG())||"zh"]||DISPLAY.zh;dims.forEach((d,i)=>{let [x,y]=pt(i,R*(scores[d[0]]+2)/4),[lx,ly]=pt(i,R+42);h+=`<circle cx="${x}" cy="${y}" r="5" fill="#41c9ff"/><text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="14" fill="#e8f5ff">${d[0]} ${L.dim[d[0]][0]}</text>`});
  svg.innerHTML=h
 }
 function render(v){
- let o=parse(v);if(!o)return alert('请输入有效生日');let r=calc(o),weekday=['星期一','星期二','星期三','星期四','星期五','星期六','星期日'][r.p7];
+ let o=parse(v);if(!o)return alert(((window.ELOGENA_LANG&&window.ELOGENA_LANG())==="en")?'Please enter a valid date of birth.':'请输入有效生日');
+ let r=calc(o),lang=(window.ELOGENA_LANG&&window.ELOGENA_LANG())||'zh',L=DISPLAY[lang]||DISPLAY.zh,weekday=L.week[r.p7],name=k=>L.dim[k][0];
  $('#person').textContent=o.label;
- $('#codes').innerHTML=c('B9 数字根',r.b9,'数学表示')+c('P7 七周期',r.p7,weekday)+c('G60位置',r.g60,r.ganzhi)+c('太阳相位',(r.solar*360).toFixed(1)+'°','年内相位')+c('月相',(r.lunar*100).toFixed(1)+'%','近似朔望相位');
- $('#birthinfo').innerHTML=`<b>出生信息</b><br>公历：${o.label}<br>星期：${weekday}<br>年内第 ${r.doy} 日<br>G60：${r.ganzhi}<br>月龄约 ${(r.lunar*SYN).toFixed(1)} 日`;
+ $('#codes').innerHTML=c(L.b9,r.b9,L.b9s)+c(L.p7,r.p7,weekday)+c(L.g60p,r.g60,r.ganzhi)+c(L.solar,(r.solar*360).toFixed(1)+'°',L.solars)+c(L.lunar,(r.lunar*100).toFixed(1)+'%',L.lunars);
+ $('#birthinfo').innerHTML=`<b>${L.birth}</b><br>${L.greg}：${o.label}<br>${L.weekday}：${weekday}<br>${L.dayOfYear} ${r.doy} ${L.day}<br>${L.g60}：${r.ganzhi}<br>${L.moonAge} ${(r.lunar*SYN).toFixed(1)} ${lang==='en'?'days':'日'}`;
  radar(r.scores);
  let sorted=[...dims].sort((a,b)=>r.scores[b[0]]-r.scores[a[0]]),top=sorted.slice(0,4);
- $('#strengths').innerHTML=top.map(d=>`<li><b>${d[1]} ${r.scores[d[0]]>0?'+':''}${r.scores[d[0]].toFixed(1)}</b>：${d[2]}</li>`).join('');
- $('#risks').innerHTML=top.map(d=>`<li><b>${d[1]}</b>：${d[3]}</li>`).join('');
- $('#summary').textContent=`核心预测一句话：${top[0][1]}、${top[1][1]}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`;
-
+ $('#strengths').innerHTML=top.map(d=>`<li><b>${name(d[0])} ${r.scores[d[0]]>0?'+':''}${r.scores[d[0]].toFixed(1)}</b>：${L.dim[d[0]][1]}</li>`).join('');
+ $('#risks').innerHTML=top.map(d=>`<li><b>${name(d[0])}</b>：${L.dim[d[0]][2]}</li>`).join('');
+ $('#summary').textContent=L.summary(name(top[0][0]),name(top[1][0]));
  const low=sorted.slice(-2);
- $('#corePattern').textContent=`当前初始画像中，${top[0][1]}、${top[1][1]}与${top[2][1]}相对突出。这里描述的是出生模型的初始倾向，不是固定人格标签。`;
- $('#strengthV03').textContent=`较值得进一步验证的优势方向：${top.slice(0,3).map(d=>d[1]).join('、')}。后续应结合本人反馈与真实经历判断。`;
- $('#tradeoffV03').textContent=`当优势使用过度时，${top[0][1]}与${top[1][1]}对应的行为模式可能带来额外压力或失衡，需要结合具体情境观察。`;
- $('#growthV03').textContent=`建议在保持${top[0][1]}优势的同时，关注${low.map(d=>d[1]).join('、')}等相对较弱维度是否需要通过环境、经验或主动练习补足。`;
+ $('#corePattern').textContent=L.core(name(top[0][0]),name(top[1][0]),name(top[2][0]));
+ $('#strengthV03').textContent=L.strengths(top.slice(0,3).map(d=>name(d[0])));
+ $('#tradeoffV03').textContent=L.trade(name(top[0][0]),name(top[1][0]));
+ $('#growthV03').textContent=L.growth(name(top[0][0]),low.map(d=>name(d[0])));
  $('#personaCodeV03').textContent=`${o.label.replaceAll('-','')} · H9-${dims.map(d=>Math.round((r.scores[d[0]]+2)*25)).join('.')}`;
 }
+window.ELOGENA_RENDER=render;
 $('#form').addEventListener('submit',e=>{e.preventDefault();render($('#date').value)});
 $('#date').addEventListener('click',function(){try{if(this.showPicker)this.showPicker()}catch(e){}});
 $('#print').addEventListener('click',()=>window.print());
@@ -636,27 +672,35 @@ $('#print').addEventListener('click',()=>window.print());
 
 <script>
 const I18N={
- zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",badge:""},
- en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / tradeoffs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",badge:"Exploratory Model v0.3"},
- zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",badge:""}
+ zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维人格预测雷达图（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"优势亮点（预测）",risksTitle:"潜在代价 / 缺点风险（预测）",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
+ en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / trade-offs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Exploratory Persona Radar (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Potential Strengths (Exploratory)",risksTitle:"Potential Trade-offs (Exploratory)",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
+ zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"生日宇宙密碼與人格預測圖",heroCn:"從你的出生座標開始，透過持續交流，逐漸理解真實的你。座標是起點，不是定義。",radarTitle:"九維人格預測雷達圖（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/目前無明確方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"優勢亮點（預測）",risksTitle:"潛在代價 / 缺點風險（預測）",coreTitle:"核心人格模式",strengthV03Title:"優勢傾向",tradeoffV03Title:"潛在代價",growthV03Title:"成長方向",personaCodeTitle:"Initial Persona Code",personaNote:"這是基於出生資訊生成的探索性初始模型，不是確定的人格結論。未來可透過使用者主動回饋、問卷與 AI 交流持續驗證和修正，形成 Living Profile。",reportFooter:"說明：BCC 為出生日期的數學、曆法與自然週期編碼。九維人格部分目前是研究性映射，不是心理診斷，也不代表固定人格或命運。正式研究需要獨立訓練、盲測和複製驗證。",print:"儲存 / 列印 PDF",aiText:"讓 ELOGENA 從你的初始座標開始認識你。座標是最初的假設，真實的你會透過交流、興趣、經歷與反例逐漸被理解。",freeNote:"目前為臨時會話模式：無需會員，聊天與理解記錄僅保留在目前頁面會話中；重新整理頁面後清空。",chatSub:"先理解 · 再鼓勵 · 謹慎解釋 · 不做評判",close:"關閉",input:"想聊什麼都可以……",send:"發送",thinking:"思考中…",privacy:"ELOGENA 的出生座標是探索性初始假設，不是人格結論。目前版本不提供長期雲端記憶；AI 的理解會在本次頁面會話中逐漸累積。",intro:"這是我根據你的出生座標形成的第一印象，但它只是一個等待驗證的起點。我還不了解真正的你。\n\n不用把這裡當成人格測試。你可以從任何你現在想聊的事情開始。",need:"請先輸入生日並生成你的初始座標。",fail:"暫時沒有連接上 ELOGENA。請稍後再試。"}
 };
+function elogenaLang(){return localStorage.getItem("elogena_lang")||"zh"}
+window.ELOGENA_LANG=elogenaLang;
+function elogenaText(k){const t=I18N[elogenaLang()]||I18N.zh;return t[k]||I18N.zh[k]||""}
+window.ELOGENA_TEXT=elogenaText;
 function setLang(lang){
  localStorage.setItem("elogena_lang",lang);
  const t=I18N[lang]||I18N.zh;
  document.documentElement.lang=lang==="en"?"en":(lang==="zht"?"zh-Hant":"zh-CN");
- const map={brandTitle:t.title,brandSub:t.sub,dateLabel:t.date,generateText:t.gen,profileTitle:t.profile,modelBadge:t.badge};
- for(const [id,val] of Object.entries(map)){const el=document.getElementById(id);if(el)el.textContent=val;}
+ const map={brandTitle:t.title,brandSub:t.sub,dateLabel:t.date,generateText:t.gen,profileTitle:t.profile,heroCn:t.heroCn,radarTitle:t.radarTitle,radarNote:t.radarNote,strengthsTitle:t.strengthsTitle,risksTitle:t.risksTitle,coreTitle:t.coreTitle,strengthV03Title:t.strengthV03Title,tradeoffV03Title:t.tradeoffV03Title,growthV03Title:t.growthV03Title,personaCodeTitle:t.personaCodeTitle,personaNote:t.personaNote,reportFooter:t.reportFooter,print:t.print,aiEntryText:t.aiText,freeNote:t.freeNote,chatSub:t.chatSub,chatClose:t.close,chatPrivacy:t.privacy};
+ for(const [id,val] of Object.entries(map)){const el=document.getElementById(id);if(el)el.textContent=val}
+ const inp=document.getElementById("chatInput");if(inp)inp.placeholder=t.input;
+ const snd=document.getElementById("chatSend");if(snd&&!snd.disabled)snd.textContent=t.send;
+ const d=document.getElementById("date");
+ if(document.body.classList.contains("has-profile")&&d&&d.value&&window.ELOGENA_RENDER)window.ELOGENA_RENDER(d.value);
 }
-window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elogena_lang")||"zh"));
+window.addEventListener("DOMContentLoaded",()=>setLang(elogenaLang()));
 </script>
 
 <section class="ai-entry" id="ai-entry">
   <div class="ai-entry-card">
-    <div class="ai-entry-kicker">Coordinates are only the beginning</div>
-    <h2>Talk to ELOGENA</h2>
-    <p>让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。</p>
+    <div class="ai-entry-kicker" id="aiKicker">Coordinates are only the beginning</div>
+    <h2 id="aiEntryTitle">Talk to ELOGENA</h2>
+    <p id="aiEntryText">让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。</p>
     <button class="ai-btn" id="tryAI" type="button">Talk to ELOGENA →</button>
-    <p class="free-note">当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。</p>
+    <p class="free-note" id="freeNote">当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。</p>
   </div>
 </section>
 
@@ -665,7 +709,7 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
     <div class="chat-head">
       <div>
         <div class="chat-title">Talk to ELOGENA</div>
-        <div class="chat-sub">Understand first · Encourage second · Interpret carefully · Judge never</div>
+        <div class="chat-sub" id="chatSub">Understand first · Encourage second · Interpret carefully · Judge never</div>
       </div>
       <button class="chat-close" id="chatClose" type="button">关闭</button>
     </div>
@@ -675,7 +719,7 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
       <textarea id="chatInput" maxlength="4000" placeholder="想聊什么都可以……" aria-label="Message ELOGENA"></textarea>
       <button class="chat-send" id="chatSend" type="button">发送</button>
     </div>
-    <div class="chat-privacy">ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。</div>
+    <div class="chat-privacy" id="chatPrivacy">ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。</div>
   </div>
 </section>
 
@@ -823,7 +867,7 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
     const strengths=q("strengthV03")?.innerText?.trim() || "";
     const tradeoffs=q("tradeoffV03")?.innerText?.trim() || "";
     return [
-      "ELOGENA Initial Human Coordinates — FROZEN INITIAL HYPOTHESIS.",
+      "ELOGENA Initial Human Coordinates — FROZEN INITIAL HYPOTHESIS.",\n      "Interface language: "+window.ELOGENA_LANG()+". Reply in the user\'s language; if ambiguous, follow the interface language.",
       "Birth date: "+date+".",
       "Coordinate data: "+codes+".",
       "Birth information: "+birth+".",
@@ -847,19 +891,19 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
     busy=v;
     send.disabled=v;
     input.disabled=v;
-    send.textContent=v?"思考中…":"发送";
+    send.textContent=v?window.ELOGENA_TEXT("thinking"):window.ELOGENA_TEXT("send");
   }
 
   function openChat(){
     if(!profileReady()){
-      alert("请先输入生日并生成你的初始坐标。");
+      alert(window.ELOGENA_TEXT("need"));
       q("date")?.focus();
       return;
     }
     shell.classList.add("open");
     status.textContent="Initial Profile 已载入 · 临时会话 · V0.4";
     if(messages.children.length===0){
-      addMessage("assistant","这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。");
+      addMessage("assistant",window.ELOGENA_TEXT("intro"));
     }
     setTimeout(()=>shell.scrollIntoView({behavior:"smooth",block:"start"}),50);
     setTimeout(()=>input.focus(),450);
@@ -919,7 +963,7 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
       status.textContent="ELOGENA V0.4 · 本次会话已形成 "+understandingHistory.length+" 条可保留理解";
     }catch(err){
       console.error(err);
-      addMessage("system","暂时没有连接上 ELOGENA。请稍后再试。");
+      addMessage("system",window.ELOGENA_TEXT("fail"));
       status.textContent="连接暂时不可用";
     }finally{
       setBusy(false);
@@ -947,7 +991,5 @@ window.addEventListener("DOMContentLoaded",()=>setLang(localStorage.getItem("elo
 })();
 </script>
 
-</body>
-</html>
 </body>
 </html>
