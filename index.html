@@ -8,11 +8,12 @@ Model: V0.6-FROZEN-01
 Rule: UI/content changes must not modify calc(), B9/P7/P6/G60/Solar/Lunar formulas,
 the fixed HTP W matrix, score normalization, or radar score inputs.
 A05 benchmark date: 1961-09-02.
+V0.8 PROTOTYPE RULE: Product/UX additions must remain outside the frozen coordinate engine.
 -->
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ELOGENA · 出生宇宙坐标</title>
+<title>ELOGENA · V0.8 Product Prototype</title>
 <meta name="theme-color" content="#061326">
 <style>
 :root{
@@ -532,6 +533,223 @@ input[type="date"]{
 @media(max-width:720px){.methodology-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style>
+/* === ELOGENA V0.8 PRODUCT LAYER — does not modify frozen coordinate engine === */
+.v08-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#aeb9c7;margin-bottom:7px}
+.v08-principle{max-width:740px;margin:14px auto 0;color:#e1e7ef;font-size:13px;line-height:1.8}
+.v08-principle strong{color:#fff}
+.v08-verify-toggle{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 12px;min-height:38px;
+  border:1px solid rgba(210,222,240,.22);background:rgba(255,255,255,.03);color:#d8e0eb;border-radius:999px;font-size:11px}
+#verificationData{display:none}
+#verificationData.open{display:grid}
+.verification-note{display:none;margin-top:10px;border:1px solid rgba(205,220,240,.16);border-radius:12px;
+  padding:12px 14px;background:rgba(255,255,255,.025);font-size:11px;line-height:1.7;color:#aeb9c7}
+.verification-note.open{display:block}
+.v03persona{display:none!important}
+.explore-card{margin-top:14px;border:1px solid rgba(205,220,240,.18);border-radius:15px;padding:16px;
+  background:linear-gradient(145deg,rgba(10,18,31,.78),rgba(5,9,18,.82))}
+.explore-card h3{margin:0 0 6px;font-family:Georgia,"Times New Roman",serif;font-size:20px;font-weight:500;color:#f1f5fa}
+.explore-q{font-size:14px;line-height:1.75;color:#dde5ee;margin:10px 0 13px}
+.explore-actions{display:flex;flex-wrap:wrap;gap:8px}
+.explore-chip{min-height:36px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.035);
+  border:1px solid rgba(205,220,240,.20);color:#dce4ee;font-size:11px}
+.explore-feedback{margin-top:10px;color:#9fabb9;font-size:11px;line-height:1.6;min-height:18px}
+
+.learning-panel{margin:18px auto 0;max-width:760px;text-align:left;border-top:1px solid rgba(210,222,240,.14);padding-top:14px}
+.learning-title{font-family:Georgia,"Times New Roman",serif;color:#eef3f8;font-size:16px;margin-bottom:4px}
+.learning-sub{color:#8f9baa;font-size:10px;line-height:1.6;margin-bottom:10px}
+.learning-empty{color:#7f8b99;font-size:11px;line-height:1.6}
+.learning-list{display:grid;gap:8px}
+.learning-item{padding:10px 12px;border:1px solid rgba(210,222,240,.13);border-radius:11px;background:rgba(255,255,255,.025)}
+.learning-feedback{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.learning-feedback-btn{appearance:none;border:1px solid rgba(220,228,242,.18);background:rgba(255,255,255,.035);color:rgba(239,243,250,.82);border-radius:999px;padding:7px 11px;font:inherit;font-size:12px;cursor:pointer;transition:.18s ease}
+.learning-feedback-btn:hover{background:rgba(255,255,255,.075);border-color:rgba(230,235,248,.32)}
+.learning-feedback-btn.active{background:rgba(228,221,248,.14);border-color:rgba(228,221,248,.42);color:#fff}
+.learning-feedback-note{margin-top:8px;font-size:11px;line-height:1.45;color:rgba(210,218,232,.58)}
+.learning-type{font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:#aeb9c7}
+.learning-observation{margin-top:4px;color:#e0e7ef;font-size:11px;line-height:1.6}
+.learning-source{margin-top:5px;color:#7f8c9b;font-size:9px}
+
+.origin-entry{max-width:1060px;margin:26px auto 34px;padding:0 18px}
+.origin-card{border:1px solid rgba(210,222,240,.20);border-radius:20px;padding:24px 20px;
+  background:linear-gradient(145deg,rgba(9,17,29,.82),rgba(9,9,20,.84));position:relative;overflow:hidden}
+.origin-card:before{content:"";position:absolute;inset:-60px auto auto 50%;width:360px;height:220px;transform:translateX(-50%);
+  background:radial-gradient(ellipse,rgba(190,205,235,.10),transparent 68%);pointer-events:none}
+.origin-head{text-align:center;position:relative}
+.origin-head h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:27px;margin:4px 0 8px}
+.origin-head p{max-width:670px;margin:0 auto;color:#9ba8b7;font-size:11px;line-height:1.7}
+.origin-optional{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#7f8b98}
+.origin-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:680px;margin:18px auto 0}
+.origin-input{padding:12px;border:1px solid rgba(210,222,240,.15);border-radius:13px;background:rgba(255,255,255,.025)}
+.origin-input label{display:block;color:#b8c2ce;font-size:10px;margin-bottom:6px}
+.origin-input input{width:100%;min-height:40px;background:#070b12;border:1px solid rgba(210,222,240,.16);color:#e8eef6;border-radius:9px;padding:0 9px}
+.origin-input button{width:100%;margin-top:8px;min-height:36px;font-size:10px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(210,222,240,.18);color:#dbe3ed}
+.origin-constellation{position:relative;max-width:640px;height:220px;margin:22px auto 8px}
+.origin-node{position:absolute;text-align:center;transform:translate(-50%,-50%);font-size:10px;color:#b9c4d0}
+.origin-node .star{display:block;width:20px;height:20px;border:1px solid rgba(230,237,247,.65);border-radius:50%;
+  margin:0 auto 7px;box-shadow:0 0 20px rgba(210,225,250,.14);background:rgba(255,255,255,.025)}
+.origin-node.you{left:50%;top:72%;color:#fff}.origin-node.you .star{width:28px;height:28px;background:#dfe7f2;box-shadow:0 0 30px rgba(220,232,250,.28)}
+.origin-node.mum{left:25%;top:27%}.origin-node.dad{left:75%;top:27%}
+.origin-line{position:absolute;height:1px;background:rgba(205,220,240,.26);transform-origin:0 50%;left:50%;top:69%}
+.origin-line.mum{width:185px;transform:rotate(-137deg)}
+.origin-line.dad{width:185px;transform:rotate(-43deg)}
+.origin-node.mum.empty,.origin-node.dad.empty{opacity:.38}
+.relative-panel{display:none;max-width:760px;margin:14px auto 0;border-top:1px solid rgba(210,222,240,.14);padding-top:16px}
+.relative-panel.open{display:block}
+.relative-title{font-family:Georgia,"Times New Roman",serif;font-size:19px;color:#edf2f8}
+.relative-sub{font-size:10px;color:#8d99a8;margin:4px 0 12px}
+.track{margin:12px 0;padding:11px 12px;border:1px solid rgba(210,222,240,.12);border-radius:11px;background:rgba(255,255,255,.02)}
+.track-head{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:#acb6c2;margin-bottom:9px}
+.track-row{display:grid;grid-template-columns:42px 1fr;gap:8px;align-items:center;margin:6px 0;font-size:9px;color:#9da9b6}
+.track-line{height:8px;position:relative;border-top:1px solid rgba(215,225,238,.24)}
+.track-line:before,.track-line:after{content:"";position:absolute;top:-3px;width:1px;height:6px;background:rgba(215,225,238,.20)}
+.track-line:before{left:0}.track-line:after{right:0}
+.track-dot{position:absolute;top:-5px;width:10px;height:10px;border-radius:50%;border:1px solid #eef3f8;background:#0b1018;transform:translateX(-50%)}
+.track-row.yourow .track-dot{background:#e6edf6;box-shadow:0 0 12px rgba(225,235,250,.25)}
+.track-distance{color:#c9d2de;font-variant-numeric:tabular-nums}
+.origin-notice{margin-top:14px;padding:11px 13px;border-radius:10px;background:rgba(255,255,255,.025);
+  color:#8e9aa8;font-size:10px;line-height:1.7;border:1px solid rgba(210,222,240,.10)}
+.public-method{max-width:1060px;margin:20px auto 32px;padding:0 18px}
+.public-method-card{border:1px solid rgba(210,222,240,.17);border-radius:17px;padding:18px;background:rgba(5,10,18,.62)}
+.public-method-card h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;margin:0 0 7px;font-size:22px;color:#eff4fa}
+.public-method-card p{margin:7px 0;color:#9eaab8;font-size:11px;line-height:1.75}
+.public-method-pill{display:inline-block;margin-top:5px;padding:5px 8px;border:1px solid rgba(210,222,240,.15);border-radius:999px;color:#b9c3cf;font-size:9px}
+@media(max-width:720px){
+  .origin-inputs{grid-template-columns:1fr}
+  .origin-constellation{height:200px}
+  .origin-line.mum,.origin-line.dad{width:145px}
+}
+</style>
+
+
+<style>
+/* === V0.8 Prototype 02: Parent 9D visual comparison === */
+.origin-meaning{max-width:760px;margin:14px auto 0;padding:12px 14px;border:1px solid rgba(210,222,240,.12);
+  border-radius:12px;background:rgba(255,255,255,.02);color:#aab5c2;font-size:10.5px;line-height:1.75}
+.origin-meaning strong{color:#e9eef5}
+.parent-compare{display:none;max-width:860px;margin:20px auto 0;border-top:1px solid rgba(210,222,240,.13);padding-top:18px}
+.parent-compare.open{display:block}
+.parent-compare-head{text-align:center;margin-bottom:14px}
+.parent-compare-head h3{font-family:Georgia,"Times New Roman",serif;font-weight:500;color:#eef3f8;font-size:20px;margin:0 0 5px}
+.parent-compare-head p{font-size:10px;color:#8f9baa;line-height:1.6;margin:0}
+.parent-radar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.parent-radar-card{border:1px solid rgba(210,222,240,.13);border-radius:14px;padding:13px;background:rgba(255,255,255,.02)}
+.parent-radar-card h4{margin:0 0 8px;text-align:center;color:#dce5ef;font-size:12px;font-weight:500}
+.parent-radar-card canvas{display:block;width:100%;height:auto;max-width:350px;margin:0 auto}
+.parent-radar-note{margin-top:8px;text-align:center;color:#7f8b99;font-size:9px;line-height:1.5}
+.overlay-card{margin-top:14px;border:1px solid rgba(210,222,240,.13);border-radius:14px;padding:13px;background:rgba(255,255,255,.02)}
+.overlay-card h4{text-align:center;margin:0 0 8px;color:#dce5ef;font-size:12px;font-weight:500}
+.overlay-card canvas{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+@media(max-width:720px){.parent-radar-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style>
+/* === ELOGENA V0.8 FROZEN UI REFINEMENT ===
+   Visual-only layer. No coordinate, Origin, evidence or conversation logic changes. */
+:root{
+  --elogena-bg:#050811;
+  --elogena-panel:rgba(10,15,25,.72);
+  --elogena-panel-2:rgba(255,255,255,.025);
+  --elogena-line:rgba(220,230,245,.13);
+  --elogena-line-strong:rgba(225,235,248,.22);
+  --elogena-text:#eef2f7;
+  --elogena-sub:#96a2b1;
+  --elogena-soft:#bcc6d3;
+  --elogena-accent:#d9d0ee;
+}
+body{
+  background:
+    radial-gradient(circle at 20% 0%,rgba(73,87,125,.10),transparent 33%),
+    radial-gradient(circle at 82% 12%,rgba(113,93,148,.08),transparent 28%),
+    linear-gradient(180deg,#060914 0%,#04070d 100%);
+  color:var(--elogena-text);
+}
+.wrap{max-width:1120px}
+header{padding-top:22px}
+.logo{letter-spacing:.16em}
+.hero-card,.card,.origin-card,.public-method-card,.ai-card,.elogena-chat-shell{
+  border-color:var(--elogena-line)!important;
+  background:linear-gradient(145deg,rgba(9,14,24,.80),rgba(6,9,16,.86))!important;
+  box-shadow:0 18px 60px rgba(0,0,0,.18);
+}
+.hero-card,.card,.origin-card,.ai-card,.elogena-chat-shell{border-radius:22px!important}
+button,.btn,.explore-chip,.v08-verify-toggle{
+  transition:transform .16s ease,background .16s ease,border-color .16s ease,opacity .16s ease;
+}
+button:hover,.btn:hover,.explore-chip:hover,.v08-verify-toggle:hover{
+  transform:translateY(-1px);
+  border-color:rgba(235,240,248,.30)!important;
+}
+input,select,textarea{
+  background:rgba(4,7,13,.88)!important;
+  border-color:rgba(220,230,245,.15)!important;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:rgba(225,235,248,.32)!important;
+  box-shadow:0 0 0 3px rgba(215,225,245,.05);
+}
+.hero h1,.origin-head h2,.ai-title,.public-method-card h2{
+  letter-spacing:-.02em;
+}
+.sub,.note,.origin-head p,.learning-sub,.relative-sub{
+  color:var(--elogena-sub)!important;
+}
+.badge{
+  background:rgba(255,255,255,.035)!important;
+  border-color:rgba(220,230,245,.13)!important;
+}
+.radarwrap{
+  border-radius:18px;
+  background:radial-gradient(circle at 50% 42%,rgba(203,211,234,.045),transparent 58%);
+}
+.grid{
+  gap:10px!important;
+}
+.kpi,.grid>div,.v03box{
+  border-radius:13px!important;
+  background:rgba(255,255,255,.018)!important;
+  border-color:rgba(220,230,245,.10)!important;
+}
+.origin-inputs{gap:12px!important}
+.origin-input{
+  background:rgba(255,255,255,.018)!important;
+  border-color:rgba(220,230,245,.11)!important;
+}
+.origin-node .star{
+  box-shadow:0 0 25px rgba(220,228,245,.12)!important;
+}
+.origin-node.you .star{
+  background:linear-gradient(145deg,#f1f4f8,#cfd7e3)!important;
+  box-shadow:0 0 32px rgba(220,230,248,.22)!important;
+}
+.track{
+  background:rgba(255,255,255,.015)!important;
+  border-color:rgba(220,230,245,.09)!important;
+}
+.learning-item{
+  background:rgba(255,255,255,.018)!important;
+  border-color:rgba(220,230,245,.09)!important;
+}
+.chat-log{
+  background:rgba(3,6,11,.36)!important;
+  border-radius:15px;
+}
+.chat-bubble{
+  border-radius:15px!important;
+}
+.footer,footer{color:#66717f!important}
+@media(max-width:760px){
+  .wrap{padding-left:14px!important;padding-right:14px!important}
+  .hero-card,.card,.origin-card,.ai-card,.elogena-chat-shell{border-radius:17px!important}
+  .hero h1{font-size:34px!important}
+  .origin-head h2,.ai-title{font-size:25px!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -543,7 +761,7 @@ input[type="date"]{
   <h1>ELOGENA</h1>
   <div class="sub">Human Coordinate Intelligence</div>
   <div class="line">From the Universe, to Your Coordinates, back to You.</div>
-  <div class="cn" id="heroCn">从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。</div>
+  <div class="cn" id="heroCn">从你来到世界的那个时间点开始，发现一个探索自己的数学起点。</div>
 </section>
 
 <div class="wrap">
@@ -557,8 +775,13 @@ input[type="date"]{
   </div>
 
   <main id="report" class="card">
-    <div class="hero"><div><div id="person" class="person">—</div><div id="profileTitle">Initial Human Coordinates · 初始人类坐标</div></div><div class="badge" id="modelBadge"></div></div>
-    <div class="grid">
+    <div class="hero"><div><div class="v08-eyebrow">YOUR INITIAL COORDINATES</div><div id="person" class="person">—</div><div id="profileTitle">Initial Human Coordinates · 初始人类坐标</div></div><div class="badge" id="modelBadge">V0.6-FROZEN-01</div></div>
+    <button class="v08-verify-toggle" id="verifyToggle" type="button">View Coordinate Data →</button>
+    <div class="verification-note" id="verificationNote">
+      <strong>Same input + same model version = same Initial Coordinates.</strong><br>
+      Calculated coordinate data is deterministic. Its relationship to personality remains an experimental hypothesis.
+    </div>
+    <div class="grid verification-data" id="verificationData">
       <div class="codes" id="codes"></div>
       <div class="birthinfo" id="birthinfo"></div>
     </div>
@@ -578,7 +801,18 @@ input[type="date"]{
       <div class="v03box"><h4 id="coreTitle">核心人格模式</h4><div id="corePattern">输入生日后生成。</div></div>
       <div class="v03box"><h4 id="strengthV03Title">优势倾向</h4><div id="strengthV03">输入生日后生成。</div></div>
       <div class="v03box risk"><h4 id="tradeoffV03Title">潜在代价</h4><div id="tradeoffV03">输入生日后生成。</div></div>
-      <div class="v03box"><h4 id="growthV03Title">成长方向</h4><div id="growthV03">输入生日后生成。</div></div>
+      <div class="v03box"><h4 id="growthV03Title">Questions to Explore</h4><div id="growthV03">输入生日后生成。</div></div>
+    </div>
+    <div class="explore-card" id="exploreCard">
+      <h3>Questions to Explore</h3>
+      <div class="note">把坐标当成问题，而不是结论。</div>
+      <div class="explore-q" id="exploreQuestion">生成坐标后，这里会出现一个值得用真实经历验证的问题。</div>
+      <div class="explore-actions">
+        <button class="explore-chip" type="button" data-explore="yes">Feels like me</button>
+        <button class="explore-chip" type="button" data-explore="sometimes">Sometimes</button>
+        <button class="explore-chip" type="button" data-explore="no">Not really</button>
+      </div>
+      <div class="explore-feedback" id="exploreFeedback"></div>
     </div>
     <div class="v03persona">
       <h4 id="personaCodeTitle">Initial Persona Code</h4>
@@ -609,7 +843,7 @@ const DISPLAY={
   week:['星期一','星期二','星期三','星期四','星期五','星期六','星期日'],
   dim:{D:['驱动力','目标明确后更容易主动推进，把事情做成。','容易把责任和压力往自己身上揽。'],C:['竞争性','面对挑战与比较时更容易被激发。','可能对低效率或失误更缺耐心。'],P:['坚持','较容易长期推进，不轻易放弃。','有时会在应该停止时继续投入。'],I:['自主独立','更倾向自己判断方向并掌握节奏。','可能不喜欢别人反复干预或改变计划。'],O:['开放探索','对新知识、新方法和跨领域尝试较开放。','兴趣过多时可能分散注意力。'],E:['情感表达','较容易表达情绪、观点和影响力。','表达强度高时可能给周围人压力。'],S:['社会使命','较重视对他人、群体或长期意义的影响。','可能把自己的边界和休息放在后面。'],R:['风险偏好','面对不确定性时较敢尝试。','可能承担更多资源与失败风险。'],T:['系统思维','较容易寻找结构、规则和因果关系。','过强时可能陷入分析、降低行动速度。']},
   birth:'出生信息',greg:'公历',weekday:'星期',dayOfYear:'年内第',day:'日',g60:'G60',moonAge:'月龄约',
-  b9:'B9 数字根',b9s:'数学表示',p7:'P7 七周期',g60p:'G60位置',solar:'太阳相位',solars:'年内相位',lunar:'月相',lunars:'近似朔望相位',
+  b9:'Birth Encoding',b9s:'固定数学编码',p7:'7-Day Phase',g60p:'60-Step Phase',solar:'太阳相位',solars:'年内相位',lunar:'月相',lunars:'近似朔望相位',
   summary:(a,b)=>`初始观察：${a}、${b}较突出；建议同时观察这些优势在压力情境下是否会转化为对应的代价。`,
   core:(a,b,c)=>`当前初始画像中，${a}、${b}与${c}相对突出。这里描述的是出生模型的初始倾向，不是固定人格标签。`,
   strengths:a=>`较值得进一步验证的优势方向：${a.join('、')}。后续应结合本人反馈与真实经历判断。`,
@@ -620,7 +854,7 @@ const DISPLAY={
   week:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
   dim:{D:['Drive','Once a goal is clear, you may be more likely to move proactively and push toward completion.','You may take on too much responsibility or pressure.'],C:['Competitiveness','Challenge and comparison may activate your motivation.','You may become less patient with inefficiency or mistakes.'],P:['Persistence','You may be more likely to sustain effort over time and not give up easily.','You may keep investing after it would be better to stop.'],I:['Independence','You may prefer making your own judgments and controlling your pace.','You may dislike repeated interference or imposed changes.'],O:['Openness','You may be more open to new knowledge, methods and cross-domain exploration.','Too many interests may scatter attention.'],E:['Expression','You may be more inclined to express emotions, views and influence outwardly.','High expression intensity may put pressure on others.'],S:['Social Purpose','You may care more about impact on others, groups or long-term meaning.','You may place your own boundaries and rest later.'],R:['Risk Preference','You may be more willing to try under uncertainty.','You may take on more resource and failure risk.'],T:['Systems Thinking','You may be more likely to look for structure, rules and causal relationships.','Overuse may lead to too much analysis and slower action.']},
   birth:'Birth Information',greg:'Date',weekday:'Weekday',dayOfYear:'Day of year',day:'',g60:'G60',moonAge:'Approx. lunar age',
-  b9:'B9 Digital Root',b9s:'Mathematical encoding',p7:'P7 Seven-cycle',g60p:'G60 Position',solar:'Solar Phase',solars:'Annual phase',lunar:'Lunar Phase',lunars:'Approx. synodic phase',
+  b9:'Birth Encoding',b9s:'Fixed mathematical encoding',p7:'7-Day Phase',g60p:'60-Step Phase',solar:'Solar Phase',solars:'Annual phase',lunar:'Lunar Phase',lunars:'Approx. synodic phase',
   summary:(a,b)=>`Initial observation: ${a} and ${b} are relatively more pronounced. Observe whether these strengths create trade-offs under pressure.`,
   core:(a,b,c)=>`In this initial profile, ${a}, ${b} and ${c} are relatively more pronounced. These are exploratory birth-model tendencies, not fixed personality labels.`,
   strengths:a=>`Strength directions worth testing further: ${a.join(', ')}. Compare them with your own feedback and lived experience.`,
@@ -631,7 +865,7 @@ const DISPLAY={
   week:['星期一','星期二','星期三','星期四','星期五','星期六','星期日'],
   dim:{D:['驅動力','目標明確後更容易主動推進，把事情做成。','容易把責任和壓力往自己身上攬。'],C:['競爭性','面對挑戰與比較時更容易被激發。','可能對低效率或失誤更缺耐心。'],P:['堅持','較容易長期推進，不輕易放棄。','有時會在應該停止時繼續投入。'],I:['自主獨立','更傾向自己判斷方向並掌握節奏。','可能不喜歡別人反覆干預或改變計畫。'],O:['開放探索','對新知識、新方法和跨領域嘗試較開放。','興趣過多時可能分散注意力。'],E:['情感表達','較容易表達情緒、觀點和影響力。','表達強度高時可能給周圍人壓力。'],S:['社會使命','較重視對他人、群體或長期意義的影響。','可能把自己的邊界和休息放在後面。'],R:['風險偏好','面對不確定性時較敢嘗試。','可能承擔更多資源與失敗風險。'],T:['系統思維','較容易尋找結構、規則和因果關係。','過強時可能陷入分析、降低行動速度。']},
   birth:'出生資訊',greg:'公曆',weekday:'星期',dayOfYear:'年內第',day:'日',g60:'G60',moonAge:'月齡約',
-  b9:'B9 數字根',b9s:'數學表示',p7:'P7 七週期',g60p:'G60位置',solar:'太陽相位',solars:'年內相位',lunar:'月相',lunars:'近似朔望相位',
+  b9:'Birth Encoding',b9s:'固定數學編碼',p7:'7-Day Phase',g60p:'60-Step Phase',solar:'太陽相位',solars:'年內相位',lunar:'月相',lunars:'近似朔望相位',
   summary:(a,b)=>`初始觀察：${a}、${b}較突出；建議同時觀察這些優勢在壓力情境下是否會轉化為對應的代價。`,
   core:(a,b,c)=>`目前初始畫像中，${a}、${b}與${c}相對突出。這裡描述的是出生模型的初始傾向，不是固定人格標籤。`,
   strengths:a=>`較值得進一步驗證的優勢方向：${a.join('、')}。後續應結合本人回饋與真實經歷判斷。`,
@@ -667,6 +901,7 @@ function radar(scores){
 function render(v){
  let o=parse(v);if(!o)return alert(((window.ELOGENA_LANG&&window.ELOGENA_LANG())==="en")?'Please enter a valid date of birth.':'请输入有效生日');
  let r=calc(o),lang=(window.ELOGENA_LANG&&window.ELOGENA_LANG())||'zh',L=DISPLAY[lang]||DISPLAY.zh,weekday=L.week[r.p7],name=k=>L.dim[k][0];
+ window.ELOGENA_LAST_FROZEN_RESULT=r; if(window.ELOGENA_V08_EXPLORE)window.ELOGENA_V08_EXPLORE(r);
  $('#person').textContent=o.label;
  $('#codes').innerHTML=c(L.b9,r.b9,L.b9s)+c(L.p7,r.p7,weekday)+c(L.g60p,r.g60,r.ganzhi)+c(L.solar,(r.solar*360).toFixed(1)+'°',L.solars)+c(L.lunar,(r.lunar*100).toFixed(1)+'%',L.lunars);
  $('#birthinfo').innerHTML=`<b>${L.birth}</b><br>${L.greg}：${o.label}<br>${L.weekday}：${weekday}<br>${L.dayOfYear} ${r.doy} ${L.day}<br>${L.g60}：${r.ganzhi}<br>${L.moonAge} ${(r.lunar*SYN).toFixed(1)} ${lang==='en'?'days':'日'}`;
@@ -692,75 +927,42 @@ $('#date').addEventListener('click',function(){try{if(this.showPicker)this.showP
 
 const METHOD_I18N={
  zh:{
-  title:"你的坐标是怎么形成的？",
-  intro:"这不是从一个“神秘数字”直接推到人格，而是从连续时间开始，研究多个周期如何组合、哪里重复、哪些变量值得保留，最后形成当前冻结的出生坐标模型。",
-  open:"查看完整推导 · Methodology →",close:"收起完整推导 ↑",
-  lead:"ELOGENA 的起点是一个研究问题：同一个出生时间点，在不同数学、历法与自然周期中分别处于什么位置？我们先构造候选周期，再研究它们的联合周期与信息冗余，最后才得到当前 BCC。坐标是可重复计算的；人格解释仍是待验证假设。",
-  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → 去除冗余 → Frozen BCC → Circular Encoding → Exploratory HTP",
-  h1:"1 · 连续时间轴",p1:"出生日期 t 首先转换成连续日序 J。这样不同年代的生日都能放进同一条时间轴，后面的周期位置都由同一个 J 计算。",
-  h2:"2 · 候选周期 P6 与 P7",p2:"对任意周期 n，可以定义 Pn = J mod n。我们研究过 P6 与 P7。7 的倒数 1/7 = 0.142857…具有长度为 6 的循环节，这促使我们注意 6 与 7 的周期结构；但这个数值现象本身不构成人格证据。",
-  h3:"3 · 为什么出现 42",p3:"6 与 7 互质，因此 LCM(6,7)=42。P6 与 P7 的联合状态每 42 步重复一次；在数学上，P42 与 (P6,P7) 可以互相确定。42 因此来自联合周期，而不是因为它被赋予神秘含义。",
-  h4:"4 · G60 与 420",p4:"模型同时研究 60 状态历法周期 G60。把 42 与 60 放在一起，LCM(42,60)=420，所以 420 是这些离散周期联合状态的重复长度。G60 可用干支作可读标签，但使用 60 周期不等于接受传统命理的人格或命运解释。",
-  h5:"5 · 去除重复信息",p5:"发现 42 与 420 并不意味着必须把它们全部加入模型。因为 60 包含 6，P6 可由 G60 mod 6 得到；而 P42 又由 P6 与 P7 决定。若同时输入 P6、P7、P42、G60、P420，可能把同一信息重复加权。因此当前核心模型主动保留更精简的表示。",
-  h6:"6 · 当前冻结 BCC",p6:"去冗余后，当前冻结 BCC 保留 B9、P7、G60、SolarPhase 与 LunarPhase。它们覆盖数学编码、离散历法周期以及连续自然/天文周期。P6、P42、P420仍可作为研究历史与候选变量保留，但不是当前 HTP 的独立输入。",
-  h7:"7 · 为什么使用 sin / cos",p7:"周期的末端和起点实际上相邻。例如相位 0.99 与 0.01 很接近。将周期位置 θ 表示为 cos(2πθ) 与 sin(2πθ)，可以保留圆形周期结构，避免普通直线数字把首尾误认为距离很远。",
-  h8:"8 · 从坐标到九维 HTP",p8:"最后，冻结 BCC 被转换为特征向量 F(t)，进入固定权重矩阵 W，并归一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九维初始坐标。W 是当前冻结的研究性假设映射，不是已经由大规模心理学样本验证的人格定律。",
-  rt:"研究边界 · 数学依据 ≠ 人格证据",
-  known:"✓ 数学上可以确定：Pn 的模运算、LCM(6,7)=42、LCM(42,60)=420、周期的 sin/cos 表示，以及当前版本从生日到九维分数的计算路径，都是固定且可重复的。",
-  unknown:"△ 仍待验证：这些出生时间坐标与真实人格、行为倾向之间是否存在稳定、可复制、具有统计意义的关系。42 或 420 的数学结构本身不能证明人格关系。",
-  question:"因此 ELOGENA 不要求真实的人去符合坐标。Initial Coordinates 只是预先指定的初始假设；后续通过用户反馈、问卷、真实经历与 AI 对话比较 Prediction vs. Observation，支持、矛盾和无关系的数据都应被保留。",ct:"研究与解释声明",cx:"ELOGENA 是一个探索性研究与自我理解系统。Birth Coordinate Codes（BCC）依据出生日期，通过固定的数学、历法及自然周期规则生成。目前从 BCC 到行为或人格维度的映射属于实验性研究假设，尚未被科学验证为能够预测人格的方法。结果不构成心理诊断或专业评估，也不用于确定人格、能力、未来结果或命运。用户的真实经历与本人反馈始终优先于初始坐标假设。"
+  title:"How ELOGENA Works · ELOGENA 如何工作",
+  intro:"ELOGENA 使用固定、可重复的计算框架，把出生信息转换为数学时间坐标，并在此基础上形成一个等待验证的初始假设。",
+  open:"查看研究与解释说明 →",close:"收起说明 ↑",
+  lead:"坐标数据来自确定性计算；坐标与人格或行为之间的关系仍属于实验性研究问题。用户的真实经历、反例和本人反馈始终优先于初始假设。",
+  ct:"Research & Interpretation Notice · 研究与解释声明",
+  cx:"ELOGENA 是探索性研究与自我理解系统。结果不构成心理诊断或专业评估，也不决定人格、能力、未来结果或命运。部分计算方法、参数与模型架构属于 ELOGENA 专有研究与产品方法，不在公开产品页面披露。"
  },
  en:{
-  title:"How are your coordinates formed?",
-  intro:"The model does not jump from a “mystical number” to personality. It starts with continuous time, studies how candidate cycles combine and overlap, removes redundant information, and only then forms the current frozen birth-coordinate representation.",
-  open:"View Full Methodology →",close:"Hide Full Methodology ↑",
-  lead:"ELOGENA begins with a research question: where does the same birth-time point fall within different mathematical, calendrical and natural cycles? Candidate cycles are constructed first, then their joint periods and redundancy are examined before the current BCC is selected. The coordinates are reproducible calculations; personality interpretation remains a hypothesis to test.",
-  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → Redundancy Removal → Frozen BCC → Circular Encoding → Exploratory HTP",
-  h1:"1 · Continuous Time Axis",p1:"Birth date t is first converted into a continuous day index J. Dates from different eras can therefore share one time axis, and every later cycle position is computed from the same J.",
-  h2:"2 · Candidate Cycles P6 and P7",p2:"For a cycle n, define Pn = J mod n. P6 and P7 were explored as candidates. The reciprocal 1/7 = 0.142857… has a repeating block of length 6, which motivated attention to the 6–7 structure; this numerical observation by itself is not personality evidence.",
-  h3:"3 · Why 42 Appears",p3:"Because 6 and 7 are coprime, LCM(6,7)=42. The joint state of P6 and P7 repeats every 42 steps; mathematically, P42 and the pair (P6,P7) determine one another. Thus 42 comes from a joint cycle, not from assigning it mystical meaning.",
-  h4:"4 · G60 and 420",p4:"The model also explored the 60-state calendrical cycle G60. Combining 42 and 60 gives LCM(42,60)=420, so 420 is the repeat length of their joint discrete state. Traditional stem-branch names can label G60 for readability, but using a 60-cycle does not imply acceptance of traditional fortune-telling claims.",
-  h5:"5 · Removing Redundancy",p5:"Finding 42 and 420 does not mean every derived cycle should enter the model. Since 60 contains a factor of 6, P6 can be recovered from G60 mod 6, while P42 is determined by P6 and P7. Feeding P6, P7, P42, G60 and P420 together could repeatedly weight the same information, so the current core representation is deliberately more compact.",
-  h6:"6 · Current Frozen BCC",p6:"After redundancy removal, the frozen BCC retains B9, P7, G60, SolarPhase and LunarPhase, spanning mathematical encoding, discrete calendrical cycles and continuous natural/astronomical cycles. P6, P42 and P420 remain useful as research-history or candidate variables, but are not independent HTP inputs.",
-  h7:"7 · Why Sine and Cosine",p7:"The end and beginning of a cycle are adjacent. For example, phases 0.99 and 0.01 are close. Encoding θ as cos(2πθ) and sin(2πθ) preserves circular geometry instead of making the two endpoints appear far apart on a straight number line.",
-  h8:"8 · From Coordinates to 9D HTP",p8:"The frozen BCC is converted into feature vector F(t), passed through fixed weight matrix W and normalized to -2 through +2 to form the D/C/P/I/O/E/S/R/T initial coordinates. W is a frozen exploratory research mapping, not a personality law validated by large-scale psychological samples.",
-  rt:"Research boundary · Mathematical basis ≠ personality evidence",
-  known:"✓ Mathematically established: modular cycle positions, LCM(6,7)=42, LCM(42,60)=420, sine/cosine cycle encoding, and the current computational path from birth date to 9D scores are fixed and reproducible.",
-  unknown:"△ Still to be tested: whether these birth-time coordinates have stable, replicable and statistically meaningful relationships with real personality or behavioral tendencies. The mathematics of 42 or 420 does not itself prove a personality relationship.",
-  question:"ELOGENA therefore does not ask a real person to conform to the coordinates. Initial Coordinates are a pre-specified starting hypothesis. Feedback, questionnaires, lived experience and AI conversation can compare Prediction vs. Observation; supporting, contradictory and null evidence should all be retained.",ct:"Research & Interpretation Notice",cx:"ELOGENA is an exploratory research and self-reflection system. Birth Coordinate Codes (BCC) are reproducible encodings derived from birth-date information using fixed mathematical, calendrical and natural-cycle rules. The current mapping from BCC to behavioral or personality dimensions is an experimental research hypothesis and has not been scientifically validated as a method for predicting personality. Results are not psychological diagnoses or professional assessments and do not determine personality, ability, future outcomes or destiny. Lived experience and direct user feedback take precedence over the initial coordinate hypothesis."
+  title:"How ELOGENA Works",
+  intro:"ELOGENA uses a fixed, reproducible computational framework to transform birth information into mathematical time coordinates, forming an initial hypothesis to be tested.",
+  open:"View Research & Interpretation Notice →",close:"Hide Notice ↑",
+  lead:"Coordinate data is deterministic. Its relationship to personality or behavior remains an experimental research question. Lived experience, counterexamples and direct user feedback take priority over the starting hypothesis.",
+  ct:"Research & Interpretation Notice",
+  cx:"ELOGENA is an exploratory research and self-reflection system. Results are not psychological diagnoses or professional assessments and do not determine personality, ability, future outcomes or destiny. Certain computational methods, parameters and model architecture are proprietary to ELOGENA and are not disclosed on the public product page."
  },
  zht:{
-  title:"你的座標是怎麼形成的？",
-  intro:"這不是從一個「神秘數字」直接推到人格，而是從連續時間開始，研究多個週期如何組合、哪裡重複、哪些變量值得保留，最後形成目前凍結的出生座標模型。",
-  open:"查看完整推導 · Methodology →",close:"收起完整推導 ↑",
-  lead:"ELOGENA 的起點是一個研究問題：同一個出生時間點，在不同數學、曆法與自然週期中分別處於什麼位置？我們先構造候選週期，再研究它們的聯合週期與資訊冗餘，最後才得到目前 BCC。座標是可重複計算的；人格解釋仍是待驗證假設。",
-  flow:"Birth Date → J → P6 / P7 → 42 → G60 → 420 → 去除冗餘 → Frozen BCC → Circular Encoding → Exploratory HTP",
-  h1:"1 · 連續時間軸",p1:"出生日期 t 首先轉換成連續日序 J。這樣不同年代的生日都能放進同一條時間軸，後面的週期位置都由同一個 J 計算。",
-  h2:"2 · 候選週期 P6 與 P7",p2:"對任意週期 n，可以定義 Pn = J mod n。我們研究過 P6 與 P7。7 的倒數 1/7 = 0.142857…具有長度為 6 的循環節，這促使我們注意 6 與 7 的週期結構；但這個數值現象本身不構成人格證據。",
-  h3:"3 · 為什麼出現 42",p3:"6 與 7 互質，因此 LCM(6,7)=42。P6 與 P7 的聯合狀態每 42 步重複一次；在數學上，P42 與 (P6,P7) 可以互相確定。42 因此來自聯合週期，而不是因為它被賦予神秘含義。",
-  h4:"4 · G60 與 420",p4:"模型同時研究 60 狀態曆法週期 G60。把 42 與 60 放在一起，LCM(42,60)=420，所以 420 是這些離散週期聯合狀態的重複長度。G60 可用干支作可讀標籤，但使用 60 週期不等於接受傳統命理的人格或命運解釋。",
-  h5:"5 · 去除重複資訊",p5:"發現 42 與 420 並不意味著必須把它們全部加入模型。因為 60 包含 6，P6 可由 G60 mod 6 得到；而 P42 又由 P6 與 P7 決定。若同時輸入 P6、P7、P42、G60、P420，可能把同一資訊重複加權。因此目前核心模型主動保留更精簡的表示。",
-  h6:"6 · 目前凍結 BCC",p6:"去冗餘後，目前凍結 BCC 保留 B9、P7、G60、SolarPhase 與 LunarPhase。它們覆蓋數學編碼、離散曆法週期以及連續自然/天文週期。P6、P42、P420仍可作為研究歷史與候選變量保留，但不是目前 HTP 的獨立輸入。",
-  h7:"7 · 為什麼使用 sin / cos",p7:"週期的末端和起點實際上相鄰。例如相位 0.99 與 0.01 很接近。將週期位置 θ 表示為 cos(2πθ) 與 sin(2πθ)，可以保留圓形週期結構，避免普通直線數字把首尾誤認為距離很遠。",
-  h8:"8 · 從座標到九維 HTP",p8:"最後，凍結 BCC 被轉換為特徵向量 F(t)，進入固定權重矩陣 W，並歸一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九維初始座標。W 是目前凍結的研究性假設映射，不是已經由大規模心理學樣本驗證的人格定律。",
-  rt:"研究邊界 · 數學依據 ≠ 人格證據",
-  known:"✓ 數學上可以確定：Pn 的模運算、LCM(6,7)=42、LCM(42,60)=420、週期的 sin/cos 表示，以及目前版本從生日到九維分數的計算路徑，都是固定且可重複的。",
-  unknown:"△ 仍待驗證：這些出生時間座標與真實人格、行為傾向之間是否存在穩定、可複製、具有統計意義的關係。42 或 420 的數學結構本身不能證明人格關係。",
-  question:"因此 ELOGENA 不要求真實的人去符合座標。Initial Coordinates 只是預先指定的初始假設；後續透過使用者回饋、問卷、真實經歷與 AI 對話比較 Prediction vs. Observation，支持、矛盾和無關係的資料都應被保留。",ct:"研究與解釋聲明",cx:"ELOGENA 是一個探索性研究與自我理解系統。Birth Coordinate Codes（BCC）依據出生日期，透過固定的數學、曆法及自然週期規則生成。目前從 BCC 到行為或人格維度的映射屬於實驗性研究假設，尚未被科學驗證為能夠預測人格的方法。結果不構成心理診斷或專業評估，也不用於確定人格、能力、未來結果或命運。使用者的真實經歷與本人回饋始終優先於初始座標假設。"
+  title:"How ELOGENA Works · ELOGENA 如何工作",
+  intro:"ELOGENA 使用固定、可重複的計算框架，把出生資訊轉換為數學時間座標，並在此基礎上形成一個等待驗證的初始假設。",
+  open:"查看研究與解釋說明 →",close:"收起說明 ↑",
+  lead:"座標資料來自確定性計算；座標與人格或行為之間的關係仍屬於實驗性研究問題。使用者的真實經歷、反例和本人回饋始終優先於初始假設。",
+  ct:"Research & Interpretation Notice · 研究與解釋聲明",
+  cx:"ELOGENA 是探索性研究與自我理解系統。結果不構成心理診斷或專業評估，也不決定人格、能力、未來結果或命運。部分計算方法、參數與模型架構屬於 ELOGENA 專有研究與產品方法，不在公開產品頁面披露。"
  }
-}
+};
 function renderMethodology(){
  const m=METHOD_I18N[(window.ELOGENA_LANG&&window.ELOGENA_LANG())||"zh"]||METHOD_I18N.zh;
- const ids={methodTitle:m.title,methodIntro:m.intro,methodLead:m.lead,methodFlow:m.flow,m1h:m.h1,m1p:m.p1,m2h:m.h2,m2p:m.p2,m3h:m.h3,m3p:m.p3,m4h:m.h4,m4p:m.p4,m5h:m.h5,m5p:m.p5,m6h:m.h6,m6p:m.p6,m7h:m.h7,m7p:m.p7,m8h:m.h8,m8p:m.p8,methodResearchTitle:m.rt,methodKnown:m.known,methodUnknown:m.unknown,methodQuestion:m.question,complianceTitle:m.ct,complianceText:m.cx};
+ const ids={methodTitle:m.title,methodIntro:m.intro,methodLead:m.lead,complianceTitle:m.ct,complianceText:m.cx};
  for(const [id,val] of Object.entries(ids)){const el=document.getElementById(id);if(el)el.textContent=val}
  const p=document.getElementById("methodPanel"),b=document.getElementById("methodToggle");
  if(b)b.textContent=p&&p.classList.contains("open")?m.close:m.open;
 }
 
 const I18N={
- zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"Initial Human Coordinates · 初始人类坐标",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维初始人格坐标（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待验证的优势倾向",risksTitle:"待验证的潜在代价",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
- en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / trade-offs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Initial Human Coordinates · Exploratory Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Initial Human Coordinates (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Strength Tendencies to Validate",risksTitle:"Trade-offs to Validate",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
- zht:{title:"出生宇宙座標",sub:"輸入生日 → 自動計算 BCC → 九維座標 → 優勢 / 潛在代價 → 雷達圖",date:"公曆出生日期",gen:"生成圖譜",profile:"Initial Human Coordinates · 初始人類座標",heroCn:"從你的出生座標開始，透過持續交流，逐漸理解真實的你。座標是起點，不是定義。",radarTitle:"九維初始人格座標（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/目前無明確方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待驗證的優勢傾向",risksTitle:"待驗證的潛在代價",coreTitle:"核心人格模式",strengthV03Title:"優勢傾向",tradeoffV03Title:"潛在代價",growthV03Title:"成長方向",personaCodeTitle:"Initial Persona Code",personaNote:"這是基於出生資訊生成的探索性初始模型，不是確定的人格結論。未來可透過使用者主動回饋、問卷與 AI 交流持續驗證和修正，形成 Living Profile。",reportFooter:"說明：BCC 為出生日期的數學、曆法與自然週期編碼。九維人格部分目前是研究性映射，不是心理診斷，也不代表固定人格或命運。正式研究需要獨立訓練、盲測和複製驗證。",print:"儲存 / 列印 PDF",aiText:"讓 ELOGENA 從你的初始座標開始認識你。座標是最初的假設，真實的你會透過交流、興趣、經歷與反例逐漸被理解。",freeNote:"目前為臨時會話模式：無需會員，聊天與理解記錄僅保留在目前頁面會話中；重新整理頁面後清空。",chatSub:"先理解 · 再鼓勵 · 謹慎解釋 · 不做評判",close:"關閉",input:"想聊什麼都可以……",send:"發送",thinking:"思考中…",privacy:"ELOGENA 的出生座標是探索性初始假設，不是人格結論。目前版本不提供長期雲端記憶；AI 的理解會在本次頁面會話中逐漸累積。",intro:"這是我根據你的出生座標形成的第一印象，但它只是一個等待驗證的起點。我還不了解真正的你。\n\n不用把這裡當成人格測試。你可以從任何你現在想聊的事情開始。",need:"請先輸入生日並生成你的初始座標。",fail:"暫時沒有連接上 ELOGENA。請稍後再試。"}
+ zh:{title:"Human Coordinates",sub:"从出生时间点开始 · 发现你的初始坐标",date:"出生日期",gen:"Discover My Coordinates",profile:"Initial Human Coordinates · 初始人类坐标",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维初始人格坐标（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待验证的优势倾向",risksTitle:"待验证的潜在代价",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
+ en:{title:"Human Coordinates",sub:"Begin with a moment in time · discover your initial coordinates",date:"Date of birth",gen:"Discover My Coordinates",profile:"Initial Human Coordinates · Exploratory Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Initial Human Coordinates (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Strength Tendencies to Validate",risksTitle:"Trade-offs to Validate",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
+ zht:{title:"Human Coordinates",sub:"從出生時間點開始 · 發現你的初始座標",date:"出生日期",gen:"Discover My Coordinates",profile:"Initial Human Coordinates · 初始人類座標",heroCn:"從你的出生座標開始，透過持續交流，逐漸理解真實的你。座標是起點，不是定義。",radarTitle:"九維初始人格座標（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/目前無明確方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"待驗證的優勢傾向",risksTitle:"待驗證的潛在代價",coreTitle:"核心人格模式",strengthV03Title:"優勢傾向",tradeoffV03Title:"潛在代價",growthV03Title:"成長方向",personaCodeTitle:"Initial Persona Code",personaNote:"這是基於出生資訊生成的探索性初始模型，不是確定的人格結論。未來可透過使用者主動回饋、問卷與 AI 交流持續驗證和修正，形成 Living Profile。",reportFooter:"說明：BCC 為出生日期的數學、曆法與自然週期編碼。九維人格部分目前是研究性映射，不是心理診斷，也不代表固定人格或命運。正式研究需要獨立訓練、盲測和複製驗證。",print:"儲存 / 列印 PDF",aiText:"讓 ELOGENA 從你的初始座標開始認識你。座標是最初的假設，真實的你會透過交流、興趣、經歷與反例逐漸被理解。",freeNote:"目前為臨時會話模式：無需會員，聊天與理解記錄僅保留在目前頁面會話中；重新整理頁面後清空。",chatSub:"先理解 · 再鼓勵 · 謹慎解釋 · 不做評判",close:"關閉",input:"想聊什麼都可以……",send:"發送",thinking:"思考中…",privacy:"ELOGENA 的出生座標是探索性初始假設，不是人格結論。目前版本不提供長期雲端記憶；AI 的理解會在本次頁面會話中逐漸累積。",intro:"這是我根據你的出生座標形成的第一印象，但它只是一個等待驗證的起點。我還不了解真正的你。\n\n不用把這裡當成人格測試。你可以從任何你現在想聊的事情開始。",need:"請先輸入生日並生成你的初始座標。",fail:"暫時沒有連接上 ELOGENA。請稍後再試。"}
 };
 function elogenaLang(){return localStorage.getItem("elogena_lang")||"zh"}
 window.ELOGENA_LANG=elogenaLang;
@@ -780,55 +982,79 @@ function setLang(lang){
 }
 window.addEventListener("DOMContentLoaded",()=>{
  setLang(elogenaLang());
- const b=document.getElementById("methodToggle"),p=document.getElementById("methodPanel");
- if(b&&p)b.addEventListener("click",()=>{p.classList.toggle("open");renderMethodology();});
+ /* V0.8 methodology toggle is handled by the product UX layer. */
 });
 </script>
 
 
-<section class="methodology-entry" id="methodology">
-  <div class="methodology-card">
-    <h2 id="methodTitle">How are your coordinates formed?</h2>
-    <p id="methodIntro">ELOGENA first converts a birth date into reproducible mathematical, calendrical and natural-cycle coordinates. The personality layer is an exploratory hypothesis built on top of those coordinates—not a proven conclusion.</p>
-    <button class="methodology-btn" id="methodToggle" type="button">查看坐标形成原理 · Methodology →</button>
 
-    <div class="methodology-panel" id="methodPanel">
-      <p class="methodology-lead" id="methodLead"></p>
-      <div class="methodology-flow" id="methodFlow"></div>
-
-      <div class="methodology-grid">
-        <div class="methodology-item"><h3 id="m1h"></h3><div class="methodology-formula">t → J</div><p id="m1p"></p></div>
-        <div class="methodology-item"><h3 id="m2h"></h3><div class="methodology-formula">P6 = J mod 6 · P7 = J mod 7</div><p id="m2p"></p></div>
-        <div class="methodology-item"><h3 id="m3h"></h3><div class="methodology-formula">LCM(6,7) = 42 · P42 ↔ (P6,P7)</div><p id="m3p"></p></div>
-        <div class="methodology-item"><h3 id="m4h"></h3><div class="methodology-formula">G60 = J mod 60 · LCM(42,60) = 420</div><p id="m4p"></p></div>
-        <div class="methodology-item"><h3 id="m5h"></h3><div class="methodology-formula">P6 = G60 mod 6 → remove redundant P6 / P42 / P420</div><p id="m5p"></p></div>
-        <div class="methodology-item"><h3 id="m6h"></h3><div class="methodology-formula">BCC = (B9, P7, G60, SolarPhase, LunarPhase)</div><p id="m6p"></p></div>
-        <div class="methodology-item"><h3 id="m7h"></h3><div class="methodology-formula">[cos(2πθ), sin(2πθ)]</div><p id="m7p"></p></div>
-        <div class="methodology-item"><h3 id="m8h"></h3><div class="methodology-formula">HTP = W · F(t) → [-2, +2]</div><p id="m8p"></p></div>
-      </div>
-
-      <div class="methodology-research">
-        <strong id="methodResearchTitle"></strong>
-        <p id="methodKnown"></p>
-        <p id="methodUnknown"></p>
-        <p id="methodQuestion"></p>
-      </div>
-      <div class="methodology-research" style="margin-top:12px">
-        <strong id="complianceTitle">研究与解释声明</strong>
-        <p id="complianceText">ELOGENA 是一个探索性研究与自我理解系统。Birth Coordinate Codes（BCC）依据出生日期，通过固定的数学、历法及自然周期规则生成。目前从 BCC 到行为或人格维度的映射属于实验性研究假设，尚未被科学验证为能够预测人格的方法。结果不构成心理诊断或专业评估，也不用于确定人格、能力、未来结果或命运。用户的真实经历与本人反馈始终优先于初始坐标假设。</p>
-      </div>
-
+<section class="public-method" id="methodology">
+  <div class="public-method-card">
+    <div class="v08-eyebrow">A COORDINATE, NOT A CONCLUSION</div>
+    <h2 id="methodTitle">How ELOGENA Works · ELOGENA 如何工作</h2>
+    <p id="methodIntro">ELOGENA 使用固定、可重复的计算框架，把出生信息转换为数学时间坐标，并在此基础上形成一个等待验证的初始假设。</p>
+    <button class="v08-verify-toggle" id="methodToggle" type="button">查看研究与解释说明 →</button>
+    <div class="verification-note" id="methodPanel">
+      <p id="methodLead"></p>
+      <strong id="complianceTitle">Research & Interpretation Notice · 研究与解释声明</strong>
+      <p id="complianceText"></p>
+      <span class="public-method-pill">Certain computational methods and parameters are proprietary to ELOGENA.</span>
     </div>
   </div>
 </section>
 
-<section class="ai-entry" id="ai-entry">
-  <div class="ai-entry-card">
-    <div class="ai-entry-kicker" id="aiKicker">Coordinates are only the beginning</div>
-    <h2 id="aiEntryTitle">Talk to ELOGENA</h2>
-    <p id="aiEntryText">让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。</p>
-    <button class="ai-btn" id="tryAI" type="button">Talk to ELOGENA →</button>
-    <p class="free-note" id="freeNote">当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。</p>
+<section class="origin-entry" id="origin">
+  <div class="origin-card">
+    <div class="origin-head">
+      <div class="origin-optional">OPTIONAL · RESEARCH V2 LAYER</div>
+      <h2>Your Origin · 你的原生坐标</h2>
+      <p>加入父母的出生日期，不只是查看“距离”。你可以看到父母各自的 Initial Coordinates，并和你的九维坐标放在同一套视觉里比较。这里表达的是三个人各自的起始坐标结构，不代表谁更好，也不代表亲密度或匹配度。</p>
+      <div class="origin-meaning"><strong>What is this for?</strong><br>
+      Origin 让你把“我从哪里开始”放进家庭时间背景里看：先看 YOU / MUM / DAD 各自的九维 Initial Coordinates，再看四个时间相位的相对位置。它帮助用户观察结构差异与相似处，但不自动解释成家庭关系结论。</div>
+    </div>
+
+    <div class="origin-inputs">
+      <div class="origin-input">
+        <label for="mumDate">Mum's Date of Birth · 妈妈生日</label>
+        <input type="date" id="mumDate" min="1800-01-01" max="2100-12-31">
+        <button type="button" id="addMum">Add / Update Mum</button>
+      </div>
+      <div class="origin-input">
+        <label for="dadDate">Dad's Date of Birth · 爸爸生日</label>
+        <input type="date" id="dadDate" min="1800-01-01" max="2100-12-31">
+        <button type="button" id="addDad">Add / Update Dad</button>
+      </div>
+    </div>
+
+    <div class="origin-constellation" aria-label="Origin Constellation">
+      <div class="origin-line mum"></div>
+      <div class="origin-line dad"></div>
+      <button class="origin-node mum empty" id="mumNode" type="button"><span class="star"></span><span>MUM<br><small id="mumNodeDate">Add Mum</small></span></button>
+      <button class="origin-node dad empty" id="dadNode" type="button"><span class="star"></span><span>DAD<br><small id="dadNodeDate">Add Dad</small></span></button>
+      <div class="origin-node you"><span class="star"></span><span>YOU<br><small id="youNodeDate">Generate Self</small></span></div>
+    </div>
+<div class="parent-compare" id="parentCompare">
+      <div class="parent-compare-head">
+        <h3 id="parentCompareTitle">9D Initial Coordinate Comparison</h3>
+        <p>同一套冻结模型、同一套九维结构。比较的是各自的 Initial Coordinates，不是兼容度或关系评分。</p>
+      </div>
+      <div class="parent-radar-grid" id="parentRadarGrid"></div>
+      <div class="overlay-card" id="overlayCard" style="display:none">
+        <h4>YOU / MUM / DAD · Overlay</h4>
+        <canvas id="originOverlayCanvas" width="520" height="420"></canvas>
+        <div class="parent-radar-note">叠加图只用于观察九维坐标结构差异，不代表谁更像谁、更亲近或更匹配。</div>
+      </div>
+    </div>
+
+    <div class="relative-panel" id="relativePanel">
+      <div class="relative-title" id="relativeTitle">YOU ↔ MUM</div>
+      <div class="relative-sub">Relative Coordinate Signature · 双轨只表达数学位置与循环距离，不表达关系好坏。</div>
+      <div id="relativeTracks"></div>
+      <div class="origin-notice">
+        These coordinates describe mathematical relationships between birth-time coordinates. They do not measure personality similarity, compatibility, emotional closeness or relationship quality.<br>
+        这些坐标描述的是出生时间坐标之间的数学关系，不用于衡量人格相似度、匹配度、情感亲近程度或关系质量。
+      </div>
+    </div>
   </div>
 </section>
 
@@ -965,6 +1191,268 @@ window.addEventListener("DOMContentLoaded",()=>{
 </script>
 
 
+
+<script>
+/* ELOGENA V0.8 Product UX Layer
+   No frozen coordinate-engine formulas or W weights are modified here. */
+(function(){
+  const q=id=>document.getElementById(id);
+
+  // Verification
+  q("verifyToggle")?.addEventListener("click",()=>{
+    q("verificationData")?.classList.toggle("open");
+    q("verificationNote")?.classList.toggle("open");
+    const open=q("verificationData")?.classList.contains("open");
+    q("verifyToggle").textContent=open?"Hide Coordinate Data ↑":"View Coordinate Data →";
+  });
+
+  // Questions to Explore: explicit feedback only; does not change Initial Coordinates.
+  const questions={
+    D:"当一个目标对你非常重要、而且方向已经明确时，你通常会更容易马上行动吗？",
+    C:"面对比较、挑战或竞争时，你通常会更有动力，还是反而会失去兴趣？",
+    P:"一个需要很长时间才能看到结果的目标，你通常会持续推进，还是更看重阶段性的反馈？",
+    I:"当一件重要的事情需要决定时，你通常更喜欢自己做最终判断吗？",
+    O:"遇到一个完全陌生的领域时，你通常会主动探索，还是更愿意留在熟悉的方法里？",
+    E:"有重要想法或情绪时，你通常会直接表达出来，还是需要较长时间整理后再说？",
+    S:"做重要选择时，对别人或更长期意义的影响会不会明显进入你的考虑？",
+    R:"面对不确定但可能有价值的机会时，你通常愿意先尝试，还是更希望信息充分后再行动？",
+    T:"遇到复杂问题时，你通常会先找结构和因果关系，还是先凭直觉处理最眼前的问题？"
+  };
+  function updateExploreFromResult(r){
+    if(!r||!r.scores)return;
+    const top=Object.entries(r.scores).sort((a,b)=>b[1]-a[1])[0];
+    const key=top?.[0]||"D";
+    q("exploreQuestion").textContent=questions[key]||questions.D;
+    q("exploreCard").dataset.dimension=key;
+    q("exploreFeedback").textContent="";
+  }
+  window.ELOGENA_V08_EXPLORE=updateExploreFromResult;
+  document.querySelectorAll("[data-explore]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const v=btn.dataset.explore;
+      const text=v==="yes"
+        ?"收到。这只是你对这个初始假设的反馈，不会被当成“人格已证实”。如果愿意，可以在 Talk to ELOGENA 里讲一个真实例子。"
+        :v==="sometimes"
+        ?"收到。情境差异本身就是有价值的信息。可以在 Talk to ELOGENA 里讲讲什么时候像、什么时候不像。"
+        :"收到。反例和不符合一样重要，ELOGENA 不会要求你去符合初始坐标。";
+      q("exploreFeedback").textContent=text;
+    });
+  });
+
+  // Origin: independent Research V2 relative-coordinate visualizer.
+  const DAY=86400000, SYN=29.53058885, REF=Date.UTC(2000,0,6,18,14);
+  const mod=(n,m)=>((n%m)+m)%m;
+  function parseDate(v){
+    const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(v||"");
+    if(!m)return null;
+    const y=+m[1],mo=+m[2],d=+m[3],ms=Date.UTC(y,mo-1,d),dt=new Date(ms);
+    if(dt.getUTCFullYear()!=y||dt.getUTCMonth()!=mo-1||dt.getUTCDate()!=d)return null;
+    return {y,mo,d,ms,label:v};
+  }
+  function phaseRecord(v){
+    const o=parseDate(v); if(!o)return null;
+    const J=Math.round(o.ms/DAY)+719162;
+    const doy=Math.floor((o.ms-Date.UTC(o.y,0,1))/DAY)+1;
+    return {
+      label:o.label,
+      p7:mod(J,7)/7,
+      g60:mod(J+15,60)/60,
+      solar:mod((doy-1)/365.2422,1),
+      lunar:mod(((o.ms+DAY/2-REF)/DAY)/SYN,1)
+    };
+  }
+  function signedDelta(a,b){
+    let d=mod(a-b+.5,1)-.5;
+    if(d===-.5)d=.5;
+    return d;
+  }
+  function circDist(a,b){return Math.abs(signedDelta(a,b))}
+  const origin={mum:null,dad:null};
+  function selfRecord(){
+    const d=q("date")?.value;
+    return d?phaseRecord(d):null;
+  }
+  function frozenProfile(v){
+    const o=parseDate(v); if(!o)return null;
+    return {date:v,result:calc(o)};
+  }
+  function drawRadar(canvas, scoreObj, labels, lineWidth=2){
+    if(!canvas||!scoreObj)return;
+    const ctx=canvas.getContext("2d"), W=canvas.width, H=canvas.height, cx=W/2, cy=H/2+8, R=Math.min(W,H)*0.34;
+    ctx.clearRect(0,0,W,H);
+    const keys=["D","C","P","I","O","E","S","R","T"], n=keys.length;
+    ctx.font="12px Arial";ctx.textAlign="center";ctx.textBaseline="middle";
+    // grid
+    for(let ring=1;ring<=4;ring++){
+      ctx.beginPath();
+      for(let i=0;i<n;i++){
+        const a=-Math.PI/2+i*2*Math.PI/n, rr=R*ring/4;
+        const x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;
+        i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      }
+      ctx.closePath();ctx.strokeStyle="rgba(215,225,238,.14)";ctx.lineWidth=1;ctx.stroke();
+    }
+    // axes + labels
+    keys.forEach((k,i)=>{
+      const a=-Math.PI/2+i*2*Math.PI/n;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);
+      ctx.strokeStyle="rgba(215,225,238,.12)";ctx.stroke();
+      const lx=cx+Math.cos(a)*(R+24),ly=cy+Math.sin(a)*(R+24);
+      ctx.fillStyle="rgba(225,233,244,.78)";ctx.fillText(k,lx,ly);
+    });
+    // data
+    ctx.beginPath();
+    keys.forEach((k,i)=>{
+      const a=-Math.PI/2+i*2*Math.PI/n;
+      const v=Math.max(-2,Math.min(2,scoreObj[k]||0));
+      const rr=R*((v+2)/4); // keep same -2..2 geometry as product radar
+      const x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    });
+    ctx.closePath();ctx.strokeStyle="rgba(235,241,249,.9)";ctx.lineWidth=lineWidth;ctx.stroke();
+    ctx.fillStyle="rgba(220,230,245,.055)";ctx.fill();
+  }
+  function drawOverlay(canvas, profiles){
+    if(!canvas)return;
+    const ctx=canvas.getContext("2d"), W=canvas.width, H=canvas.height, cx=W/2, cy=H/2+8, R=Math.min(W,H)*0.34;
+    ctx.clearRect(0,0,W,H);
+    const keys=["D","C","P","I","O","E","S","R","T"], n=keys.length;
+    ctx.font="12px Arial";ctx.textAlign="center";ctx.textBaseline="middle";
+    for(let ring=1;ring<=4;ring++){
+      ctx.beginPath();
+      keys.forEach((k,i)=>{
+        const a=-Math.PI/2+i*2*Math.PI/n, rr=R*ring/4;
+        const x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;
+        i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      });
+      ctx.closePath();ctx.strokeStyle="rgba(215,225,238,.12)";ctx.stroke();
+    }
+    keys.forEach((k,i)=>{
+      const a=-Math.PI/2+i*2*Math.PI/n;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);
+      ctx.strokeStyle="rgba(215,225,238,.10)";ctx.stroke();
+      ctx.fillStyle="rgba(225,233,244,.78)";
+      ctx.fillText(k,cx+Math.cos(a)*(R+24),cy+Math.sin(a)*(R+24));
+    });
+    const strokes=[
+      "rgba(245,248,252,.95)",
+      "rgba(200,190,235,.92)",
+      "rgba(155,170,195,.92)"
+    ];
+    profiles.forEach((p,pi)=>{
+      ctx.beginPath();
+      keys.forEach((k,i)=>{
+        const a=-Math.PI/2+i*2*Math.PI/n;
+        const v=Math.max(-2,Math.min(2,p.result.scores[k]||0));
+        const rr=R*((v+2)/4);
+        const x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;
+        i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      });
+      ctx.closePath();ctx.strokeStyle=strokes[pi%strokes.length];ctx.lineWidth=2;ctx.stroke();
+    });
+    // legend
+    ctx.textAlign="left";ctx.font="11px Arial";
+    profiles.forEach((p,pi)=>{
+      ctx.strokeStyle=strokes[pi%strokes.length];ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(18,18+pi*18);ctx.lineTo(42,18+pi*18);ctx.stroke();
+      ctx.fillStyle="rgba(225,233,244,.85)";ctx.fillText(p.name,48,18+pi*18);
+    });
+  }
+  function render9DCompare(mode){
+    const self=frozenProfile(q("date")?.value);
+    if(!self)return alert("请先生成你的 Initial Coordinates。");
+    const mum=origin.mum?frozenProfile(origin.mum.label):null;
+    const dad=origin.dad?frozenProfile(origin.dad.label):null;
+    let profiles=[];
+    if(mode==="mum"){
+      if(!mum)return alert("请先加入妈妈生日。");
+      profiles=[{name:"YOU",...self},{name:"MUM",...mum}];
+    }else if(mode==="dad"){
+      if(!dad)return alert("请先加入爸爸生日。");
+      profiles=[{name:"YOU",...self},{name:"DAD",...dad}];
+    }else{
+      if(!mum&&!dad)return alert("请至少加入一位父母的生日。");
+      profiles=[{name:"YOU",...self}];
+      if(mum)profiles.push({name:"MUM",...mum});
+      if(dad)profiles.push({name:"DAD",...dad});
+    }
+    const panel=q("parentCompare"), grid=q("parentRadarGrid"), overlay=q("overlayCard");
+    panel.classList.add("open");
+    q("parentCompareTitle").textContent=mode==="mum"?"YOU ↔ MUM · 9D Initial Coordinates":mode==="dad"?"YOU ↔ DAD · 9D Initial Coordinates":"YOU / MUM / DAD · 9D Initial Coordinates";
+    grid.innerHTML=profiles.map((p,i)=>`<div class="parent-radar-card">
+      <h4>${p.name} · ${p.date}</h4>
+      <canvas id="parentRadar_${i}" width="360" height="330"></canvas>
+      <div class="parent-radar-note">Initial Coordinates · V0.6-FROZEN-01</div>
+    </div>`).join("");
+    profiles.forEach((p,i)=>drawRadar(q(`parentRadar_${i}`),p.result.scores));
+    if(profiles.length>1){
+      overlay.style.display="block";
+      drawOverlay(q("originOverlayCanvas"),profiles);
+    }else overlay.style.display="none";
+    panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  function setNode(role, rec){
+    const node=q(role+"Node"), txt=q(role+"NodeDate");
+    if(!node||!txt)return;
+    if(rec){node.classList.remove("empty");txt.textContent=rec.label}
+    else{node.classList.add("empty");txt.textContent=role==="mum"?"Add Mum":"Add Dad"}
+  }
+  function updateSelfNode(){
+    const s=selfRecord();
+    if(q("youNodeDate"))q("youNodeDate").textContent=s?s.label:"Generate Self";
+  }
+  function dotPct(v){return Math.max(0,Math.min(100,v*100))}
+  function renderRelative(role){
+    const self=selfRecord(), other=origin[role];
+    if(!self||!other){
+      alert(!self?"请先生成你的 Initial Coordinates。":"请先加入这个人的生日。");
+      return;
+    }
+    const name=role==="mum"?"MUM":"DAD";
+    q("relativeTitle").textContent=`YOU ↔ ${name}`;
+    const tracks=[
+      ["7-Day Phase","p7"],
+      ["60-Step Phase","g60"],
+      ["Solar Phase","solar"],
+      ["Lunar Phase","lunar"]
+    ];
+    q("relativeTracks").innerHTML=tracks.map(([label,key])=>{
+      const d=circDist(self[key],other[key]);
+      return `<div class="track">
+        <div class="track-head"><span>${label}</span><span class="track-distance">Circular distance ${d.toFixed(3)}</span></div>
+        <div class="track-row yourow"><span>YOU</span><div class="track-line"><i class="track-dot" style="left:${dotPct(self[key]).toFixed(2)}%"></i></div></div>
+        <div class="track-row"><span>${name}</span><div class="track-line"><i class="track-dot" style="left:${dotPct(other[key]).toFixed(2)}%"></i></div></div>
+      </div>`;
+    }).join("");
+    q("relativePanel").classList.add("open");
+    q("relativePanel").scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  q("addMum")?.addEventListener("click",()=>{
+    const rec=phaseRecord(q("mumDate").value);
+    if(!rec)return alert("请输入有效的妈妈出生日期。");
+    origin.mum=rec;setNode("mum",rec);renderRelative("mum");
+  });
+  q("addDad")?.addEventListener("click",()=>{
+    const rec=phaseRecord(q("dadDate").value);
+    if(!rec)return alert("请输入有效的爸爸出生日期。");
+    origin.dad=rec;setNode("dad",rec);renderRelative("dad");
+  });
+  q("mumNode")?.addEventListener("click",()=>renderRelative("mum"));
+  q("dadNode")?.addEventListener("click",()=>renderRelative("dad"));
+  q("form")?.addEventListener("submit",()=>setTimeout(updateSelfNode,0));
+  updateSelfNode();
+
+  // Public methodology toggle
+  q("methodToggle")?.addEventListener("click",()=>{
+    const p=q("methodPanel");
+    p?.classList.toggle("open");
+    if(window.renderMethodology)window.renderMethodology();
+  });
+})();
+</script>
+
 <script>
 /* ELOGENA Live AI Integration V0.7
    IMPORTANT: This script reads the already-rendered frozen profile.
@@ -980,6 +1468,64 @@ window.addEventListener("DOMContentLoaded",()=>{
   let understandingHistory = [];
   let busy = false;
 
+  function esc(v){
+    return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function learningLabel(x){
+    const strength=String(x?.evidence_strength||"").toLowerCase();
+    if(strength==="strong"||strength==="high") return "Pattern supported";
+    return "Still exploring";
+  }
+
+  function renderLearning(){
+    const list=q("learningList"), empty=q("learningEmpty");
+    if(!list||!empty)return;
+    const items=understandingHistory.filter(x=>x&&x.worth_remembering===true).slice(-5).reverse();
+    empty.style.display=items.length?"none":"block";
+    list.innerHTML=items.map((x,revIndex)=>{
+      const index=understandingHistory.length-1-revIndex;
+      const type=String(x.type||"observation").replace(/_/g," ");
+      const obs=String(x.observation||"").trim();
+      const reason=String(x.reason||"").trim();
+      const feedback=String(x.user_feedback||"");
+      const feedbackText=feedback==="confirmed"?"Feels right":feedback==="partly"?"Partly":feedback==="rejected"?"Not me":"";
+      return `<div class="learning-item" data-learning-index="${index}">
+        <div class="learning-type">ELOGENA NOTICED · ${esc(type)}</div>
+        <div class="learning-observation">${esc(obs||"A grounded observation from this conversation.")}</div>
+        <div class="learning-source">${esc(learningLabel(x))}${reason?" · "+esc(reason):""}</div>
+        <div class="learning-feedback" aria-label="Feedback on this observation">
+          <button type="button" data-feedback="confirmed" class="learning-feedback-btn${feedback==="confirmed"?" active":""}">Feels right</button>
+          <button type="button" data-feedback="partly" class="learning-feedback-btn${feedback==="partly"?" active":""}">Partly</button>
+          <button type="button" data-feedback="rejected" class="learning-feedback-btn${feedback==="rejected"?" active":""}">Not me</button>
+        </div>
+        ${feedbackText?`<div class="learning-feedback-note">Your feedback: ${esc(feedbackText)} · kept as a correction signal for this session.</div>`:""}
+      </div>`;
+    }).join("");
+  }
+
+  q("learningList")?.addEventListener("click",e=>{
+    const btn=e.target.closest("[data-feedback]");
+    if(!btn)return;
+    const card=btn.closest("[data-learning-index]");
+    const index=Number(card?.dataset.learningIndex);
+    const item=understandingHistory[index];
+    if(!item)return;
+    item.user_feedback=btn.dataset.feedback;
+    item.feedback_timestamp=new Date().toISOString();
+    if(item.user_feedback==="partly") item.revision_status="context_split_required";
+    if(item.user_feedback==="rejected") item.revision_status="rejected_not_counter_evidence";
+    if(item.user_feedback==="confirmed") item.revision_status="user_confirmed_interpretation";
+    renderLearning();
+    if(status){
+      status.textContent=item.user_feedback==="partly"
+        ?"收到：这条理解只部分成立。可以继续聊聊哪些情境像、哪些不像。"
+        :item.user_feedback==="rejected"
+          ?"收到：这是一条修正，不会被自动当成相反人格证据。"
+          :"收到：你的确认会作为验证信号，但不会凭空制造行为证据。";
+    }
+  });
+
   function profileReady(){
     const date=q("date");
     return !!(date && date.value && document.body.classList.contains("has-profile"));
@@ -988,8 +1534,8 @@ window.addEventListener("DOMContentLoaded",()=>{
   function getInitialProfile(){
     if(!profileReady()) return "";
     const date=q("date").value;
-    const codes=q("codes")?.innerText?.replace(/\s+/g," ").trim() || "";
-    const birth=q("birthinfo")?.innerText?.replace(/\s+/g," ").trim() || "";
+    const codes=q("codes")?.textContent?.replace(/\s+/g," ").trim() || "";
+    const birth=q("birthinfo")?.textContent?.replace(/\s+/g," ").trim() || "";
     const persona=q("personaCodeV03")?.innerText?.trim() || "";
     const core=q("corePattern")?.innerText?.trim() || "";
     const strengths=q("strengthV03")?.innerText?.trim() || "";
@@ -1087,6 +1633,7 @@ window.addEventListener("DOMContentLoaded",()=>{
       if(data.understanding && data.understanding.worth_remembering===true){
         understandingHistory.push(data.understanding);
         understandingHistory=understandingHistory.slice(-40);
+        renderLearning();
       }
 
       status.textContent="ELOGENA V0.4 · 本次会话已形成 "+understandingHistory.length+" 条可保留理解";
@@ -1116,9 +1663,43 @@ window.addEventListener("DOMContentLoaded",()=>{
     understandingHistory=[];
     if(messages) messages.innerHTML="";
     if(status) status.textContent="Initial Profile 已更新 · 新会话";
+    renderLearning();
   });
 })();
 </script>
+
+
+<section class="ai-entry" id="ai-entry">
+  <div class="ai-entry-card">
+    <div class="ai-entry-kicker" id="aiKicker">Coordinates are only the beginning</div>
+    <h2 id="aiEntryTitle">Talk to ELOGENA</h2>
+    <p id="aiEntryText">让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。</p>
+    <button class="ai-btn" id="tryAI" type="button">Talk to ELOGENA →</button>
+    <p class="free-note" id="freeNote">当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。</p>
+    <div class="learning-panel" id="learningPanel">
+      <div class="learning-title">What ELOGENA Is Learning</div>
+      <div class="learning-sub">Selective, grounded observations may appear here. You can confirm, qualify, or correct them. This is not a permanent profile.</div>
+      <div class="learning-empty" id="learningEmpty">Still getting to know you · 还没有足够的真实证据。正常聊天不需要每句话都被分析。</div>
+      <div class="learning-list" id="learningList"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="origin-entry" id="journeyPreview">
+  <div class="origin-card">
+    <div class="origin-head">
+      <div class="origin-optional">FUTURE MEMBER LAYER</div>
+      <h2>ELOGENA Journey</h2>
+      <p>未来会员可保留带日期的 Living Coordinate Snapshots：看到 ELOGENA 的理解什么时候改变、依据什么证据改变，以及你曾经如何纠正它。Initial Coordinates 永远不会被这些快照覆盖。</p>
+    </div>
+    <div class="origin-notice" style="max-width:720px;margin:16px auto 0">
+      Initial Coordinates are immutable. Living Understanding is revisable.<br>
+      初始坐标不可被聊天修改；对你的理解永远可以被修正。
+    </div>
+  </div>
+</section>
 
 </body>
 </html>
