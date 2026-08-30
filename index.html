@@ -509,6 +509,29 @@ input[type="date"]{
 }
 </style>
 
+
+<style>
+/* ELOGENA Methodology Brief — UI/content only */
+.methodology-entry{max-width:1060px;margin:10px auto 28px;padding:0 18px}
+.methodology-card{padding:20px;border:1px solid rgba(211,207,218,.18);border-radius:17px;background:linear-gradient(145deg,rgba(15,16,22,.82),rgba(8,9,14,.90))}
+.methodology-card h2{margin:0 0 7px;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:500;color:#e7e5e9}
+.methodology-card p{margin:0;color:#9996a1;font-size:12px;line-height:1.75}
+.methodology-btn{margin-top:14px}
+.methodology-panel{display:none;margin-top:14px;border-top:1px solid rgba(211,207,218,.13);padding-top:18px}
+.methodology-panel.open{display:block}
+.methodology-lead{max-width:820px;color:#c5c2ca!important;font-size:14px!important}
+.methodology-flow{margin:18px 0;padding:14px 16px;border:1px solid rgba(211,207,218,.15);border-radius:13px;text-align:center;color:#ddd9e1;font-family:Georgia,"Times New Roman",serif;line-height:1.8;background:rgba(5,7,11,.55)}
+.methodology-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.methodology-item{padding:15px;border:1px solid rgba(211,207,218,.14);border-radius:13px;background:rgba(9,10,15,.60)}
+.methodology-item h3{margin:0 0 7px;color:#ddd9e1;font-size:14px}
+.methodology-item p{font-size:12px;line-height:1.72;color:#9996a1}
+.methodology-formula{margin:8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#c9c4d0;font-size:12px}
+.methodology-research{margin-top:12px;padding:16px;border-left:2px solid #9d94aa;background:rgba(17,16,23,.62);border-radius:0 12px 12px 0}
+.methodology-research strong{color:#e2dfe6}
+.methodology-research p{margin:5px 0;color:#aaa6b0}
+@media(max-width:720px){.methodology-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 
@@ -671,6 +694,62 @@ $('#print').addEventListener('click',()=>window.print());
 </script>
 
 <script>
+
+const METHOD_I18N={
+ zh:{
+  title:"你的坐标是怎么形成的？",
+  intro:"ELOGENA 首先把出生日期转换成可重复计算的数学、历法与自然周期坐标；人格层是在这些坐标之上的研究性假设，而不是已经被证明的结论。",
+  open:"查看坐标形成原理 · Methodology →", close:"收起原理说明 ↑",
+  lead:"ELOGENA 不是把生日直接等同于人格。第一步只是把出生日期 t 放到连续时间轴中，再从多个周期提取一组 Birth Coordinate Codes（BCC）。之后才使用固定的研究性映射生成 Initial Human Coordinates。",
+  flow:"出生日期 t → 时间位置 J → BCC 周期坐标 → 周期特征向量 F(t) → 固定映射 W → 九维初始坐标 HTP",
+  h1:"1 · 时间位置",p1:"出生日期先被转换为连续日序位置 J，使不同年代的日期能够进入同一个可重复计算的时间坐标系统。",
+  h2:"2 · BCC 出生坐标",p2:"当前冻结模型使用 B9 数字根、P7 七日周期、G60 六十周期、SolarPhase 太阳年相位与 LunarPhase 近似朔望相位。它们首先是编码变量，不等同于人格标签。G60 使用干支作为可读标签，但这不意味着模型在进行八字算命。",
+  h3:"3 · 周期向量化",p3:"周期的起点与终点彼此相邻，因此周期变量使用正弦与余弦表示。这样可以保留“循环”的几何结构，而不是把周期简单当作从小到大的直线数字。",
+  h4:"4 · 九维研究性投影",p4:"周期特征进入固定权重矩阵 W，并统一归一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九维雷达。当前 W 是冻结的研究性假设映射，不是已经由大规模心理学样本证明的人格模型。",
+  rt:"研究边界 · 什么已经确定，什么仍待验证？",
+  known:"✓ 已确定：出生日期 → BCC → 数学特征 → 九维分数的计算规则是固定、透明且可重复的。同一生日在同一版本中得到相同结果。",
+  unknown:"△ 尚未证明：BCC 与人格倾向之间是否存在稳定、可复制的统计关系。目前不能声称出生坐标已经被科学证明会导致某种人格。",
+  question:"ELOGENA 真正要检验的问题是：出生时间坐标中，是否存在能够跨样本重复出现、具有统计意义的人类行为倾向信息？因此 Initial Coordinates 是待验证的起点；用户的真实经历、反馈与持续对话拥有更高优先级。"
+ },
+ en:{
+  title:"How are your coordinates formed?",
+  intro:"ELOGENA first converts a birth date into reproducible mathematical, calendrical and natural-cycle coordinates. The personality layer is an exploratory hypothesis built on those coordinates—not a proven conclusion.",
+  open:"View Methodology →",close:"Hide Methodology ↑",
+  lead:"ELOGENA does not directly equate a birthday with personality. It first places birth date t on a continuous time axis and extracts a set of Birth Coordinate Codes (BCC). Only then does a fixed exploratory mapping generate the Initial Human Coordinates.",
+  flow:"Birth date t → Time position J → BCC cycle coordinates → Feature vector F(t) → Fixed mapping W → 9D initial HTP coordinates",
+  h1:"1 · Time Position",p1:"The birth date is converted into a continuous day index J so dates from different eras can enter the same reproducible time-coordinate system.",
+  h2:"2 · Birth Coordinate Codes",p2:"The frozen model uses B9 digital root, P7 seven-day cycle, G60 sixty-step cycle, SolarPhase and approximate LunarPhase. These are encoding variables first, not personality labels. G60 uses traditional stem-branch names as readable labels; this does not mean ELOGENA is performing fortune-telling.",
+  h3:"3 · Cycles as Vectors",p3:"Because the beginning and end of a cycle are adjacent, cyclic variables are represented with sine and cosine. This preserves circular geometry instead of treating a cycle as a simple linear number.",
+  h4:"4 · Exploratory 9D Projection",p4:"The cycle features pass through a fixed weight matrix W and are normalized to -2 through +2, producing the D/C/P/I/O/E/S/R/T radar. W is currently a frozen research-hypothesis mapping, not a personality model proven by large-scale psychological samples.",
+  rt:"Research boundary · What is established and what remains unproven?",
+  known:"✓ Established: the computational path from birth date → BCC → mathematical features → 9D scores is fixed, transparent and reproducible. The same date produces the same result in the same model version.",
+  unknown:"△ Not yet established: whether BCC has a stable, replicable statistical relationship with personality tendencies. ELOGENA cannot currently claim that birth coordinates are scientifically proven to cause or determine personality.",
+  question:"The research question is: do birth-time coordinates contain reproducible, statistically meaningful information about human behavioral tendencies across samples? Initial Coordinates are therefore a hypothesis to test; lived experience, feedback and ongoing conversation take priority."
+ },
+ zht:{
+  title:"你的座標是怎麼形成的？",
+  intro:"ELOGENA 首先把出生日期轉換成可重複計算的數學、曆法與自然週期座標；人格層是在這些座標之上的研究性假設，而不是已經被證明的結論。",
+  open:"查看座標形成原理 · Methodology →",close:"收起原理說明 ↑",
+  lead:"ELOGENA 不是把生日直接等同於人格。第一步只是把出生日期 t 放到連續時間軸中，再從多個週期提取一組 Birth Coordinate Codes（BCC）。之後才使用固定的研究性映射生成 Initial Human Coordinates。",
+  flow:"出生日期 t → 時間位置 J → BCC 週期座標 → 週期特徵向量 F(t) → 固定映射 W → 九維初始座標 HTP",
+  h1:"1 · 時間位置",p1:"出生日期先被轉換為連續日序位置 J，使不同年代的日期能夠進入同一個可重複計算的時間座標系統。",
+  h2:"2 · BCC 出生座標",p2:"目前凍結模型使用 B9 數字根、P7 七日週期、G60 六十週期、SolarPhase 太陽年相位與 LunarPhase 近似朔望相位。它們首先是編碼變量，不等同於人格標籤。G60 使用干支作為可讀標籤，但這不意味著模型在進行八字算命。",
+  h3:"3 · 週期向量化",p3:"週期的起點與終點彼此相鄰，因此週期變量使用正弦與餘弦表示。這樣可以保留循環的幾何結構，而不是把週期簡單當作直線數字。",
+  h4:"4 · 九維研究性投影",p4:"週期特徵進入固定權重矩陣 W，並統一歸一化到 -2 至 +2，形成 D/C/P/I/O/E/S/R/T 九維雷達。目前 W 是凍結的研究性假設映射，不是已由大規模心理學樣本證明的人格模型。",
+  rt:"研究邊界 · 什麼已經確定，什麼仍待驗證？",
+  known:"✓ 已確定：出生日期 → BCC → 數學特徵 → 九維分數的計算規則是固定、透明且可重複的。同一生日在同一版本中得到相同結果。",
+  unknown:"△ 尚未證明：BCC 與人格傾向之間是否存在穩定、可複製的統計關係。目前不能聲稱出生座標已被科學證明會導致某種人格。",
+  question:"ELOGENA 真正要檢驗的問題是：出生時間座標中，是否存在能夠跨樣本重複出現、具有統計意義的人類行為傾向資訊？因此 Initial Coordinates 是待驗證的起點；使用者的真實經歷、回饋與持續對話擁有更高優先級。"
+ }
+};
+function renderMethodology(){
+ const m=METHOD_I18N[(window.ELOGENA_LANG&&window.ELOGENA_LANG())||"zh"]||METHOD_I18N.zh;
+ const ids={methodTitle:m.title,methodIntro:m.intro,methodLead:m.lead,methodFlow:m.flow,m1h:m.h1,m1p:m.p1,m2h:m.h2,m2p:m.p2,m3h:m.h3,m3p:m.p3,m4h:m.h4,m4p:m.p4,methodResearchTitle:m.rt,methodKnown:m.known,methodUnknown:m.unknown,methodQuestion:m.question};
+ for(const [id,val] of Object.entries(ids)){const el=document.getElementById(id);if(el)el.textContent=val}
+ const p=document.getElementById("methodPanel"),b=document.getElementById("methodToggle");
+ if(b)b.textContent=p&&p.classList.contains("open")?m.close:m.open;
+}
+
 const I18N={
  zh:{title:"出生宇宙坐标",sub:"输入生日 → 自动计算 BCC → 九维坐标 → 优势 / 潜在代价 → 雷达图",date:"公历出生日期",gen:"生成图谱",profile:"生日宇宙密码与人格预测图",heroCn:"从你的出生坐标开始，通过持续交流，逐渐理解真实的你。坐标是起点，不是定义。",radarTitle:"九维人格预测雷达图（-2 ～ +2）",radarNote:"+2 = 很突出　+1 = 偏高　0 = 中性/当前无明确方向　-1 = 偏低　-2 = 不突出",strengthsTitle:"优势亮点（预测）",risksTitle:"潜在代价 / 缺点风险（预测）",coreTitle:"核心人格模式",strengthV03Title:"优势倾向",tradeoffV03Title:"潜在代价",growthV03Title:"成长方向",personaCodeTitle:"Initial Persona Code",personaNote:"这是基于出生信息生成的探索性初始模型，不是确定的人格结论。未来可通过用户主动反馈、问卷与 AI 交流持续验证和修正，形成 Living Profile。",reportFooter:"说明：BCC 为出生日期的数学、历法与自然周期编码。九维人格部分目前是研究性映射，不是心理诊断，也不代表固定人格或命运。正式研究需要独立训练、盲测和复制验证。",print:"保存 / 打印 PDF",aiText:"让 ELOGENA 从你的初始坐标开始认识你。坐标是最初的假设，真实的你会通过交流、兴趣、经历与反例逐渐被理解。",freeNote:"当前为临时会话模式：无需会员，聊天与理解记录仅保留在当前页面会话中；刷新页面后清空。",chatSub:"先理解 · 再鼓励 · 谨慎解释 · 不做评判",close:"关闭",input:"想聊什么都可以……",send:"发送",thinking:"思考中…",privacy:"ELOGENA 的出生坐标是探索性初始假设，不是人格结论。当前版本不提供长期云端记忆；AI 的理解会在本次页面会话中逐渐累积。",intro:"这是我根据你的出生坐标形成的第一印象，但它只是一个等待验证的起点。我还不了解真正的你。\n\n不用把这里当成人格测试。你可以从任何你现在想聊的事情开始。",need:"请先输入生日并生成你的初始坐标。",fail:"暂时没有连接上 ELOGENA。请稍后再试。"},
  en:{title:"Human Coordinates",sub:"Birth date → BCC → 9D coordinates → strengths / trade-offs → radar profile",date:"Date of birth",gen:"Generate Profile",profile:"Birth Coordinates & Exploratory Persona Profile",heroCn:"Starting from your birth coordinates, ELOGENA gradually learns who you really are through continued conversation. Coordinates are a starting point, not a definition.",radarTitle:"9D Exploratory Persona Radar (-2 to +2)",radarNote:"+2 = very pronounced   +1 = higher   0 = neutral / unclear   -1 = lower   -2 = less pronounced",strengthsTitle:"Potential Strengths (Exploratory)",risksTitle:"Potential Trade-offs (Exploratory)",coreTitle:"Core Pattern",strengthV03Title:"Strength Tendencies",tradeoffV03Title:"Potential Trade-offs",growthV03Title:"Growth & Validation",personaCodeTitle:"Initial Persona Code",personaNote:"This is an exploratory initial model generated from birth information, not a fixed personality conclusion. It can be tested and revised through your feedback, questionnaires and AI conversation to form a Living Profile.",reportFooter:"Note: BCC encodes mathematical, calendrical and natural-cycle features of a birth date. The 9D persona layer is currently an exploratory research mapping, not a psychological diagnosis and not a statement of fixed personality or destiny. Formal research requires independent training, blind testing and replication.",print:"Save / Print PDF",aiText:"Let ELOGENA begin with your initial coordinates. They are only a starting hypothesis; your real profile is gradually understood through conversation, interests, experiences and counterexamples.",freeNote:"Temporary session mode: no membership required. Conversation and understanding records stay only in this page session and are cleared when the page refreshes.",chatSub:"Understand first · Encourage second · Interpret carefully · Judge never",close:"Close",input:"Talk about anything…",send:"Send",thinking:"Thinking…",privacy:"ELOGENA's birth coordinates are an exploratory starting hypothesis, not a personality conclusion. This version has no long-term cloud memory; understanding accumulates only during the current page session.",intro:"This is my first impression based on your birth coordinates, but it is only a starting point waiting to be tested. I do not know the real you yet.\n\nYou do not need to treat this like a personality test. Start with anything you genuinely want to talk about.",need:"Please enter your date of birth and generate your initial coordinates first.",fail:"ELOGENA is temporarily unavailable. Please try again later."},
@@ -684,6 +763,7 @@ function setLang(lang){
  localStorage.setItem("elogena_lang",lang);
  const t=I18N[lang]||I18N.zh;
  document.documentElement.lang=lang==="en"?"en":(lang==="zht"?"zh-Hant":"zh-CN");
+ renderMethodology();
  const map={brandTitle:t.title,brandSub:t.sub,dateLabel:t.date,generateText:t.gen,profileTitle:t.profile,heroCn:t.heroCn,radarTitle:t.radarTitle,radarNote:t.radarNote,strengthsTitle:t.strengthsTitle,risksTitle:t.risksTitle,coreTitle:t.coreTitle,strengthV03Title:t.strengthV03Title,tradeoffV03Title:t.tradeoffV03Title,growthV03Title:t.growthV03Title,personaCodeTitle:t.personaCodeTitle,personaNote:t.personaNote,reportFooter:t.reportFooter,print:t.print,aiEntryText:t.aiText,freeNote:t.freeNote,chatSub:t.chatSub,chatClose:t.close,chatPrivacy:t.privacy};
  for(const [id,val] of Object.entries(map)){const el=document.getElementById(id);if(el)el.textContent=val}
  const inp=document.getElementById("chatInput");if(inp)inp.placeholder=t.input;
@@ -691,8 +771,40 @@ function setLang(lang){
  const d=document.getElementById("date");
  if(document.body.classList.contains("has-profile")&&d&&d.value&&window.ELOGENA_RENDER)window.ELOGENA_RENDER(d.value);
 }
-window.addEventListener("DOMContentLoaded",()=>setLang(elogenaLang()));
+window.addEventListener("DOMContentLoaded",()=>{
+ setLang(elogenaLang());
+ const b=document.getElementById("methodToggle"),p=document.getElementById("methodPanel");
+ if(b&&p)b.addEventListener("click",()=>{p.classList.toggle("open");renderMethodology();});
+});
 </script>
+
+
+<section class="methodology-entry" id="methodology">
+  <div class="methodology-card">
+    <h2 id="methodTitle">How are your coordinates formed?</h2>
+    <p id="methodIntro">ELOGENA first converts a birth date into reproducible mathematical, calendrical and natural-cycle coordinates. The personality layer is an exploratory hypothesis built on top of those coordinates—not a proven conclusion.</p>
+    <button class="methodology-btn" id="methodToggle" type="button">查看坐标形成原理 · Methodology →</button>
+
+    <div class="methodology-panel" id="methodPanel">
+      <p class="methodology-lead" id="methodLead"></p>
+      <div class="methodology-flow" id="methodFlow"></div>
+
+      <div class="methodology-grid">
+        <div class="methodology-item"><h3 id="m1h"></h3><div class="methodology-formula">t → J</div><p id="m1p"></p></div>
+        <div class="methodology-item"><h3 id="m2h"></h3><div class="methodology-formula">BCC = (B9, P7, G60, SolarPhase, LunarPhase)</div><p id="m2p"></p></div>
+        <div class="methodology-item"><h3 id="m3h"></h3><div class="methodology-formula">[cos(2πθ), sin(2πθ)]</div><p id="m3p"></p></div>
+        <div class="methodology-item"><h3 id="m4h"></h3><div class="methodology-formula">HTP = W · F(t) → [-2, +2]</div><p id="m4p"></p></div>
+      </div>
+
+      <div class="methodology-research">
+        <strong id="methodResearchTitle"></strong>
+        <p id="methodKnown"></p>
+        <p id="methodUnknown"></p>
+        <p id="methodQuestion"></p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="ai-entry" id="ai-entry">
   <div class="ai-entry-card">
